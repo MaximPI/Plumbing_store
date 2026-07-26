@@ -1,0 +1,129 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/about.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <main class="main">
+        <div class="container">
+
+
+            <!-- Герой-секция "О нас" -->
+            <section class="about-hero">
+                <h1>О нас</h1>
+                <p>Более 20 лет помогаем людям в Рязани и области жить в тёплых, надёжных и умных домах</p>
+            </section>
+
+            <!-- Наша миссия -->
+            <section class="mission">
+                <div class="mission__content">
+                    <p>
+                        Мы и магазин инженерной сантехники, и монтажная организация
+
+С 2003 года мы продаём, подбираем и тестируем оборудование: котлы, насосы, станции, автоматику, фильтрацию
+
+Мы знаем, что действительно работает в домах Центральной России, а что — не выдерживает и одного сезона. Именно поэтому подбираем технику точно под задачу; без переплат, без «пустых брендов», без ошибок
+
+Сейчас мы предлагаем полный комплекс: проектирование системы, поставку оборудования, монтаж, настройку и обслуживание
+                    </p>
+                </div>
+                <div class="mission__image">🌟</div>
+            </section>
+
+            <!-- Цифры / достижения -->
+            <section class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">10 000+</span>
+                    <span class="stat-label">Довольных клиентов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">8 лет</span>
+                    <span class="stat-label">На рынке</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Положительных отзывов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Поддержка</span>
+                </div>
+            </section>
+
+            <!-- Преимущества -->
+            <section class="advantages">
+                <h2>Почему выбирают нас</h2>
+                <div class="advantages-grid">
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🚀</div>
+                        <h3>Свои магазины и склад в г.Рязани</h3>
+                        <p>Работаем напрямую с производителями и держим всё необходимое на собственном складе. Вы можете увидеть технику вживую, выбрать модель на месте и быть уверены: всё точно придёт вовремя</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🔒</div>
+                        <h3>Уважаем порядок</h3>
+                        <p>На объекте — как у себя дома: без крика, с чистотой, по графику. Котельная будет аккуратной, коммуникации — подписанными, смета — понятной</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">🔄</div>
+                        <h3>Гарантии - до 5 лет</h3>
+                        <p>Всё официально. Договор, гарантия, документы —
+чтобы вы чувствовали уверенность с первого дня</p>
+                    </div>
+                    <div class="advantage-card">
+                        <div class="advantage-icon">👍</div>
+                        <h3>Фотоотчёты и поддержка
+в WhatsApp</h3>
+                        <p>Отвечаем в WhatsApp (или в другом удобном для вас мессенджере). Присылаем фото и видео с этапов монтажа, чтобы вы были в курсе, даже если находитесь далеко. Спокойствие клиента - такой же приоритет, как надёжная система</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Команда -->
+            <section class="team">
+                <h2>Наша команда</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-member__avatar">👩‍💼</div>
+                        <h4>Анна Иванова</h4>
+                        <p>Основатель и CEO</p>
+                        <span>Более 10 лет в e-commerce</span>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member__avatar">👨‍💻</div>
+                        <h4>Сергей Петров</h4>
+                        <p>Технический директор</p>
+                        <span>Эксперт в веб-разработке</span>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member__avatar">📦</div>
+                        <h4>Мария Смирнова</h4>
+                        <p>Руководитель отдела логистики</p>
+                        <span>Организует доставку по всей стране</span>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member__avatar">🎯</div>
+                        <h4>Дмитрий Козлов</h4>
+                        <p>Маркетолог</p>
+                        <span>Стратегии и продвижение</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Отзыв / цитата -->
+            <section class="testimonial">
+                <blockquote>
+                    «Мы не просто продаём товары — мы создаём доверительные отношения с каждым клиентом.
+                    Наша цель — чтобы вы возвращались к нам снова и снова.»
+                </blockquote>
+                <cite>— Анна Иванова, основатель магазина</cite>
+            </section>
+
+        </div>
+    </main>
+
+{% endblock %}
