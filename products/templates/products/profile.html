@@ -1,0 +1,105 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <main class="main">
+        <div class="container">
+            <!-- Хлебные крошки -->
+            <nav class="breadcrumbs">
+                <a href="index.html">Главная</a> &gt;
+                <span>Профиль</span>
+            </nav>
+
+            <div class="profile-layout">
+                <!-- Боковое меню профиля -->
+                <aside class="profile-sidebar">
+                    <div class="profile-avatar">
+                        <div class="avatar-circle">👤</div>
+                        <h3>Иван Петров</h3>
+                        <p>ivan@mail.ru</p>
+                    </div>
+                    <nav class="profile-nav">
+                        <ul>
+                            <li><a href="#" class="active">📋 Мои данные</a></li>
+                            <li><a href="#">📦 История заказов</a></li>
+                            <li><a href="#">❤️ Избранное</a></li>
+                            <li><a href="#">🔔 Уведомления</a></li>
+                            <li><a href="login.html">🚪 Выйти</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Основной контент профиля -->
+                <section class="profile-content">
+                    <h2>Мои данные</h2>
+
+                    <form class="profile-form" id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Имя</label>
+                                <input type="text" id="firstName" value="Иван" />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Фамилия</label>
+                                <input type="text" id="lastName" value="Петров" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" value="ivan@mail.ru" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profilePhone">Телефон</label>
+                            <input type="tel" id="profilePhone" value="+7 (999) 123-45-67" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profileAddress">Адрес доставки</label>
+                            <input type="text" id="profileAddress" value="г. Москва, ул. Примерная, д. 1, кв. 5" />
+                        </div>
+
+                        <button type="submit" class="profile-save-btn">Сохранить изменения</button>
+                    </form>
+
+                    <!-- Блок с последними заказами -->
+                    <div class="recent-orders">
+                        <h3>Последние заказы</h3>
+                        <div class="order-item">
+                            <div class="order-info">
+                                <span class="order-number">Заказ #1234</span>
+                                <span class="order-date">12.07.2026</span>
+                            </div>
+                            <div class="order-status status-delivered">Доставлен</div>
+                            <div class="order-total">3 500 ₽</div>
+                        </div>
+                        <div class="order-item">
+                            <div class="order-info">
+                                <span class="order-number">Заказ #1233</span>
+                                <span class="order-date">08.07.2026</span>
+                            </div>
+                            <div class="order-status status-shipped">В пути</div>
+                            <div class="order-total">1 200 ₽</div>
+                        </div>
+                        <div class="order-item">
+                            <div class="order-info">
+                                <span class="order-number">Заказ #1232</span>
+                                <span class="order-date">01.07.2026</span>
+                            </div>
+                            <div class="order-status status-processing">Обрабатывается</div>
+                            <div class="order-total">8 900 ₽</div>
+                        </div>
+                        <a href="#" class="view-all-orders">Смотреть все заказы →</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+{% endblock %}

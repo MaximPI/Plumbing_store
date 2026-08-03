@@ -108,7 +108,7 @@
                         <article class="product-card">
                             <div class="product-card__image">
                                 {% if product.image %}
-                                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                                    <img src="/media/{{ product.image }}" alt="{{ product.name }}">
                                 {% else %}
                                     {{ product.emoji|default:"📦" }}
                                 {% endif %}
