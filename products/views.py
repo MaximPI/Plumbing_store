@@ -19,10 +19,5 @@ def catalog(request):
 def about(request):
 	return render(request, 'products/about.html')
 
-def profile(request):
-	return render(request, 'products/profile.html')
-
-def login(request):
-	return render(request, 'products/login.html')
 
 

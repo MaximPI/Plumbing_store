@@ -10,11 +10,6 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main">
         <div class="container">
-            <!-- Хлебные крошки -->
-            <nav class="breadcrumbs">
-                <a href="index.html">Главная</a> &gt;
-                <span>Профиль</span>
-            </nav>
 
             <div class="profile-layout">
                 <!-- Боковое меню профиля -->
@@ -30,7 +25,7 @@
                             <li><a href="#">📦 История заказов</a></li>
                             <li><a href="#">❤️ Избранное</a></li>
                             <li><a href="#">🔔 Уведомления</a></li>
-                            <li><a href="login.html">🚪 Выйти</a></li>
+                            <li><a href="{% url 'users:login' %}">🚪 Выйти</a></li>
                         </ul>
                     </nav>
                 </aside>
@@ -43,22 +38,22 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">Имя</label>
-                                <input type="text" id="firstName" value="Иван" />
+                                <input type="text" id="firstName" value={{request.user.username}} />
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Фамилия</label>
-                                <input type="text" id="lastName" value="Петров" />
+                                <input type="text" id="lastName" value={{request.user.last_name}} />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="profileEmail">Email</label>
-                            <input type="email" id="profileEmail" value="ivan@mail.ru" />
+                            <input type="email" id="profileEmail" value={{request.user.email}} />
                         </div>
 
                         <div class="form-group">
                             <label for="profilePhone">Телефон</label>
-                            <input type="tel" id="profilePhone" value="+7 (999) 123-45-67" />
+                            <input type="tel" id="profilePhone" value={{request.user.phone_number}} />
                         </div>
 
                         <div class="form-group">

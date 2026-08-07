@@ -1,0 +1,90 @@
+[
+{
+  "model": "products.productcategory",
+  "pk": 2,
+  "fields": {
+    "name": "Котлы",
+    "description": ""
+  }
+},
+{
+  "model": "products.productcategory",
+  "pk": 3,
+  "fields": {
+    "name": "насосы",
+    "description": ""
+  }
+},
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "Navien",
+    "image": "",
+    "description": "",
+    "short_description": "",
+    "price": "100000.00",
+    "quantity": 1,
+    "length": 1,
+    "width": 1,
+    "height": 4,
+    "power": 100,
+    "life": 10,
+    "category": 2
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Grundfass",
+    "image": "",
+    "description": "",
+    "short_description": "",
+    "price": "100000.00",
+    "quantity": 1,
+    "length": 1,
+    "width": 1,
+    "height": 3,
+    "power": 500,
+    "life": 10,
+    "category": 2
+  }
+},
+{
+  "model": "products.product",
+  "pk": 3,
+  "fields": {
+    "name": "джилекс",
+    "image": "",
+    "description": "",
+    "short_description": "",
+    "price": "50000.00",
+    "quantity": 1,
+    "length": 30,
+    "width": 30,
+    "height": 100,
+    "power": 500,
+    "life": 5,
+    "category": 3
+  }
+},
+{
+  "model": "products.product",
+  "pk": 4,
+  "fields": {
+    "name": "Navien1",
+    "image": "products_media/og_image_global1.png",
+    "description": "",
+    "short_description": "",
+    "price": "100000.00",
+    "quantity": 4,
+    "length": 1,
+    "width": 1,
+    "height": 1,
+    "power": 500,
+    "life": 5,
+    "category": 2
+  }
+}
+]

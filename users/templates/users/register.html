@@ -1,0 +1,102 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/register.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+<main class="main">
+    <div class="container">
+        <div class="auth-wrapper">
+            <div class="auth-box">
+                <h1>Создать аккаунт</h1>
+                <p class="auth-subtitle">Зарегистрируйтесь, чтобы начать покупки</p>
+
+                <form class="auth-form" id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Имя</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                placeholder="Иван"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Фамилия</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                placeholder="Петров"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input
+                            type="email"
+                            id="registerEmail"
+                            placeholder="example@mail.ru"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPhone">Телефон</label>
+                        <input
+                            type="tel"
+                            id="registerPhone"
+                            placeholder="+7 (999) 123-45-67"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль</label>
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Минимум 6 символов"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">Подтвердите пароль</label>
+                        <input
+                            type="password"
+                            id="registerConfirmPassword"
+                            placeholder="Повторите пароль"
+                            required
+                        />
+                    </div>
+
+                    <div class="form-options">
+                        <label class="agree-terms">
+                            <input type="checkbox" required />
+                            Я соглашаюсь с <a href="#">условиями использования</a>
+                        </label>
+                    </div>
+
+                    <!-- КНОПКА РЕГИСТРАЦИИ -->
+                    <ul>
+                        <li>
+                            <button type="submit" class="auth-btn">Зарегистрироваться</button>
+                        </li>
+                    </ul>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Уже есть аккаунт? <a href="{% url 'users:login'%}">Войти</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
