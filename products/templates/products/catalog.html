@@ -115,7 +115,9 @@
                             </div>
                             <h3 class="product-card__title">{{ product.name }}</h3>
                             <p class="product-card__price">{{ product.price }} ₽</p>
-                            <button class="product-card__btn">В корзину</button>
+                            <a href="{% url 'products:basket_add' product.id%}">
+                                <button class="product-card__btn">В корзину</button>
+                            </a>
                         </article>
                         {% endfor %}
                     </div>

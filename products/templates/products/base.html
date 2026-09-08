@@ -24,9 +24,15 @@
                     <li><a href="#">Избранное</a></li>
                     <li><a href="#">Просмотренное</a></li>
                     <li><a href="#">Рассчитать срок службы</a></li>
-                    <li><a href="#">Корзина</a></li>
-                    <li><a href="{% url 'users:profile' %}">Профиль</a></li>
-                    <li><a href="{% url 'users:login' %}">Авторизация</a></li>
+                    <li><a href="{% url 'products:baskets' %}">Корзина</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'users:profile' %}">Профиль</a></li>
+                        <li><a href="{% url 'users:login' %}">Авторизация</a></li>
+                        <li><a href="{% url 'users:logout' %}">Выйти</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:login' %}">Авторизация</a></li>
+                    {% endif %}
+
                 </ul>
             </nav>
         </div>
@@ -69,3 +75,4 @@
     </footer>
 </body>
 </html>
+

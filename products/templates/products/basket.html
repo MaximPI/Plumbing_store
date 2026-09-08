@@ -1,0 +1,90 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/about.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Корзина — Мой магазин</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cart.css" />
+</head>
+<body>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <main class="main">
+        <div class="container">
+            <!-- Хлебные крошки -->
+            <nav class="breadcrumbs">
+                <a href="index.html">Главная</a> &gt;
+                <span>Корзина</span>
+            </nav>
+
+            <h1 class="cart-title">Корзина</h1>
+
+            <!-- ===== КОРЗИНА ===== -->
+            <div class="cart-layout">
+                {% if baskets %}
+                <!-- Список товаров -->
+                {% for basket in baskets %}
+                <section class="cart-items">
+                    <!-- Товар 1 -->
+                    <div class="cart-item" data-id="1">
+                        <div class="cart-item__image">📦</div>
+                        <div class="cart-item__info">
+                            <h3 class="cart-item__title">{{basket.product.name}}</h3>
+                            <p class="cart-item__description">{{basket.product.description}}</p>
+                            <div class="cart-item__meta">
+                                <span class="cart-item__price">{{basket.product.price}}</span>
+                            </div>
+                        </div>
+                        <div class="cart-item__controls">
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' basket.product.id%}">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                </a>
+
+                                <input type="number" class="quantity-input" id="qty1" value="{{basket.quantity}}" min="1" max="99" onchange="updateQuantity(1, 0)" />
+                                <a href="{% url 'products:basket_add' basket.product.id%}">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                </a>
+                            </div>
+                            <a href="{% url 'products:basket_delete' basket.id%}">
+                                <button class="remove-btn" onclick="removeItem(1)">🗑️</button>
+                            </a>
+
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                <h4>Корзина пуста</h4>
+                {% endif %}
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПОДТВЕРЖДЕНИЯ ===== -->
+    <div class="modal-overlay" id="modalOverlay" style="display: none;">
+        <div class="modal-box">
+            <div class="modal-icon">✅</div>
+            <div class="modal-title">Заказ оформлен!</div>
+            <div class="modal-message" id="modalMessage">Ваш заказ успешно оформлен. Спасибо за покупку!</div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-primary" onclick="closeModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+{% endblock %}

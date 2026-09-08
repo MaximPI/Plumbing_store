@@ -1,0 +1,449 @@
+/* ========================================
+   СТИЛИ ДЛЯ СТРАНИЦЫ КОРЗИНЫ
+   ======================================== */
+
+.cart-title {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* ===== МАКЕТ ===== */
+.cart-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* ===== СПИСОК ТОВАРОВ ===== */
+.cart-items {
+    flex: 2;
+    min-width: 0;
+}
+
+/* ===== КАРТОЧКА ТОВАРА ===== */
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.cart-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.cart-item__image {
+    font-size: 3rem;
+    flex-shrink: 0;
+}
+
+.cart-item__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item__title {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+.cart-item__description {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.cart-item__meta {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.cart-item__price {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.cart-item__total {
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.cart-item__controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+/* ===== УПРАВЛЕНИЕ КОЛИЧЕСТВОМ ===== */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    width: 36px;
+    height: 36px;
+    background: #f9fafb;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #374151;
+}
+
+.quantity-btn:hover {
+    background: #e5e7eb;
+}
+
+.quantity-btn:active {
+    background: #d1d5db;
+}
+
+.quantity-input {
+    width: 50px;
+    height: 36px;
+    border: none;
+    border-left: 1px solid #e5e7eb;
+    border-right: 1px solid #e5e7eb;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+}
+
+.quantity-input:focus {
+    background: #f9fafb;
+}
+
+/* Убираем стрелки в input */
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.quantity-input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* ===== КНОПКА УДАЛЕНИЯ ===== */
+.remove-btn {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    color: #9ca3af;
+}
+
+.remove-btn:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    transform: scale(1.1);
+}
+
+/* ===== ПУСТАЯ КОРЗИНА ===== */
+.cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.cart-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.cart-empty h3 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.cart-empty p {
+    color: #6b7280;
+}
+
+.cart-empty a {
+    color: #e67e22;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cart-empty a:hover {
+    text-decoration: underline;
+}
+
+/* ===== ИТОГОВАЯ СУММА ===== */
+.cart-summary {
+    flex: 1;
+    min-width: 280px;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 100px;
+}
+
+.cart-summary h3 {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f3f4f6;
+    margin-bottom: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    color: #4b5563;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    border-top: 2px solid #e5e7eb;
+    margin-top: 5px;
+}
+
+.summary-total span:last-child {
+    color: #e67e22;
+}
+
+/* ===== КНОПКИ ===== */
+.checkout-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 15px;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+}
+
+.checkout-btn:active {
+    transform: translateY(0);
+}
+
+.continue-shopping {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.continue-shopping:hover {
+    color: #e67e22;
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 16px;
+    padding: 35px 40px;
+    max-width: 420px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease-out;
+}
+
+.modal-icon {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.modal-box.success .modal-icon { color: #22c55e; }
+.modal-box.error .modal-icon { color: #ef4444; }
+.modal-box.warning .modal-icon { color: #f59e0b; }
+.modal-box.info .modal-icon { color: #3b82f6; }
+
+.modal-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.modal-box.success .modal-title { color: #166534; }
+.modal-box.error .modal-title { color: #991b1b; }
+.modal-box.warning .modal-title { color: #92400e; }
+.modal-box.info .modal-title { color: #1e40af; }
+
+.modal-message {
+    font-size: 1rem;
+    color: #4b5563;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.modal-btn {
+    padding: 10px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modal-btn-primary {
+    background: #e67e22;
+    color: #fff;
+}
+
+.modal-btn-primary:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+}
+
+/* ===== АНИМАЦИИ ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 992px) {
+    .cart-layout {
+        flex-direction: column;
+    }
+
+    .cart-summary {
+        width: 100%;
+        min-width: auto;
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .cart-item {
+        flex-wrap: wrap;
+        padding: 15px;
+    }
+
+    .cart-item__image {
+        font-size: 2.5rem;
+    }
+
+    .cart-item__controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .cart-item__meta {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .cart-title {
+        font-size: 1.6rem;
+    }
+
+    .cart-summary {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart-item {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .cart-item__image {
+        font-size: 2rem;
+    }
+
+    .cart-item__title {
+        font-size: 1rem;
+    }
+
+    .quantity-input {
+        width: 40px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .quantity-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .modal-box {
+        padding: 25px 20px;
+        width: 95%;
+    }
+}

@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import User
 # Create your models here.
 
 
@@ -25,13 +25,6 @@ class Product(models.Model):
 	def __str__(self):
 		return f"{self.name} - {self.category.name}"
 
-class User(models.Model):
-	username = models.CharField(max_length=64, unique=True)
-	password = models.CharField(max_length=128)
-	phone = models.CharField(max_length=11)
-	email = models.EmailField()
-	def __str__(self):
-		return self.username
 
 class Order(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -41,6 +34,13 @@ class Order(models.Model):
 	def __str__(self):
 		return f"{self.product.name} - {self.user.username}"
 
+class Baskets(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	quantity = models.PositiveIntegerField(default=0)
+	created_timestamp = models.DateTimeField(auto_now_add=True)
+	def __str__(self):
+		return f"Корзина для {self.user.username} | Продукт {self.product.name}"
 
 
 

@@ -204,3 +204,115 @@
         padding: 12px;
     }
 }
+
+/* ========================================
+   УНИВЕРСАЛЬНЫЙ БЛОК ОШИБОК
+   ======================================== */
+
+.error-container {
+    margin-bottom: 20px;
+    padding: 0;
+    border-radius: 10px;
+    background: #fff;
+    animation: slideDown 0.3s ease-out;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #fef2f2;
+    border: 2px solid #fecaca;
+    border-radius: 10px;
+    color: #991b1b;
+    position: relative;
+}
+
+.error-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.error-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.error-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #991b1b;
+    cursor: pointer;
+    padding: 0 5px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    line-height: 1;
+}
+
+.error-close:hover {
+    opacity: 1;
+}
+
+/* Разные типы ошибок */
+.error-container.error-success .error-message {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #166534;
+}
+
+.error-container.error-success .error-close {
+    color: #166534;
+}
+
+.error-container.error-warning .error-message {
+    background: #fffbeb;
+    border-color: #fcd34d;
+    color: #92400e;
+}
+
+.error-container.error-warning .error-close {
+    color: #92400e;
+}
+
+.error-container.error-info .error-message {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1e40af;
+}
+
+.error-container.error-info .error-close {
+    color: #1e40af;
+}
+
+/* Анимация появления */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+    .error-message {
+        padding: 12px 14px;
+        font-size: 0.9rem;
+        flex-wrap: wrap;
+    }
+
+    .error-text {
+        font-size: 0.9rem;
+    }
+
+    .error-close {
+        font-size: 1.3rem;
+    }
+}
