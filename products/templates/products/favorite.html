@@ -1,0 +1,54 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+        <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <main class="main">
+        <div class="container">
+            <!-- Хлебные крошки -->
+            <nav class="breadcrumbs">
+                <a href="index.html">Главная</a> &gt;
+                <span>Избранное</span>
+            </nav>
+
+            <!-- Заголовок -->
+            <div class="favorites-header">
+                <h1>Избранное</h1>
+                <span class="favorites-count" id="favoritesCount">{{ total_quantity }}</span>
+            </div>
+
+            <!-- ===== СЕТКА ИЗБРАННЫХ ТОВАРОВ ===== -->
+            {% for favorite in favorites %}
+            <div class="favorites-grid" id="favoritesGrid">
+                <!-- Товар 1 -->
+                <article class="favorite-card" data-id="1">
+                    <a href="{% url 'products:favorite_delete' favorite.id%}">
+                        <button class="favorite-remove" onclick="removeFavorite(1)" title="Удалить из избранного">✕</button>
+                    </a>
+
+                    <div class="favorite-card__image">📦</div>
+                    <h3 class="favorite-card__title">{{ favorite.product.name }}</h3>
+                    <p class="favorite-card__price">{{ favorite.product.price }} ₽</p>
+                    <div class="favorite-card__actions">
+                        <button class="favorite-card__btn" onclick="addToCart(1, 'Товар 1', 1500)">В корзину</button>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+
+            <!-- ===== ПУСТОЕ ИЗБРАННОЕ (скрыто по умолчанию) ===== -->
+            <div class="favorites-empty" id="favoritesEmpty" style="display: none;">
+                <div class="favorites-empty__icon">💔</div>
+                <h3>В избранном пока ничего нет</h3>
+                <p>Добавляйте товары в избранное, чтобы вернуться к ним позже</p>
+                <a href="catalog.html" class="favorites-empty__btn">Перейти в каталог</a>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

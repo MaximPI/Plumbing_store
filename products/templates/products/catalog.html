@@ -90,7 +90,7 @@
                 <section class="catalog-products">
                     <!-- Сортировка и количество -->
                     <div class="catalog-toolbar">
-                        <span class="product-count">Найдено: 12 товаров</span>
+                        <span class="product-count">Найдено: {{quantity}} товаров</span>
                         <div class="sort-options">
                             <label for="sort-select">Сортировать:</label>
                             <select id="sort-select">
@@ -103,9 +103,22 @@
                     </div>
 
                     <!-- Сетка товаров -->
-                    <div class="product-grid">
+                    <div class="product-grid" url={"products:index"}>
                         {% for product in products %}
                         <article class="product-card">
+                            {% if product in favorites %}
+                            {% for favorite in fav %}
+                            {% if favorite.product.id == product.id %}
+                            <a href="{% url 'products:favorite_delete' favorite.id%}">
+                                <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
+                            </a>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <a href="{% url 'products:favorite_add' product.id%}">
+                                <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
+                            </a>
+                            {% endif %}
                             <div class="product-card__image">
                                 {% if product.image %}
                                     <img src="/media/{{ product.image }}" alt="{{ product.name }}">
@@ -115,9 +128,26 @@
                             </div>
                             <h3 class="product-card__title">{{ product.name }}</h3>
                             <p class="product-card__price">{{ product.price }} ₽</p>
+                            {% if product not in baskets %}
                             <a href="{% url 'products:basket_add' product.id%}">
                                 <button class="product-card__btn">В корзину</button>
                             </a>
+                            {% else %}
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' product.id%}">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                </a>
+                                {% for prod in bask %}
+                                {% if prod.product.id == product.id %}
+                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" onchange="updateQuantity(1, 0)" />
+                                {% endif %}
+                                {% endfor %}
+                                <a href="{% url 'products:basket_add' product.id%}">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                </a>
+                            </div>
+                            {% endif %}
+
                         </article>
                         {% endfor %}
                     </div>

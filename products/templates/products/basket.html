@@ -36,13 +36,13 @@
                 {% for basket in baskets %}
                 <section class="cart-items">
                     <!-- Товар 1 -->
-                    <div class="cart-item" data-id="1">
+                    <div class="cart-item" data-id="1" >
                         <div class="cart-item__image">📦</div>
                         <div class="cart-item__info">
                             <h3 class="cart-item__title">{{basket.product.name}}</h3>
                             <p class="cart-item__description">{{basket.product.description}}</p>
                             <div class="cart-item__meta">
-                                <span class="cart-item__price">{{basket.product.price}}</span>
+                                <span class="cart-item__price">{{basket.summ}}</span>
                             </div>
                         </div>
                         <div class="cart-item__controls">
@@ -59,7 +59,6 @@
                             <a href="{% url 'products:basket_delete' basket.id%}">
                                 <button class="remove-btn" onclick="removeItem(1)">🗑️</button>
                             </a>
-
                         </div>
                     </div>
                 {% endfor %}
@@ -67,6 +66,19 @@
                 <h4>Корзина пуста</h4>
                 {% endif %}
                 </section>
+                 <aside class="cart-summary">
+                    <h3>Итого</h3>
+                    <div class="summary-row">
+                        <span>Товары (<span id="totalItems">{{ total_quantity }}</span>)</span>
+                        <span id="subtotal">{{ total_sum }} ₽</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Доставка</span>
+                        <span id="delivery">бесплатно</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
+                    <a href="catalog.html" class="continue-shopping">Продолжить покупки →</a>
+                </aside>
             </div>
         </div>
     </main>

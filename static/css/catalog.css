@@ -167,12 +167,14 @@
 
 /* Карточка товара – уже описана в общем style.css, но можно донастроить */
 .product-card {
+    position: relative; /* ⬅️ ДОБАВИТЬ ЭТО — для позиционирования кнопки-сердца */
     background: #fff;
     border-radius: 12px;
     padding: 18px 15px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
+}
 }
 
 .product-card:hover {
@@ -308,4 +310,70 @@
 .nav__list a.active {
     color: #e67e22;
     font-weight: 700;
+}
+
+/* ============================================
+   КНОПКА "ИЗБРАННОЕ" (СЕРДЦЕ)
+   ============================================ */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #bdc3c7;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease;
+    z-index: 2;
+    padding: 0;
+    line-height: 1;
+}
+
+.favorite-btn:hover {
+    transform: scale(1.1);
+    background: #fff;
+    color: #e74c3c;
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.25);
+}
+
+.favorite-btn:active {
+    transform: scale(0.95);
+}
+
+/* ⬇️ АКТИВНАЯ (в избранном) — красная */
+.favorite-btn.active {
+    background: #e74c3c;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+}
+
+.favorite-btn.active:hover {
+    background: #c0392b;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.5);
+}
+
+.favorite-btn.active:active {
+    transform: scale(0.95);
+}
+
+/* Анимация при клике */
+@keyframes heartPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.35); }
+    70%  { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.favorite-btn.animate {
+    animation: heartPop 0.4s ease;
 }

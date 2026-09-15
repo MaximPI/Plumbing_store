@@ -22,8 +22,11 @@ class Product(models.Model):
 	power = models.PositiveIntegerField()
 	life = models.PositiveIntegerField()
 	category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+
 	def __str__(self):
 		return f"{self.name} - {self.category.name}"
+
+
 
 
 class Order(models.Model):
@@ -40,8 +43,18 @@ class Baskets(models.Model):
 	quantity = models.PositiveIntegerField(default=0)
 	created_timestamp = models.DateTimeField(auto_now_add=True)
 	def __str__(self):
-		return f"Корзина для {self.user.username} | Продукт {self.product.name}"
+		return f"Корзина пользователя {self.user.username} | Продукт {self.product.name}"
 
+	def summ(self):
+		return self.quantity * self.product.price
+
+
+class Favorites(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	created_timestamp = models.DateTimeField(auto_now_add=True)
+	def __str__(self):
+		return f"Избранное пользователя {self.user.username} | Продукт {self.product.name}"
 
 
 
