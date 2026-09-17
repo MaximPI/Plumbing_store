@@ -1,6 +1,8 @@
+from django.contrib.admin.templatetags.admin_list import pagination
 from django.shortcuts import render, HttpResponseRedirect
 from products.models import Product, ProductCategory, Baskets, Favorites
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -11,17 +13,28 @@ def index(request):
 	}
 	return render(request, 'products/index.html', context=context)
 
-def catalog(request):
+def catalog(request, category_id=None, page_number=1):
 	context = {
 		'title': 'каталог',
-		'products': Product.objects.all(),
 		'categories': ProductCategory.objects.all(),
 		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
 		'bask': Baskets.objects.filter(user=request.user),
 		'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
 		'fav': Favorites.objects.filter(user=request.user),
-		'quantity': len(Baskets.objects.filter(user=request.user)),
 	}
+	if category_id:
+		filtered_products = Product.objects.filter(category_id=category_id)
+	else:
+		filtered_products = Product.objects.all()
+
+	pagination = Paginator(filtered_products, 1)
+	products_paginator = pagination.page(page_number)
+	context.update({
+		'products': products_paginator,
+		'quantity': len(filtered_products),
+		'category': category_id,
+	})
+
 	return render(request, 'products/catalog.html', context=context)
 
 def about(request):
@@ -84,6 +97,8 @@ def favorites(request):
 		'title': 'Избранное',
 		'favorites': Favorites.objects.filter(user=request.user),
 		'total_quantity': total_quantity,
+		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+		'bask': Baskets.objects.filter(user=request.user),
 	}
 
 	return render(request, 'products/favorite.html', context=context)

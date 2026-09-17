@@ -14,11 +14,14 @@
                 <aside class="catalog-filters">
                     <h3>Фильтры</h3>
 
-                    <!-- Фильтр по категориям -->
+                     Фильтр по категориям
                     <div class="filter-group">
                         <h4>Категория</h4>
-                        <label><input type="checkbox" /> Котлы</label>
-                        <label><input type="checkbox" /> Насосы</label>
+                        {% for category in categories %}
+                            <a href="{% url 'products:category' category.id %}" class="category-btn">
+                                {{ category.name }}
+                            </a>
+                        {% endfor %}
                     </div>
 
                     <!-- Фильтр по цене (имитация слайдера) -->
@@ -106,6 +109,7 @@
                     <div class="product-grid" url={"products:index"}>
                         {% for product in products %}
                         <article class="product-card">
+                            <a href="{% url 'home' %}" class="product-card__link" aria-label="{{ product.name }}"></a>
                             {% if product in favorites %}
                             {% for favorite in fav %}
                             {% if favorite.product.id == product.id %}
@@ -139,7 +143,7 @@
                                 </a>
                                 {% for prod in bask %}
                                 {% if prod.product.id == product.id %}
-                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" onchange="updateQuantity(1, 0)" />
+                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
                                 {% endif %}
                                 {% endfor %}
                                 <a href="{% url 'products:basket_add' product.id%}">
@@ -150,17 +154,44 @@
 
                         </article>
                         {% endfor %}
+
                     </div>
 
                     <!-- Пагинация -->
                     <div class="pagination">
-                        <a href="#" class="pagination__prev">←</a>
-                        <a href="#" class="pagination__page active">1</a>
-                        <a href="#" class="pagination__page">2</a>
-                        <a href="#" class="pagination__page">3</a>
-                        <span class="pagination__dots">…</span>
-                        <a href="#" class="pagination__page">8</a>
-                        <a href="#" class="pagination__next">→</a>
+                        <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="
+                                {% if products.has_previous %}
+                                    {% if category %}
+                                        {% url 'products:category_page' category products.previous_page_number %}
+                                    {% else %}
+                                        {% url 'products:page_number' products.previous_page_number %}
+                                    {% endif %}
+                                {% else %}
+                                    #
+                                {% endif %}"
+                            tabindex="-1" aria-disabled="true">←
+                        </a>
+
+                        {% for page in products.paginator.page_range %}
+                        <a class="pagination__page active" href="
+                                {% if category %}
+                                    {% url 'products:category_page' category page %}">{{page}}
+                                {% else %}
+                                    {% url 'products:page_number' page %}">{{page}}
+                                {% endif %}
+                        </a>
+                        {% endfor %}
+                        <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="
+                                {% if products.has_next %}
+                                    {% if category %}
+                                        {% url 'products:category_page' category products.next_page_number %}
+                                    {% else %}
+                                        {% url 'products:page_number' products.next_page_number %}
+                                    {% endif %}
+                                {% else %}
+                                    #
+                                {% endif %}"
+                            tabindex="+1" aria-disabled="true">→</a>
                     </div>
                 </section>
             </div>

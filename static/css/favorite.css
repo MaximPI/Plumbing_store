@@ -1,0 +1,256 @@
+/* ============================================
+   СТРАНИЦА "ИЗБРАННОЕ"
+   ============================================ */
+
+/* ----- Контейнер ----- */
+.main {
+    padding: 30px 0 60px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Заголовок с количеством ----- */
+.favorites-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f39c12;
+}
+
+.favorites-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.favorites-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    background: #e67e22;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 20px;
+    line-height: 1;
+}
+
+/* ============================================
+   СЕТКА КАРТОЧЕК
+   ============================================ */
+.favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* ============================================
+   КАРТОЧКА ТОВАРА
+   ============================================ */
+.favorite-card {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.favorite-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- Кнопка удаления (крестик справа сверху) ----- */
+.favorite-remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #bdc3c7;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: all 0.25s ease;
+    z-index: 3;
+    padding: 0;
+    line-height: 1;
+}
+
+.favorite-remove:hover {
+    background: #e74c3c;
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.4);
+}
+
+.favorite-remove:active {
+    transform: scale(0.95);
+}
+
+/* ----- Изображение товара ----- */
+.favorite-card__image {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b0c4d9;
+}
+
+.favorite-card__image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ----- Название ----- */
+.favorite-card__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 8px;
+    flex-grow: 1;
+}
+
+/* ----- Цена ----- */
+.favorite-card__price {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #e67e22;
+    margin: 0 0 14px;
+}
+
+/* ----- Блок с кнопкой ----- */
+.favorite-card__actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* ----- Кнопка "В корзину" ----- */
+.favorite-card__btn {
+    display: inline-block;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.favorite-card__btn:hover {
+    background-color: #1a252f;
+    transform: scale(1.03);
+}
+
+.favorite-card__btn:active {
+    transform: scale(0.97);
+}
+
+/* ============================================
+   ПУСТОЕ ИЗБРАННОЕ
+   ============================================ */
+.favorites-empty {
+    text-align: center;
+    padding: 70px 20px;
+    color: #95a5a6;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.favorites-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.favorites-empty h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin: 0 0 8px;
+}
+
+.favorites-empty p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin: 0 0 24px;
+}
+
+.favorites-empty__btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #e67e22;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background 0.25s;
+}
+
+.favorites-empty__btn:hover {
+    background: #d35400;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+@media (max-width: 992px) {
+    .favorites-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .favorites-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .favorites-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .favorite-card {
+        padding: 14px 12px;
+    }
+
+    .favorite-card__image {
+        font-size: 2.8rem;
+        height: 80px;
+    }
+
+    .favorite-card__btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}

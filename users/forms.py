@@ -23,8 +23,7 @@ class UserProfileForm(UserChangeForm):
 	username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control py-4", "readonly": True}))
 	last_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control py-4"}))
 	phone_number = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control py-4"}))
-	image = forms.ImageField(widget=forms.EmailInput(attrs={"class": "form-control py-4", "readonly": True}))
 	email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control py-4", "readonly": True}))
 	class Meta:
 		model = User
-		fields = ('username', 'last_name', 'phone_number', 'email', 'image')
+		fields = ('username', 'last_name', 'phone_number', 'email')

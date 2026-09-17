@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link href="{% static 'css/about.css' %}" rel="stylesheet">
+<link href="{% static 'css/basket.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -21,14 +21,6 @@
     <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main">
         <div class="container">
-            <!-- Хлебные крошки -->
-            <nav class="breadcrumbs">
-                <a href="index.html">Главная</a> &gt;
-                <span>Корзина</span>
-            </nav>
-
-            <h1 class="cart-title">Корзина</h1>
-
             <!-- ===== КОРЗИНА ===== -->
             <div class="cart-layout">
                 {% if baskets %}

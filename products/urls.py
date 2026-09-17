@@ -1,6 +1,7 @@
 from django.urls import path
 from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete
 
+
 app_name = 'products'
 
 urlpatterns = [
@@ -12,4 +13,7 @@ urlpatterns = [
     path('basket-readd/<int:product_id>', basket_readd, name='basket_readd'),
     path('favorite-add/<int:product_id>', favorite_add, name='favorite_add'),
     path('favorite-delete/<int:favorite_id>', favorite_delete, name='favorite_delete'),
+    path('<int:category_id>', catalog, name='category'),
+    path('page/<int:page_number>', catalog, name='page_number'),
+    path('category/<int:category_id>/page/<int:page_number>', catalog, name='category_page'),
 ]

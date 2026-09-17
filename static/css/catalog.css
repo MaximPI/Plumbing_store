@@ -175,7 +175,8 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
 }
-}
+
+
 
 .product-card:hover {
     transform: translateY(-5px);
@@ -251,6 +252,17 @@
     background: #e67e22;
     color: #fff;
     border-color: #e67e22;
+}
+
+/* Отключённая кнопка пагинации — серая, некликабельная */
+.pagination .disabled {
+    color: #ccc;
+    background: #f9f9f9;
+    border-color: #eee;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
 }
 
 .pagination .pagination__prev,

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link href="{% static 'css/index.css' %}" rel="stylesheet">
+<link href="{% static 'css/favorite.css' %}" rel="stylesheet">
 {% endblock %}
 
 
@@ -10,12 +10,6 @@
         <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="main">
         <div class="container">
-            <!-- Хлебные крошки -->
-            <nav class="breadcrumbs">
-                <a href="index.html">Главная</a> &gt;
-                <span>Избранное</span>
-            </nav>
-
             <!-- Заголовок -->
             <div class="favorites-header">
                 <h1>Избранное</h1>
@@ -34,9 +28,26 @@
                     <div class="favorite-card__image">📦</div>
                     <h3 class="favorite-card__title">{{ favorite.product.name }}</h3>
                     <p class="favorite-card__price">{{ favorite.product.price }} ₽</p>
-                    <div class="favorite-card__actions">
-                        <button class="favorite-card__btn" onclick="addToCart(1, 'Товар 1', 1500)">В корзину</button>
-                    </div>
+                    {% if favorite.product not in baskets %}
+                            <a href="{% url 'products:basket_add' favorite.product.id%}">
+                                <button class="product-card__btn">В корзину</button>
+                            </a>
+                            {% else %}
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' favorite.product.id%}">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                </a>
+                                {% for prod in bask %}
+                                {% if prod.product.id == favorite.product.id %}
+                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
+                                {% endif %}
+                                {% endfor %}
+                                <a href="{% url 'products:basket_add' favorite.product.id%}">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                </a>
+                            </div>
+                            {% endif %}
+
                 </article>
             </div>
             {% endfor %}
