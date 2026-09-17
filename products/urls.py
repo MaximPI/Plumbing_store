@@ -15,5 +15,6 @@ urlpatterns = [
     path('favorite-delete/<int:favorite_id>', favorite_delete, name='favorite_delete'),
     path('<int:category_id>', catalog, name='category'),
     path('page/<int:page_number>', catalog, name='page_number'),
+    path('<int:name>', catalog, name='find_name'),
     path('category/<int:category_id>/page/<int:page_number>', catalog, name='category_page'),
 ]

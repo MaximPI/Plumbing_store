@@ -17,8 +17,9 @@
             </div>
 
             <!-- ===== СЕТКА ИЗБРАННЫХ ТОВАРОВ ===== -->
-            {% for favorite in favorites %}
             <div class="favorites-grid" id="favoritesGrid">
+                {% if favorites %}
+                {% for favorite in favorites %}
                 <!-- Товар 1 -->
                 <article class="favorite-card" data-id="1">
                     <a href="{% url 'products:favorite_delete' favorite.id%}">
@@ -49,16 +50,54 @@
                             {% endif %}
 
                 </article>
+                {% endfor %}
+                {% else %}
+                <div class="favorites-empty">
+        <div class="favorites-empty__icon">💔</div>
+        <h3>В избранном пока ничего нет</h3>
+        <p>Добавляйте товары в избранное, чтобы вернуться к ним позже</p>
+        <a href="{% url 'products:home' %}" class="favorites-empty__btn">
+            Перейти в каталог
+        </a>
+    </div>
             </div>
-            {% endfor %}
+            {% endif %}
+            </div>
+<!--            <div class="pagination">-->
+<!--                        <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="-->
+<!--                                {% if products.has_previous %}-->
+<!--                                    {% if category %}-->
+<!--                                        {% url 'products:category_page' category products.previous_page_number %}-->
+<!--                                    {% else %}-->
+<!--                                        {% url 'products:page_number' products.previous_page_number %}-->
+<!--                                    {% endif %}-->
+<!--                                {% else %}-->
+<!--                                    #-->
+<!--                                {% endif %}"-->
+<!--                            tabindex="-1" aria-disabled="true">←-->
+<!--                        </a>-->
 
-            <!-- ===== ПУСТОЕ ИЗБРАННОЕ (скрыто по умолчанию) ===== -->
-            <div class="favorites-empty" id="favoritesEmpty" style="display: none;">
-                <div class="favorites-empty__icon">💔</div>
-                <h3>В избранном пока ничего нет</h3>
-                <p>Добавляйте товары в избранное, чтобы вернуться к ним позже</p>
-                <a href="catalog.html" class="favorites-empty__btn">Перейти в каталог</a>
-            </div>
+<!--                        {% for page in products.paginator.page_range %}-->
+<!--                        <a class="pagination__page active" href="-->
+<!--                                {% if category %}-->
+<!--                                    {% url 'products:category_page' category page %}">{{page}}-->
+<!--                                {% else %}-->
+<!--                                    {% url 'products:page_number' page %}">{{page}}-->
+<!--                                {% endif %}-->
+<!--                        </a>-->
+<!--                        {% endfor %}-->
+<!--                        <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="-->
+<!--                                {% if products.has_next %}-->
+<!--                                    {% if category %}-->
+<!--                                        {% url 'products:category_page' category products.next_page_number %}-->
+<!--                                    {% else %}-->
+<!--                                        {% url 'products:page_number' products.next_page_number %}-->
+<!--                                    {% endif %}-->
+<!--                                {% else %}-->
+<!--                                    #-->
+<!--                                {% endif %}"-->
+<!--                            tabindex="+1" aria-disabled="true">→</a>-->
+<!--                    </div>-->
         </div>
     </main>
 

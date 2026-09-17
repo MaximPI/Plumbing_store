@@ -54,9 +54,6 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% else %}
-                <h4>Корзина пуста</h4>
-                {% endif %}
                 </section>
                  <aside class="cart-summary">
                     <h3>Итого</h3>
@@ -71,6 +68,16 @@
                     <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
                     <a href="catalog.html" class="continue-shopping">Продолжить покупки →</a>
                 </aside>
+                {% else %}
+                 <div class="cart-empty" id="cartEmpty">
+                <div class="cart-empty__icon">🛒</div>
+                <h3>Ваша корзина пуста</h3>
+                <p>Добавьте товары, чтобы оформить заказ</p>
+                <a href="{% url 'products:home' %}" class="cart-empty__btn">
+                    Перейти в каталог
+                </a>
+            </div>
+                {% endif %}
             </div>
         </div>
     </main>

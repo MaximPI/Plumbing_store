@@ -19,7 +19,7 @@ class Product(models.Model):
 	length = models.PositiveIntegerField()
 	width = models.PositiveIntegerField()
 	height = models.PositiveIntegerField()
-	power = models.PositiveIntegerField()
+	power = models.PositiveIntegerField(blank=True)
 	life = models.PositiveIntegerField()
 	category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 

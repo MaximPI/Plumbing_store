@@ -319,15 +319,59 @@
 /* ============================================
    ПУСТАЯ КОРЗИНА
    ============================================ */
-.cart-items h4 {
+/* ============================================
+   ПУСТАЯ КОРЗИНА (как в избранном)
+   ============================================ */
+.cart-empty {
+    flex: 1 1 100%;               /* если внутри flex-контейнера */
+    width: 100%;
     text-align: center;
-    padding: 60px 20px;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: #95a5a6;
+    padding: 80px 20px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    color: #95a5a6;
+    box-sizing: border-box;
+}
+
+.cart-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.cart-empty h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin: 0 0 8px;
+}
+
+.cart-empty p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin: 0 0 24px;
+}
+
+.cart-empty__btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #e67e22;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background 0.25s, transform 0.15s;
+}
+
+.cart-empty__btn:hover {
+    background: #d35400;
+    transform: scale(1.03);
+}
+
+.cart-empty__btn:active {
+    transform: scale(0.97);
 }
 
 /* ============================================

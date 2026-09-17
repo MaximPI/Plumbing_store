@@ -15,78 +15,16 @@
                     <h3>Фильтры</h3>
 
                      Фильтр по категориям
-                    <div class="filter-group">
+                    <div class="category-filters">
                         <h4>Категория</h4>
-                        {% for category in categories %}
-                            <a href="{% url 'products:category' category.id %}" class="category-btn">
-                                {{ category.name }}
+                        <a href="{% url 'products:home' %}" class="category-btn {% if not category %} active {% endif %}"> Все </a>
+                        {% for categor in categories %}
+                            <a href="{% url 'products:category' categor.id %}" class="category-btn {% if category == categor.id %} active {% endif %}">
+                                {{ categor.name }}
                             </a>
                         {% endfor %}
                     </div>
 
-                    <!-- Фильтр по цене (имитация слайдера) -->
-                    <div class="filter-group">
-                        <h4>Цена</h4>
-                        <div class="price-range">
-                            <input type="range" min="0" max="10000" value="5000" />
-                            <div class="price-labels">
-                                <span>0 ₽</span>
-                                <span>10 000 ₽</span>
-                            </div>
-                            <div class="price-inputs">
-                                <input type="number" value="0" /> —
-                                <input type="number" value="5000" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Фильтр по размеру / бренду (пример) -->
-                    <div class="filter-group">
-                        <h4>Высота</h4>
-                        <div class="price-range">
-                            <input type="range" min="0" max="1000" value="500" />
-                            <div class="price-labels">
-                                <span>0 </span>
-                                <span>1 000</span>
-                            </div>
-                            <div class="price-inputs">
-                                <input type="number" value="0" /> —
-                                <input type="number" value="1000" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>Ширина</h4>
-                                                <div class="price-range">
-                            <input type="range" min="0" max="1000" value="500" />
-                            <div class="price-labels">
-                                <span>0 </span>
-                                <span>1 000</span>
-                            </div>
-                           <div class="price-inputs">
-                                <input type="number" value="0" /> —
-                                <input type="number" value="1000" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>Длина</h4>
-                                                <div class="price-range">
-                            <input type="range" min="0" max="1000" value="500" />
-                            <div class="price-labels">
-                                <span>0 </span>
-                                <span>1 000</span>
-                            </div>
-                           <div class="price-inputs">
-                                <input type="number" value="0" /> —
-                                <input type="number" value="1000" />
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="filter-apply">Применить фильтры</button>
                 </aside>
 
                 <!-- Список товаров -->
@@ -94,15 +32,15 @@
                     <!-- Сортировка и количество -->
                     <div class="catalog-toolbar">
                         <span class="product-count">Найдено: {{quantity}} товаров</span>
-                        <div class="sort-options">
-                            <label for="sort-select">Сортировать:</label>
-                            <select id="sort-select">
-                                <option value="popular">По популярности</option>
-                                <option value="price-asc">Цена: по возрастанию</option>
-                                <option value="price-desc">Цена: по убыванию</option>
-                                <option value="new">Сначала новинки</option>
-                            </select>
-                        </div>
+<!--                        <div class="sort-options">-->
+<!--                            <a class="search-btn" href="{url 'products:find_name' name}">-->
+<!--                           <input type="text"-->
+<!--                               name="search"-->
+<!--                               class="search-input"-->
+<!--                               placeholder="Поиск товаров..."-->
+<!--                               value="{{ request.GET.search|default:'' }}">-->
+<!--                            </a>-->
+<!--                        </div>-->
                     </div>
 
                     <!-- Сетка товаров -->
