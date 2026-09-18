@@ -33,13 +33,12 @@
                     <div class="catalog-toolbar">
                         <span class="product-count">Найдено: {{quantity}} товаров</span>
 <!--                        <div class="sort-options">-->
-<!--                            <a class="search-btn" href="{url 'products:find_name' name}">-->
 <!--                           <input type="text"-->
 <!--                               name="search"-->
 <!--                               class="search-input"-->
 <!--                               placeholder="Поиск товаров..."-->
 <!--                               value="{{ request.GET.search|default:'' }}">-->
-<!--                            </a>-->
+<!--                            <a class="search-btn" href="{url 'products:find' name=name}"></a>-->
 <!--                        </div>-->
                     </div>
 
@@ -47,7 +46,7 @@
                     <div class="product-grid" url={"products:index"}>
                         {% for product in products %}
                         <article class="product-card">
-                            <a href="{% url 'home' %}" class="product-card__link" aria-label="{{ product.name }}"></a>
+                            <a href="{% url 'products:product_detail' product.id %}" class="product-card__link" aria-label="{{ product.name }}"></a>
                             {% if product in favorites %}
                             {% for favorite in fav %}
                             {% if favorite.product.id == product.id %}

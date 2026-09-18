@@ -57,23 +57,47 @@
 }
 
 /* ============================================
-   КАРТОЧКА ТОВАРА
+   КАРТОЧКА ТОВАРА (кликабельная)
    ============================================ */
 .favorite-card {
     position: relative;
+    display: block;
     background: #fff;
     border-radius: 12px;
     padding: 18px 15px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .favorite-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Невидимая ссылка на всю карточку (под кнопками) */
+.favorite-card__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Контент не перехватывает клики — они уходят на ссылку */
+.favorite-card__image,
+.favorite-card__title,
+.favorite-card__price {
+    pointer-events: none;
 }
 
 /* ----- Кнопка удаления (крестик справа сверху) ----- */
@@ -97,6 +121,7 @@
     z-index: 3;
     padding: 0;
     line-height: 1;
+    text-decoration: none;
 }
 
 .favorite-remove:hover {
@@ -148,6 +173,8 @@
 .favorite-card__actions {
     display: flex;
     justify-content: center;
+    position: relative;
+    z-index: 2;
 }
 
 /* ----- Кнопка "В корзину" ----- */
@@ -163,6 +190,8 @@
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.2s, transform 0.15s;
+    position: relative;
+    z-index: 2;
 }
 
 .favorite-card__btn:hover {
@@ -174,11 +203,17 @@
     transform: scale(0.97);
 }
 
+/* ----- Счётчик количества (если товар уже в корзине) ----- */
+.favorite-card .quantity-control {
+    position: relative;
+    z-index: 2;
+}
+
 /* ============================================
    ПУСТОЕ ИЗБРАННОЕ
    ============================================ */
 .favorites-empty {
-    grid-column: 1 / -1;   /* ⬅️ растянуть на всю ширину grid */
+    grid-column: 1 / -1;
     text-align: center;
     padding: 70px 20px;
     color: #95a5a6;
@@ -223,6 +258,84 @@
 }
 
 /* ============================================
+   ПАГИНАЦИЯ
+   ============================================ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    color: #333;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pagination a:hover {
+    background: #e67e22;
+    color: #fff;
+    border-color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(230, 126, 34, 0.25);
+}
+
+.pagination .active {
+    background: #e67e22;
+    color: #fff;
+    border-color: #e67e22;
+    font-weight: 700;
+    cursor: default;
+    pointer-events: none;
+}
+
+.pagination .pagination__prev,
+.pagination .pagination__next {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.pagination .disabled {
+    color: #ccc;
+    background: #f9f9f9;
+    border-color: #eee;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+}
+
+.pagination__dots {
+    border: none;
+    background: transparent;
+    cursor: default;
+    color: #95a5a6;
+    font-weight: 700;
+    min-width: 24px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================
    АДАПТИВНОСТЬ
    ============================================ */
 @media (max-width: 992px) {
@@ -252,6 +365,18 @@
 
     .favorite-card__btn {
         padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .pagination {
+        gap: 6px;
+    }
+
+    .pagination a,
+    .pagination span {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 8px;
         font-size: 0.85rem;
     }
 }

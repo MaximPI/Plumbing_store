@@ -13,7 +13,7 @@ def index(request):
 	}
 	return render(request, 'products/index.html', context=context)
 
-def catalog(request, category_id=None, name=None, page_number=1):
+def catalog(request, category_id=None, page_number=1):
 	context = {
 		'title': 'каталог',
 		'categories': ProductCategory.objects.all(),
@@ -23,10 +23,7 @@ def catalog(request, category_id=None, name=None, page_number=1):
 		'fav': Favorites.objects.filter(user=request.user),
 	}
 	if category_id:
-		if name:
-			filtered_products = Product.objects.filter(name=name)
-		else:
-			filtered_products = Product.objects.filter(category_id=category_id)
+		filtered_products = Product.objects.filter(category_id=category_id)
 	else:
 		filtered_products = Product.objects.all()
 
@@ -36,7 +33,6 @@ def catalog(request, category_id=None, name=None, page_number=1):
 		'products': products_paginator,
 		'quantity': len(filtered_products),
 		'category': category_id,
-		'name': name
 	})
 
 	return render(request, 'products/catalog.html', context=context)
@@ -45,7 +41,7 @@ def about(request):
 	return render(request, 'products/about.html')
 
 @login_required
-def baskets(request, page_number=1):
+def baskets(request):
 	basketss = Baskets.objects.filter(user=request.user)
 	total_quantity = sum([basket.quantity for basket in basketss])
 	total_sum = sum([basket.summ() for basket in basketss])
@@ -105,7 +101,7 @@ def favorites(request, page_number=1):
 	}
 
 	favorite = Favorites.objects.filter(user=request.user)
-	pagination = Paginator(favorite, 2)
+	pagination = Paginator(favorite, 10)
 	products_paginator = pagination.page(page_number)
 	context.update({
 		'favorites': products_paginator,
@@ -124,4 +120,14 @@ def favorite_delete(request, favorite_id):
 	favorite.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+def product_detail(request, product_id):
+	context = {
+		'title': 'Страница товара',
+		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+		'bask': Baskets.objects.filter(user=request.user),
+		'product': Product.objects.get(id=product_id),
+		'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
+		'fav': Favorites.objects.filter(user=request.user),
+	}
+	return render(request, 'products/product_detail.html', context=context)
 

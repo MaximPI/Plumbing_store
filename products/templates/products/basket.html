@@ -26,35 +26,50 @@
                 {% if baskets %}
                 <!-- Список товаров -->
                 {% for basket in baskets %}
-                <section class="cart-items">
-                    <!-- Товар 1 -->
-                    <div class="cart-item" data-id="1" >
-                        <div class="cart-item__image">📦</div>
+                <article class="cart-items">
+                    <!-- Товар -->
+                    <div class="cart-item" data-id="{{ basket.id }}">
+
+                        <!-- ⬅️ ССЫЛКА-ОВЕРЛЕЙ ПЕРВОЙ, ВНУТРИ .cart-item -->
+                        <a href="{% url 'products:product_detail' basket.product.id %}" class="cart-item__link" aria-label="{{ basket.product.name }}"></a>
+
+                        <div class="cart-item__image">
+                            {% if basket.product.image %}
+                                <img src="{{ basket.product.image.url }}" alt="{{ basket.product.name }}">
+                            {% else %}
+                                📦
+                            {% endif %}
+                        </div>
+
                         <div class="cart-item__info">
-                            <h3 class="cart-item__title">{{basket.product.name}}</h3>
-                            <p class="cart-item__description">{{basket.product.description}}</p>
+                            <h3 class="cart-item__title">{{ basket.product.name }}</h3>
+                            <p class="cart-item__description">{{ basket.product.description }}</p>
                             <div class="cart-item__meta">
-                                <span class="cart-item__price">{{basket.summ}}</span>
+                                <span class="cart-item__price">{{ basket.summ }}</span>
                             </div>
                         </div>
+
                         <div class="cart-item__controls">
                             <div class="quantity-control">
-                                <a href="{% url 'products:basket_readd' basket.product.id%}">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
-                                </a>
+                                <!-- ⬅️ <a> вместо <a><button></a> -->
+                                <a href="{% url 'products:basket_readd' basket.product.id %}"
+                                   class="quantity-btn minus">−</a>
 
-                                <input type="number" class="quantity-input" id="qty1" value="{{basket.quantity}}" min="1" max="99" onchange="updateQuantity(1, 0)" />
-                                <a href="{% url 'products:basket_add' basket.product.id%}">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
-                                </a>
+                                <input type="number" class="quantity-input"
+                                       value="{{ basket.quantity }}" min="1" max="99" readonly>
+
+                                <a href="{% url 'products:basket_add' basket.product.id %}"
+                                   class="quantity-btn plus">+</a>
                             </div>
-                            <a href="{% url 'products:basket_delete' basket.id%}">
-                                <button class="remove-btn" onclick="removeItem(1)">🗑️</button>
-                            </a>
+
+                            <!-- ⬅️ <a> вместо <a><button></a> -->
+                            <a href="{% url 'products:basket_delete' basket.id %}"
+                               class="remove-btn" title="Удалить из корзины">🗑️</a>
                         </div>
+
                     </div>
                 {% endfor %}
-                </section>
+                </article>
                  <aside class="cart-summary">
                     <h3>Итого</h3>
                     <div class="summary-row">

@@ -1,0 +1,130 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/product_detail.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container">
+
+        <!-- Карточка товара -->
+        <div class="product-detail">
+
+            <!-- Левая колонка — изображение -->
+            <div class="product-detail__media">
+
+                <div class="product-detail__image">
+                {% if product.image %}
+                    <img src="/media/{{ product.image }}" alt="{{ product.name }}">
+                {% else %}
+                    <div class="product-detail__image">
+                        <div class="product-detail__placeholder">📦</div>
+                    </div>
+                {% endif %}
+
+                {% if product in favorites %}
+                {% for favorite in fav %}
+                {% if favorite.product.id == product.id %}
+                <a href="{% url 'products:favorite_delete' favorite.id%}">
+                    <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
+                </a>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <a href="{% url 'products:favorite_add' product.id%}">
+                    <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
+                </a>
+                {% endif %}              <
+                </div>
+
+                <!-- ⬇️ Короткое описание под картинкой -->
+                <div class="product-detail__short-description">
+                    {% if product.short_description %}
+                        {{ product.short_description }}
+                    {% else %}
+                        Краткого описания пока нет
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <!-- Правая колонка — информация -->
+            <div class="product-detail__info">
+
+                <div class="product-detail__category">{{product.category}}</div>
+
+                <h1 class="product-detail__title">{{ product.name }}</h1>
+
+                <div class="product-detail__price">{{ product.price }} ₽</div>
+
+                <div class="product-detail__divider"></div>
+
+                <div class="product-detail__description">
+                    <h3>Описание</h3>
+                    {% if product.description %}
+                        <p>
+                            {{ product.description }}
+                        </p>
+                    {% else %}
+                        <p>
+                            Описания пока нет
+                        </p>
+                    {% endif %}
+                </div>
+
+                <!-- Кнопка "В корзину" -->
+                <div class="product-detail__actions">
+                    {% if product not in baskets %}
+                            <a href="{% url 'products:basket_add' product.id%}">
+                                <button class="product-card__btn">В корзину</button>
+                            </a>
+                            {% else %}
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' product.id%}">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                </a>
+                                {% for prod in bask %}
+                                {% if prod.product.id == product.id %}
+                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
+                                {% endif %}
+                                {% endfor %}
+                                <a href="{% url 'products:basket_add' product.id%}">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                </div>
+
+                <!-- Преимущества -->
+                <div class="product-detail__features">
+                    <div class="feature-item">
+                        <span class="feature-icon">🚚</span>
+                        <div>
+                            <strong>Быстрая доставка</strong>
+                            <p>Отправка в день заказа</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔒</span>
+                        <div>
+                            <strong>Гарантия качества</strong>
+                            <p>Возврат в течение 14 дней</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">💬</span>
+                        <div>
+                            <strong>Поддержка 24/7</strong>
+                            <p>Поможем с выбором</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

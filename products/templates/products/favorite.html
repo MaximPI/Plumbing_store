@@ -5,100 +5,112 @@
 <link href="{% static 'css/favorite.css' %}" rel="stylesheet">
 {% endblock %}
 
-
 {% block content %}
-        <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
-    <main class="main">
-        <div class="container">
-            <!-- Заголовок -->
-            <div class="favorites-header">
-                <h1>Избранное</h1>
-                <span class="favorites-count" id="favoritesCount">{{ total_quantity }}</span>
-            </div>
 
-            <!-- ===== СЕТКА ИЗБРАННЫХ ТОВАРОВ ===== -->
-            <div class="favorites-grid" id="favoritesGrid">
-                {% if favorites %}
+<!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+<main class="main">
+    <div class="container">
+
+        <!-- Заголовок -->
+        <div class="favorites-header">
+            <h1>Избранное</h1>
+            <span class="favorites-count" id="favoritesCount">{{ total_quantity }}</span>
+        </div>
+
+        <!-- ===== СЕТКА ИЗБРАННЫХ ТОВАРОВ ===== -->
+        <div class="favorites-grid" id="favoritesGrid">
+            {% if favorites %}
                 {% for favorite in favorites %}
-                <!-- Товар 1 -->
-                <article class="favorite-card" data-id="1">
-                    <a href="{% url 'products:favorite_delete' favorite.id%}">
-                        <button class="favorite-remove" onclick="removeFavorite(1)" title="Удалить из избранного">✕</button>
-                    </a>
+                <article class="favorite-card" data-id="{{ favorite.id }}">
 
-                    <div class="favorite-card__image">📦</div>
+                    <!-- Невидимая ссылка на всю карточку -->
+                    <a href="{% url 'products:product_detail' favorite.product.id %}"
+                       class="favorite-card__link"
+                       aria-label="{{ favorite.product.name }}"></a>
+
+                    <!-- Кнопка удаления -->
+                    <a href="{% url 'products:favorite_delete' favorite.id %}"
+                       class="favorite-remove"
+                       title="Удалить из избранного">✕</a>
+
+                    <!-- Изображение -->
+                    <div class="favorite-card__image">
+                        {% if favorite.product.image %}
+                            <img src="{{ favorite.product.image.url }}" alt="{{ favorite.product.name }}">
+                        {% else %}
+                            {{ favorite.product.emoji|default:"📦" }}
+                        {% endif %}
+                    </div>
+
+                    <!-- Название и цена -->
                     <h3 class="favorite-card__title">{{ favorite.product.name }}</h3>
                     <p class="favorite-card__price">{{ favorite.product.price }} ₽</p>
+
+                    <!-- Кнопка "В корзину" или счётчик -->
                     {% if favorite.product not in baskets %}
-                            <a href="{% url 'products:basket_add' favorite.product.id%}">
-                                <button class="product-card__btn">В корзину</button>
-                            </a>
-                            {% else %}
-                            <div class="quantity-control">
-                                <a href="{% url 'products:basket_readd' favorite.product.id%}">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
-                                </a>
-                                {% for prod in bask %}
+                        <a href="{% url 'products:basket_add' favorite.product.id %}"
+                           class="favorite-card__actions">
+                            <button class="favorite-card__btn">В корзину</button>
+                        </a>
+                    {% else %}
+                        <div class="quantity-control">
+                            <a href="{% url 'products:basket_readd' favorite.product.id %}"
+                               class="quantity-btn minus">−</a>
+
+                            {% for prod in bask %}
                                 {% if prod.product.id == favorite.product.id %}
-                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
+                                    <input type="number" class="quantity-input"
+                                           value="{{ prod.quantity }}"
+                                           min="1" max="99" readonly>
                                 {% endif %}
-                                {% endfor %}
-                                <a href="{% url 'products:basket_add' favorite.product.id%}">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
-                                </a>
-                            </div>
-                            {% endif %}
+                            {% endfor %}
+
+                            <a href="{% url 'products:basket_add' favorite.product.id %}"
+                               class="quantity-btn plus">+</a>
+                        </div>
+                    {% endif %}
 
                 </article>
                 {% endfor %}
-                {% else %}
+            {% else %}
                 <div class="favorites-empty">
-        <div class="favorites-empty__icon">💔</div>
-        <h3>В избранном пока ничего нет</h3>
-        <p>Добавляйте товары в избранное, чтобы вернуться к ним позже</p>
-        <a href="{% url 'products:home' %}" class="favorites-empty__btn">
-            Перейти в каталог
-        </a>
-    </div>
-            </div>
+                    <div class="favorites-empty__icon">💔</div>
+                    <h3>В избранном пока ничего нет</h3>
+                    <p>Добавляйте товары в избранное, чтобы вернуться к ним позже</p>
+                    <a href="{% url 'products:home' %}" class="favorites-empty__btn">
+                        Перейти в каталог
+                    </a>
+                </div>
             {% endif %}
-            </div>
-<!--            <div class="pagination">-->
-<!--                        <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="-->
-<!--                                {% if products.has_previous %}-->
-<!--                                    {% if category %}-->
-<!--                                        {% url 'products:category_page' category products.previous_page_number %}-->
-<!--                                    {% else %}-->
-<!--                                        {% url 'products:page_number' products.previous_page_number %}-->
-<!--                                    {% endif %}-->
-<!--                                {% else %}-->
-<!--                                    #-->
-<!--                                {% endif %}"-->
-<!--                            tabindex="-1" aria-disabled="true">←-->
-<!--                        </a>-->
-
-<!--                        {% for page in products.paginator.page_range %}-->
-<!--                        <a class="pagination__page active" href="-->
-<!--                                {% if category %}-->
-<!--                                    {% url 'products:category_page' category page %}">{{page}}-->
-<!--                                {% else %}-->
-<!--                                    {% url 'products:page_number' page %}">{{page}}-->
-<!--                                {% endif %}-->
-<!--                        </a>-->
-<!--                        {% endfor %}-->
-<!--                        <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="-->
-<!--                                {% if products.has_next %}-->
-<!--                                    {% if category %}-->
-<!--                                        {% url 'products:category_page' category products.next_page_number %}-->
-<!--                                    {% else %}-->
-<!--                                        {% url 'products:page_number' products.next_page_number %}-->
-<!--                                    {% endif %}-->
-<!--                                {% else %}-->
-<!--                                    #-->
-<!--                                {% endif %}"-->
-<!--                            tabindex="+1" aria-disabled="true">→</a>-->
-<!--                    </div>-->
         </div>
-    </main>
+
+        <!-- ===== ПАГИНАЦИЯ ===== -->
+       <div class="pagination">
+        <a class="pagination__prev {% if not favorites.has_previous %} disabled {% endif %}" href="
+                {% if favorites.has_previous %}
+                        {% url 'products:favorite_page_number' favorites.previous_page_number %}
+                {% else %}
+                    #
+                {% endif %}"
+            tabindex="-1" aria-disabled="true">←
+        </a>
+
+        {% for page in favorites.paginator.page_range %}
+        <a class="pagination__page{% if page == favorites.number %} active{% endif %}" href="
+                {% url 'products:favorite_page_number' page %}">{{page}}
+        </a>
+        {% endfor %}
+
+        <a class="pagination__next {% if not favorites.has_next %} disabled {% endif %}" href="
+                {% if favorites.has_next %}
+                    {% url 'products:favorite_page_number' favorites.next_page_number %}
+                {% else %}
+                    #
+                {% endif %}"
+            tabindex="+1" aria-disabled="true">→</a>
+    </div>
+
+    </div>
+</main>
 
 {% endblock %}
