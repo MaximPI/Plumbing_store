@@ -1,0 +1,76 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/orders.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container">
+
+        <!-- Хлебные крошки -->
+        <nav class="breadcrumbs">
+            <a href="{% url 'users:profile' %}">Профиль</a> &gt;
+            <span>Мои заказы</span>
+        </nav>
+
+        <!-- Заголовок -->
+        <div class="orders-header">
+            <h1>Мои заказы</h1>
+            <p>История ваших покупок</p>
+        </div>
+
+        <!-- Список заказов -->
+        <div class="orders-list">
+            {% for order in products %}
+            <article class="order-card">
+
+                <!-- Ссылка на всю карточку -->
+                <a href="{% url 'products:product_detail' order.product.id %}" class="order-card__link" aria-label="Заказ № {{ order.id }}"></a>
+
+                <div class="order-card__header">
+                    <div class="order-card__info">
+                        <span class="order-number">Заказ № {{ order.id }}</span>
+                        <span class="order-date">от {{ order.date }}</span>
+                    </div>
+                </div>
+
+                <div class="order-card__body">
+                    <div class="order-products">
+                        <div class="order-product">
+                            <div class="order-product__image">📦</div>
+                            <div class="order-product__info">
+                                <div class="order-product__name">{{ order.product.name }}</div>
+                                <div class="order-product__qty">{{ order.quantity }} шт × {{ order.product.price }} ₽</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card__footer">
+                    <div class="order-total">
+                        Итого: <strong>{{ order.summ }} ₽</strong>
+                    </div>
+                    <div class="order-actions">
+                        <a href="{% url 'products:add_order' order.product.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
+                        <a href="#" class="order-btn order-btn--secondary">Подробнее</a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        <!-- Пустое состояние (если заказов нет) -->
+        <!--
+        <div class="orders-empty">
+            <div class="orders-empty__icon">📦</div>
+            <h2>У вас пока нет заказов</h2>
+            <p>Оформите первый заказ в каталоге</p>
+            <a href="#" class="orders-empty__btn">Перейти в каталог</a>
+        </div>
+        -->
+
+    </div>
+</main>
+{% endblock %}

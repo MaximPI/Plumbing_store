@@ -24,19 +24,30 @@
                     </div>
                 {% endif %}
 
-                {% if product in favorites %}
-                {% for favorite in fav %}
-                {% if favorite.product.id == product.id %}
-                <a href="{% url 'products:favorite_delete' favorite.id%}">
-                    <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
-                </a>
+                {% if user.is_authenticated %}
+                    {% if product not in comp %}
+                        <a href="{% url 'products:compare_add' product.id %}" class="product-card__compare">📊</a>
+                    {% else %}
+                        {% for compare in compares %}
+                            {% if compare.product.id == product.id %}
+                                <a href="{% url 'products:compare_readd' compare.id %}" class="product-card__compare active">📊</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if product in favorites %}
+                        {% for favorite in fav %}
+                            {% if favorite.product.id == product.id %}
+                            <a href="{% url 'products:favorite_delete' favorite.id%}">
+                                <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                    <a href="{% url 'products:favorite_add' product.id%}">
+                        <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
+                    </a>
+                    {% endif %}
                 {% endif %}
-                {% endfor %}
-                {% else %}
-                <a href="{% url 'products:favorite_add' product.id%}">
-                    <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
-                </a>
-                {% endif %}              <
                 </div>
 
                 <!-- ⬇️ Короткое описание под картинкой -->
@@ -76,25 +87,31 @@
 
                 <!-- Кнопка "В корзину" -->
                 <div class="product-detail__actions">
-                    {% if product not in baskets %}
-                            <a href="{% url 'products:basket_add' product.id%}">
-                                <button class="product-card__btn">В корзину</button>
-                            </a>
-                            {% else %}
-                            <div class="quantity-control">
-                                <a href="{% url 'products:basket_readd' product.id%}">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
-                                </a>
-                                {% for prod in bask %}
-                                {% if prod.product.id == product.id %}
-                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
-                                {% endif %}
-                                {% endfor %}
+                    {% if user.is_authenticated %}
+                        {% if product not in baskets %}
                                 <a href="{% url 'products:basket_add' product.id%}">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                    <button class="product-card__btn">В корзину</button>
                                 </a>
-                            </div>
-                            {% endif %}
+                                {% else %}
+                                <div class="quantity-control">
+                                    <a href="{% url 'products:basket_readd' product.id%}">
+                                        <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                    </a>
+                                    {% for prod in bask %}
+                                    {% if prod.product.id == product.id %}
+                                    <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <a href="{% url 'products:basket_add' product.id%}">
+                                        <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                    </a>
+                                </div>
+                                {% endif %}
+                    {% else %}
+                        <a href="{% url 'users:login'%}">
+                            <button class="product-card__btn">Авторизуйтесь</button>
+                        </a>
+                    {% endif %}
                 </div>
 
                 <!-- Преимущества -->

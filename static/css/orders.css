@@ -1,0 +1,409 @@
+/* ============================================
+   СТРАНИЦА "МОИ ЗАКАЗЫ"
+   ============================================ */
+
+.main {
+    padding: 30px 0 60px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Хлебные крошки ----- */
+.breadcrumbs {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    color: #7f8c8d;
+}
+
+.breadcrumbs a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* ----- Заголовок ----- */
+.orders-header {
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f39c12;
+}
+
+.orders-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px;
+}
+
+.orders-header p {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+/* ============================================
+   СПИСОК ЗАКАЗОВ
+   ============================================ */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ----- Карточка заказа ----- */
+.order-card {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ----- Ссылка на всю карточку (под кнопками) ----- */
+.order-card__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Контент карточки не перехватывает клики */
+.order-card__header,
+.order-card__body {
+    pointer-events: none;
+}
+
+/* Кнопки и итог — поверх ссылки, чтобы работали */
+.order-card__footer,
+.order-btn,
+.order-total {
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+}
+
+/* ----- Заголовок заказа ----- */
+.order-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 22px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.order-card__info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.order-number {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.order-date {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+/* ----- Статусы ----- */
+.order-status {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-delivered {
+    background: #e8f8f5;
+    color: #27ae60;
+}
+
+.status-shipped {
+    background: #ebf5fb;
+    color: #3498db;
+}
+
+.status-processing {
+    background: #fdf3e7;
+    color: #e67e22;
+}
+
+.status-cancelled {
+    background: #fdedec;
+    color: #e74c3c;
+}
+
+/* ----- Тело заказа ----- */
+.order-card__body {
+    padding: 18px 22px;
+}
+
+.order-products {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.order-product {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.order-product__image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: #f4f6f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    color: #b0c4d9;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.order-product__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.order-product__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.order-product__name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.order-product__qty {
+    font-size: 0.88rem;
+    color: #7f8c8d;
+}
+
+/* ----- Подвал заказа ----- */
+.order-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 22px;
+    background: #fafbfc;
+    border-top: 1px solid #ecf0f1;
+}
+
+.order-total {
+    font-size: 0.95rem;
+    color: #7f8c8d;
+}
+
+.order-total strong {
+    font-size: 1.2rem;
+    color: #e67e22;
+    margin-left: 6px;
+}
+
+/* ----- Кнопки действий ----- */
+.order-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.order-btn {
+    display: inline-block;
+    padding: 9px 20px;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.order-btn--primary {
+    background: #e67e22;
+    color: #fff;
+}
+
+.order-btn--primary:hover {
+    background: #d35400;
+    transform: scale(1.03);
+}
+
+.order-btn--secondary {
+    background: transparent;
+    color: #2c3e50;
+    border: 2px solid #ecf0f1;
+}
+
+.order-btn--secondary:hover {
+    border-color: #2c3e50;
+    color: #2c3e50;
+    transform: scale(1.03);
+}
+
+/* ----- Отменённый заказ ----- */
+.order-card--cancelled {
+    opacity: 0.75;
+}
+
+.order-card--cancelled:hover {
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   ПУСТОЕ СОСТОЯНИЕ
+   ============================================ */
+.orders-empty {
+    text-align: center;
+    padding: 80px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    color: #95a5a6;
+}
+
+.orders-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.orders-empty h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.orders-empty p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 24px;
+}
+
+.orders-empty__btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #e67e22;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background 0.25s, transform 0.15s;
+}
+
+.orders-empty__btn:hover {
+    background: #d35400;
+    transform: scale(1.03);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+@media (max-width: 768px) {
+    .orders-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .order-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .order-card__info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .order-card__footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .order-total {
+        text-align: center;
+    }
+
+    .order-actions {
+        justify-content: center;
+    }
+
+    .order-btn {
+        flex: 1;
+        text-align: center;
+        padding: 10px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .orders-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .order-product__image {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+    }
+
+    .order-product__name {
+        font-size: 0.92rem;
+    }
+
+    .order-product__qty {
+        font-size: 0.82rem;
+    }
+
+    .order-total strong {
+        font-size: 1.05rem;
+    }
+}

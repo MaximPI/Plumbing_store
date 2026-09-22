@@ -1,6 +1,6 @@
 from django.contrib.admin.templatetags.admin_list import pagination
 from django.shortcuts import render, HttpResponseRedirect
-from products.models import Product, ProductCategory, Baskets, Favorites, Compare
+from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -104,6 +104,8 @@ def favorites(request, page_number=1):
 		'total_quantity': total_quantity,
 		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
 		'bask': Baskets.objects.filter(user=request.user),
+		'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
+		'compares': Compare.objects.filter(user=request.user),
 	}
 
 	favorite = Favorites.objects.filter(user=request.user)
@@ -129,12 +131,18 @@ def favorite_delete(request, favorite_id):
 def product_detail(request, product_id):
 	context = {
 		'title': 'Страница товара',
-		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
-		'bask': Baskets.objects.filter(user=request.user),
 		'product': Product.objects.get(id=product_id),
-		'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
-		'fav': Favorites.objects.filter(user=request.user),
 	}
+	if request.user.is_authenticated:
+		context.update({
+			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+			'bask': Baskets.objects.filter(user=request.user),
+			'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
+			'fav': Favorites.objects.filter(user=request.user),
+			'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
+			'compares': Compare.objects.filter(user=request.user),
+		})
+
 	return render(request, 'products/product_detail.html', context=context)
 
 def compare(request):
@@ -155,3 +163,25 @@ def compare_add(request, product_id):
 	product = Product.objects.get(id=product_id)
 	Compare.objects.create(user=request.user, product=product)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def orders(request):
+	context = {
+		'title': 'Заказы',
+		'products': Order.objects.filter(user=request.user),
+		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+		'bask': Baskets.objects.filter(user=request.user),
+		'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
+		'fav': Favorites.objects.filter(user=request.user),
+		'compares': Compare.objects.filter(user=request.user),
+		'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
+	}
+
+	return render(request, 'products/orders.html', context=context)
+
+def add_order(request, product_id):
+	product = Product.objects.get(id=product_id)
+	basket = Baskets.objects.get(user=request.user, product=product)
+	Order.objects.create(user=request.user, product=product, quantity=basket.quantity)
+	basket.delete()
+	if not Baskets.objects.filter(user=request.user):
+		return render(request, 'products/modal.html', context={})

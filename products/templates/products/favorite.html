@@ -28,6 +28,17 @@
                        class="favorite-card__link"
                        aria-label="{{ favorite.product.name }}"></a>
 
+                    {% if user.is_authenticated %}
+                        {% if favorite.product not in comp %}
+                            <a href="{% url 'products:compare_add' favorite.product.id %}" class="product-card__compare">📊</a>
+                        {% else %}
+                            {% for compare in compares %}
+                                {% if compare.product.id == favorite.product.id %}
+                                    <a href="{% url 'products:compare_readd' compare.id %}" class="product-card__compare active">📊</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
                     <!-- Кнопка удаления -->
                     <a href="{% url 'products:favorite_delete' favorite.id %}"
                        class="favorite-remove"
