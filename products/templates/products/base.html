@@ -19,14 +19,17 @@
             <nav class="nav">
                 <ul class="nav__list">
                     <li><a href="{% url 'home' %}">Главная</a></li>
-                    <li><a href="{% url 'products:home' %}">Каталог</a></li>
                     <li><a href="{% url 'about' %}">О нас</a></li>
+                    <li><a href="{% url 'products:home' %}">Каталог</a></li>
                     <li><a href="{% url 'products:favorites' %}">Избранное</a></li>
                     <li><a href="{% url 'products:baskets' %}">Корзина</a></li>
-                    <li><a href="#">Срок службы</a></li>
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'users:profile' %}">Профиль</a></li>
-                        <li><a href="{% url 'users:login' %}">Авторизация</a></li>
+                        <li><a href="{% url 'users:profile' %}">{{ user.username }}</a></li>
+                        <li>
+                            <a href="{% url 'products:compare' %}" class="nav-compare" title="Сравнение товаров">
+                                📊 <span class="compare-count">Сравнить</span>
+                            </a>
+                        </li>
                         <li><a href="{% url 'users:logout' %}">Выйти</a></li>
                     {% else %}
                         <li><a href="{% url 'users:login' %}">Авторизация</a></li>

@@ -1,0 +1,376 @@
+/* ============================================
+   СРАВНЕНИЕ ТОВАРОВ
+   ============================================ */
+
+.main {
+    padding: 30px 0 60px;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Хлебные крошки ----- */
+.breadcrumbs {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    color: #7f8c8d;
+}
+
+.breadcrumbs a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* ----- Заголовок ----- */
+.compare-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.compare-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.compare-header p {
+    color: #7f8c8d;
+    font-size: 1rem;
+}
+
+/* ----- Кнопка очистки ----- */
+.compare-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.compare-clear {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: transparent;
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.compare-clear:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* ============================================
+   ТАБЛИЦА СРАВНЕНИЯ
+   ============================================ */
+.compare-wrapper {
+    overflow-x: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 4px;
+}
+
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+.compare-table th,
+.compare-table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+    vertical-align: top;
+    font-size: 0.95rem;
+    color: #2c3e50;
+}
+
+/* Заголовок таблицы */
+.compare-table thead th {
+    background: #f8f9fa;
+    border-bottom: 2px solid #f39c12;
+    padding: 20px 18px;
+}
+
+.compare-label-col {
+    width: 180px;
+    font-weight: 600;
+    color: #7f8c8d;
+    background: #f8f9fa;
+}
+
+.compare-product-col {
+    min-width: 200px;
+    text-align: center;
+}
+
+/* Карточка товара в шапке */
+.compare-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.compare-image {
+    width: 100px;
+    height: 100px;
+    background: #eef2f7;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #b0c4d9;
+    overflow: hidden;
+}
+
+.compare-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.compare-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.compare-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.compare-detail-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    background: #2c3e50;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.compare-detail-btn:hover {
+    background: #1a252f;
+}
+
+/* Строки характеристик */
+.compare-label {
+    font-weight: 600;
+    color: #7f8c8d;
+    background: #f8f9fa;
+    white-space: nowrap;
+}
+
+.compare-table tbody tr:hover {
+    background: #fdf9f4;
+}
+
+.compare-table tbody td {
+    text-align: center;
+}
+
+.compare-table tbody td.compare-label {
+    text-align: left;
+}
+
+/* Кнопки действий в последней строке */
+.compare-add-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #2c3e50;
+    color: #fff;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 6px;
+}
+
+.compare-add-btn:hover {
+    background: #1a252f;
+    transform: scale(1.03);
+}
+
+.compare-in-basket {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #e8f8f5;
+    color: #27ae60;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.compare-remove-btn {
+    display: block;
+    margin: 6px auto 0;
+    padding: 6px 12px;
+    background: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    width: fit-content;
+}
+
+.compare-remove-btn:hover {
+    background: #e74c3c;
+    color: #fff;
+}
+
+/* ============================================
+   ПУСТОЕ СРАВНЕНИЕ
+   ============================================ */
+.compare-empty {
+    text-align: center;
+    padding: 80px 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    color: #95a5a6;
+}
+
+.compare-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.compare-empty h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.compare-empty p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 24px;
+}
+
+.compare-empty__btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #e67e22;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: background 0.25s, transform 0.15s;
+}
+
+.compare-empty__btn:hover {
+    background: #d35400;
+    transform: scale(1.03);
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+@media (max-width: 768px) {
+    .compare-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .compare-table th,
+    .compare-table td {
+        padding: 12px 12px;
+        font-size: 0.9rem;
+    }
+
+    .compare-label-col {
+        width: 130px;
+    }
+
+    .compare-image {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+
+    .compare-name {
+        font-size: 0.9rem;
+    }
+
+    .compare-price {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .compare-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .compare-table th,
+    .compare-table td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+
+    .compare-label-col {
+        width: 100px;
+    }
+
+    .compare-image {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+    }
+
+    .compare-detail-btn {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .compare-clear {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Прочерк на месте отсутствующей характеристики */
+.compare-table td.empty {
+    color: #bdc3c7;
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    user-select: none;
+}

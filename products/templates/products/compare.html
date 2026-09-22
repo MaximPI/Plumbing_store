@@ -1,0 +1,156 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link href="{% static 'css/compare.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="container">
+
+        <!-- Заголовок -->
+        <div class="compare-header">
+            <h1>Сравнение товаров</h1>
+            <p>Сравните характеристики, чтобы сделать правильный выбор</p>
+        </div>
+
+        <!-- Кнопка очистки -->
+        <div class="compare-actions">
+            <a href="#" class="compare-clear">✕ Очистить сравнение</a>
+        </div>
+
+        <!-- Таблица сравнения -->
+        <div class="compare-wrapper">
+            <table class="compare-table">
+                <thead>
+                    <tr>
+                        <th class="compare-label-col">Характеристика</th>
+                        {% for product in products %}
+                        <th class="compare-product-col">
+                            <div class="compare-product">
+                                <div class="compare-image">
+                                {% if product.product.image %}
+                                    <img src="/media/{{ product.product.image }}" alt="{{ product.name }}">
+                                {% else %}
+                                    {{ product.emoji|default:"📦" }}
+                                {% endif %}</div>
+                                <div class="compare-name">{{ product.product.name }}</div>
+                                <div class="compare-price">{{ product.product.price }} ₽</div>
+                                <a href="{% url 'products:product_detail' product.product.id %}" class="compare-detail-btn">Подробнее →</a>
+                            </div>
+                        </th>
+                        {% endfor %}
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="compare-label">Категория</td>
+                        {% for product in products %}
+                            <td>{{ product.product.category }}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Мощность</td>
+                        {% for product in products %}
+                            {% if product.product.power %}
+                                <td>{{ product.product.power }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Срок службы</td>
+                        {% for product in products %}
+                            {% if product.product.life %}
+                                <td>{{ product.product.life }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Длина</td>
+                        {% for product in products %}
+                            {% if product.product.length %}
+                                <td>{{ product.product.length }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Ширина</td>
+                        {% for product in products %}
+                            {% if product.product.width %}
+                                <td>{{ product.product.width }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Высота</td>
+                        {% for product in products %}
+                            {% if product.product.hight %}
+                                <td>{{ product.product.hight }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Краткое описание</td>
+                        {% for product in products %}
+                            {% if product.product.short_description %}
+                                <td>{{ product.product.short_description }}</td>
+                            {% else %}
+                                <td class="empty">—</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="compare-label">Действие</td>
+                        {% for product in products %}
+                        <td>
+                            {% if product.product not in baskets %}
+                            <a href="{% url 'products:basket_add' product.product.id%}">
+                                <button class="product-card__btn">В корзину</button>
+                            </a>
+                            {% else %}
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' product.product.id%}">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
+                                </a>
+                                {% for prod in bask %}
+                                {% if prod.product.id == product.product.id %}
+                                <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
+                                {% endif %}
+                                {% endfor %}
+                                <a href="{% url 'products:basket_add' product.product.id%}">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
+                                </a>
+                            </div>
+                            {% endif %}
+                            <a href="{% url 'products:compare_readd' product.id%}" class="compare-remove-btn">✕ Убрать</a>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
