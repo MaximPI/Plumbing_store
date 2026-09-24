@@ -22,9 +22,7 @@
                     <nav class="profile-nav">
                         <ul>
                             <li><a href="#" class="active">📋 Мои данные</a></li>
-                            <li><a href="#">📦 История заказов</a></li>
-                            <li><a href="#">❤️ Избранное</a></li>
-                            <li><a href="#">🔔 Уведомления</a></li>
+                            <li><a href="{% url 'products:favorites' %}">❤️ Избранное</a></li>
                             <li><a href="{% url 'users:logout' %}">🚪 Выйти</a></li>
                         </ul>
                     </nav>
@@ -70,31 +68,16 @@
                     <!-- Блок с последними заказами -->
                     <div class="recent-orders">
                         <h3>Последние заказы</h3>
-                        <div class="order-item">
-                            <div class="order-info">
-                                <span class="order-number">Заказ #1234</span>
-                                <span class="order-date">12.07.2026</span>
+                        {% for order in orders %}
+                            <div class="order-item">
+                                <div class="order-info">
+                                    <span class="order-number">Заказ #{{ order.id }}</span>
+                                    <span class="order-date">{{ order.date }}</span>
+                                </div>
+                                <div class="order-total">{{ order.summ }} ₽</div>
                             </div>
-                            <div class="order-status status-delivered">Доставлен</div>
-                            <div class="order-total">3 500 ₽</div>
-                        </div>
-                        <div class="order-item">
-                            <div class="order-info">
-                                <span class="order-number">Заказ #1233</span>
-                                <span class="order-date">08.07.2026</span>
-                            </div>
-                            <div class="order-status status-shipped">В пути</div>
-                            <div class="order-total">1 200 ₽</div>
-                        </div>
-                        <div class="order-item">
-                            <div class="order-info">
-                                <span class="order-number">Заказ #1232</span>
-                                <span class="order-date">01.07.2026</span>
-                            </div>
-                            <div class="order-status status-processing">Обрабатывается</div>
-                            <div class="order-total">8 900 ₽</div>
-                        </div>
-                        <a href="#" class="view-all-orders">Смотреть все заказы →</a>
+                        {% endfor %}
+                        <a href="{% url 'products:orders' %}" class="view-all-orders">Смотреть все заказы →</a>
                     </div>
                 </section>
             </div>

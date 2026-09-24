@@ -178,10 +178,14 @@ def orders(request):
 
 	return render(request, 'products/orders.html', context=context)
 
-def add_order(request, product_id):
-	product = Product.objects.get(id=product_id)
-	basket = Baskets.objects.get(user=request.user, product=product)
-	Order.objects.create(user=request.user, product=product, quantity=basket.quantity)
+def add_order(request):
+	for basket in Baskets.objects.filter(user=request.user):
+		Order.objects.create(user=request.user, product=basket.product, quantity=basket.quantity)
+	basket = Baskets.objects.filter(user=request.user)
 	basket.delete()
-	if not Baskets.objects.filter(user=request.user):
-		return render(request, 'products/modal.html', context={})
+	return render(request, 'products/modal.html', context={})
+
+def add_order_orders(request, order_id):
+	order = Order.objects.get(id=order_id)
+	Order.objects.create(user=request.user, product=order.product, quantity=order.quantity)
+	return render(request, 'products/modal.html', context={})

@@ -23,8 +23,8 @@
                     <li><a href="{% url 'products:home' %}">Каталог</a></li>
                     <li><a href="{% url 'products:favorites' %}">Избранное</a></li>
                     <li><a href="{% url 'products:baskets' %}">Корзина</a></li>
-                    <li><a href="{% url 'products:orders' %}">Заказы</a></li>
                     {% if user.is_authenticated %}
+                        <li><a href="{% url 'products:orders' %}">Заказы</a></li>
                         <li><a href="{% url 'users:profile' %}">{{ user.username }}</a></li>
                         <li>
                             <a href="{% url 'products:compare' %}" class="nav-compare" title="Сравнение товаров">

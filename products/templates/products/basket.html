@@ -80,9 +80,7 @@
                         <span>Доставка</span>
                         <span id="delivery">бесплатно</span>
                     </div>
-                     {% for basket in baskets %}
-                        <a href="{% url 'products:add_order' basket.product.id %}" class="checkout-btn" onclick="checkout()">Оформить заказ</a>
-                     {% endfor %}
+                     <a href="{% url 'products:add_order' %}" class="checkout-btn" onclick="checkout()">Оформить заказ</a>
                     <a href="catalog.html" class="continue-shopping">Продолжить покупки →</a>
                 </aside>
                 {% else %}

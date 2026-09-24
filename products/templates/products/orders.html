@@ -9,12 +9,6 @@
 <main class="main">
     <div class="container">
 
-        <!-- Хлебные крошки -->
-        <nav class="breadcrumbs">
-            <a href="{% url 'users:profile' %}">Профиль</a> &gt;
-            <span>Мои заказы</span>
-        </nav>
-
         <!-- Заголовок -->
         <div class="orders-header">
             <h1>Мои заказы</h1>
@@ -53,8 +47,7 @@
                         Итого: <strong>{{ order.summ }} ₽</strong>
                     </div>
                     <div class="order-actions">
-                        <a href="{% url 'products:add_order' order.product.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
-                        <a href="#" class="order-btn order-btn--secondary">Подробнее</a>
+                        <a href="{% url 'products:add_order_orders' order.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
                     </div>
                 </div>
             </article>

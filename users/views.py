@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from products.models import Order
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -36,7 +37,8 @@ def profile(request):
 	else:
 		form = UserProfileForm(instance=request.user)
 	context = {
-		"form": form
+		'form': form,
+		'orders': Order.objects.filter(user=request.user)[:3]
 	}
 	return render(request, 'users/profile.html', context)
 
