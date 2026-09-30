@@ -46,6 +46,12 @@
 .avatar-circle {
     font-size: 4rem;
     margin-bottom: 8px;
+    line-height: 1;
+}
+
+.avatar-circle img {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .profile-avatar h3 {
@@ -168,6 +174,86 @@
 .profile-save-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+}
+
+/* ============================================
+   КРАСИВАЯ КНОПКА ЗАГРУЗКИ ФАЙЛА
+   ============================================ */
+.file-upload {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+/* Скрываем стандартный input */
+.file-upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Красивая кнопка "Выбрать файл" */
+.file-upload__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #e67e22, #d35400);
+    color: #fff;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.file-upload__label:hover {
+    background: linear-gradient(135deg, #d35400, #a04000);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(230, 126, 34, 0.35);
+}
+
+.file-upload__label:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
+}
+
+.file-upload__icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.file-upload__text {
+    line-height: 1;
+}
+
+/* Имя выбранного файла */
+.file-upload__name {
+    font-size: 0.88rem;
+    color: #7f8c8d;
+    font-style: italic;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Если файл выбран — имя становится тёмным */
+.file-upload.has-file .file-upload__name {
+    color: #2c3e50;
+    font-style: normal;
+    font-weight: 500;
 }
 
 /* Блок последних заказов */
@@ -320,5 +406,186 @@
 
     .profile-content h2 {
         font-size: 1.5rem;
+    }
+
+    /* Уменьшенная кнопка загрузки на мобильных */
+    .file-upload__label {
+        padding: 9px 16px;
+        font-size: 0.88rem;
+    }
+
+    .file-upload__name {
+        max-width: 160px;
+        font-size: 0.82rem;
+    }
+}
+
+/* ========================================
+   БЛОК ОШИБОК
+   ======================================== */
+.error-container {
+    margin-bottom: 22px;
+    animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.error-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: #fef2f2;
+    border-left: 4px solid #e74c3c;
+    border-radius: 12px;
+    color: #991b1b;
+    position: relative;
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.error-message:hover {
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.14);
+}
+
+.error-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #fee2e2;
+    border-radius: 50%;
+    font-size: 1rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.error-text {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding-top: 5px;
+}
+
+.error-close {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: #991b1b;
+    cursor: pointer;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: all 0.2s ease;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.error-close:hover {
+    opacity: 1;
+    background: rgba(153, 27, 27, 0.1);
+    transform: scale(1.1);
+}
+
+/* ----- Типы сообщений ----- */
+
+/* Успех */
+.error-container.error-success .error-message {
+    background: #f0fdf4;
+    border-left-color: #27ae60;
+    color: #166534;
+    box-shadow: 0 4px 14px rgba(39, 174, 96, 0.08);
+}
+
+.error-container.error-success .error-message:hover {
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.14);
+}
+
+.error-container.error-success .error-icon {
+    background: #d1fae5;
+}
+
+.error-container.error-success .error-close {
+    color: #166534;
+}
+
+/* Предупреждение */
+.error-container.error-warning .error-message {
+    background: #fffbeb;
+    border-left-color: #f39c12;
+    color: #92400e;
+    box-shadow: 0 4px 14px rgba(243, 156, 18, 0.08);
+}
+
+.error-container.error-warning .error-message:hover {
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.14);
+}
+
+.error-container.error-warning .error-icon {
+    background: #fef3c7;
+}
+
+.error-container.error-warning .error-close {
+    color: #92400e;
+}
+
+/* Информация */
+.error-container.error-info .error-message {
+    background: #eff6ff;
+    border-left-color: #3498db;
+    color: #1e40af;
+    box-shadow: 0 4px 14px rgba(52, 152, 219, 0.08);
+}
+
+.error-container.error-info .error-message:hover {
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.14);
+}
+
+.error-container.error-info .error-icon {
+    background: #dbeafe;
+}
+
+.error-container.error-info .error-close {
+    color: #1e40af;
+}
+
+/* ----- Анимация появления ----- */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ----- Адаптив ----- */
+@media (max-width: 480px) {
+    .error-message {
+        padding: 14px 14px;
+        gap: 10px;
+    }
+
+    .error-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .error-text {
+        font-size: 0.9rem;
+    }
+
+    .error-close {
+        width: 24px;
+        height: 24px;
+        font-size: 1.2rem;
     }
 }

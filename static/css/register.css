@@ -210,102 +210,159 @@
    ======================================== */
 
 .error-container {
-    margin-bottom: 20px;
-    padding: 0;
-    border-radius: 10px;
-    background: #fff;
-    animation: slideDown 0.3s ease-out;
+    margin-bottom: 22px;
+    animation: slideDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .error-message {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 18px;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
     background: #fef2f2;
-    border: 2px solid #fecaca;
-    border-radius: 10px;
+    border-left: 4px solid #e74c3c;
+    border-radius: 12px;
     color: #991b1b;
     position: relative;
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.08);
+    transition: box-shadow 0.2s ease;
+}
+
+.error-message:hover {
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.14);
 }
 
 .error-icon {
-    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #fee2e2;
+    border-radius: 50%;
+    font-size: 1rem;
     flex-shrink: 0;
+    line-height: 1;
 }
 
 .error-text {
     flex: 1;
     font-size: 0.95rem;
     font-weight: 500;
-    line-height: 1.4;
+    line-height: 1.5;
+    padding-top: 5px;
 }
 
 .error-close {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: #991b1b;
     cursor: pointer;
-    padding: 0 5px;
-    opacity: 0.6;
-    transition: opacity 0.2s;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: all 0.2s ease;
     line-height: 1;
+    flex-shrink: 0;
 }
 
 .error-close:hover {
     opacity: 1;
+    background: rgba(153, 27, 27, 0.1);
+    transform: scale(1.1);
 }
 
-/* Разные типы ошибок */
+/* ----- Типы сообщений ----- */
+
+/* Успех */
 .error-container.error-success .error-message {
     background: #f0fdf4;
-    border-color: #86efac;
+    border-left-color: #27ae60;
     color: #166534;
+    box-shadow: 0 4px 14px rgba(39, 174, 96, 0.08);
+}
+
+.error-container.error-success .error-message:hover {
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.14);
+}
+
+.error-container.error-success .error-icon {
+    background: #d1fae5;
 }
 
 .error-container.error-success .error-close {
     color: #166534;
 }
 
+/* Предупреждение */
 .error-container.error-warning .error-message {
     background: #fffbeb;
-    border-color: #fcd34d;
+    border-left-color: #f39c12;
     color: #92400e;
+    box-shadow: 0 4px 14px rgba(243, 156, 18, 0.08);
+}
+
+.error-container.error-warning .error-message:hover {
+    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.14);
+}
+
+.error-container.error-warning .error-icon {
+    background: #fef3c7;
 }
 
 .error-container.error-warning .error-close {
     color: #92400e;
 }
 
+/* Информация */
 .error-container.error-info .error-message {
     background: #eff6ff;
-    border-color: #93c5fd;
+    border-left-color: #3498db;
     color: #1e40af;
+    box-shadow: 0 4px 14px rgba(52, 152, 219, 0.08);
+}
+
+.error-container.error-info .error-message:hover {
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.14);
+}
+
+.error-container.error-info .error-icon {
+    background: #dbeafe;
 }
 
 .error-container.error-info .error-close {
     color: #1e40af;
 }
 
-/* Анимация появления */
+/* ----- Анимация появления ----- */
 @keyframes slideDown {
     from {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-12px) scale(0.98);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-/* Адаптивность */
+/* ----- Адаптив ----- */
 @media (max-width: 480px) {
     .error-message {
-        padding: 12px 14px;
+        padding: 14px 14px;
+        gap: 10px;
+    }
+
+    .error-icon {
+        width: 28px;
+        height: 28px;
         font-size: 0.9rem;
-        flex-wrap: wrap;
     }
 
     .error-text {
@@ -313,6 +370,8 @@
     }
 
     .error-close {
-        font-size: 1.3rem;
+        width: 24px;
+        height: 24px;
+        font-size: 1.2rem;
     }
 }

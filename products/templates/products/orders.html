@@ -33,7 +33,11 @@
                 <div class="order-card__body">
                     <div class="order-products">
                         <div class="order-product">
-                            <div class="order-product__image">📦</div>
+                            {% if order.product.image %}
+                                <img class="order-product__image" src="/media/{{ order.product.image }}" alt="{{ product.name }}">
+                            {% else %}
+                                <div class="order-product__image">📦</div>
+                            {% endif %}
                             <div class="order-product__info">
                                 <div class="order-product__name">{{ order.product.name }}</div>
                                 <div class="order-product__qty">{{ order.quantity }} шт × {{ order.product.price }} ₽</div>

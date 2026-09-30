@@ -13,6 +13,15 @@
         <div class="container">
             <div class="auth-wrapper">
                 <div class="auth-box">
+                    {% if form.errors %}
+                    <div class="error-container">
+                        <div class="error-message">
+                            <span class="error-icon">⚠️</span>
+                            <span class="error-text">{{ form.errors }}</span>
+                            <button type="button" class="error-close" onclick="this.closest('.error-container').remove()">✕</button>
+                        </div>
+                    </div>
+                    {% endif %}
                     <h1>Вход в аккаунт</h1>
                     <p class="auth-subtitle">Войдите, чтобы продолжить покупки</p>
                     <form class="auth-form" id="loginForm" method="post" action="{% url 'users:login' %}">
@@ -25,13 +34,6 @@
                         <div class="form-group">
                             <label for="{{ form.password.id_for_label }}">Пароль</label>
                             {{ form.password }}
-                        </div>
-
-                        <div class="form-options">
-                            <label class="remember-me">
-                                <input type="checkbox" /> Запомнить меня
-                            </label>
-                            <a href="#" class="forgot-password">Забыли пароль?</a>
                         </div>
 
                         <input type="submit" class="auth-btn" value="Войти">

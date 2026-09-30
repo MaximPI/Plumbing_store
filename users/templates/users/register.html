@@ -13,20 +13,22 @@
         <div class="auth-wrapper">
             <div class="auth-box">
 
-            <div class="modal-overlay" id="modalOverlay">
-                <div class="modal-box error" id="modalBox">
-                    <!-- Иконка -->
-                    <div class="modal-icon" id="modalIcon">⚠️</div>
+                {% if form.errors %}
+                <div class="error-container">
+                    <div class="error-message">
+                        <span class="error-icon">⚠️</span>
+                        <span class="error-text">{{ form.errors }}</span>
+                        <button type="button" class="error-close" onclick="this.closest('.error-container').remove()">✕</button>
+                    </div>
+                </div>
+                {% endif %}
 
-                    <!-- Заголовок -->
-                    <div class="modal-title" id="modalTitle">Ошибка!</div>
-
-                    <!-- Текст сообщения -->
-                    <div class="modal-message" id="modalMessage">Текст ошибки</div>
                 <h1>Создать аккаунт</h1>
                 <p class="auth-subtitle">Зарегистрируйтесь, чтобы начать покупки</p>
+
                 <form class="auth-form" id="loginForm" method="post" action="{% url 'users:register' %}">
                     {% csrf_token %}
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="{{ form.username.id_for_label }}">Имя</label>
@@ -37,7 +39,6 @@
                             {{ form.last_name }}
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label for="{{ form.email.id_for_label }}">email</label>
@@ -72,10 +73,10 @@
                 <div class="auth-footer">
                     <p>Уже есть аккаунт? <a href="{% url 'users:login'%}">Войти</a></p>
                 </div>
+
             </div>
         </div>
     </div>
 </main>
-
 
 {% endblock %}
