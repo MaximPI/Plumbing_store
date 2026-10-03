@@ -1,20 +1,20 @@
 /* ===== Стили для страницы профиля ===== */
 
-/* Хлебные крошки (уже есть в catalog.css, но продублируем) */
+/* Хлебные крошки */
 .breadcrumbs {
     margin-bottom: 25px;
     font-size: 0.95rem;
-    color: #7f8c8d;
+    color: #5b7c99;
 }
 .breadcrumbs a {
-    color: #3498db;
+    color: #0077b6;
     text-decoration: none;
 }
 .breadcrumbs a:hover {
     text-decoration: underline;
 }
 .breadcrumbs span {
-    color: #2c3e50;
+    color: #0a2540;
     font-weight: 600;
 }
 
@@ -29,9 +29,9 @@
 .profile-sidebar {
     flex: 0 0 260px;
     background: #fff;
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 25px 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
     position: sticky;
     top: 100px;
 }
@@ -39,7 +39,7 @@
 .profile-avatar {
     text-align: center;
     padding-bottom: 20px;
-    border-bottom: 2px solid #ecf0f1;
+    border-bottom: 2px solid #dbe9f4;
     margin-bottom: 20px;
 }
 
@@ -56,13 +56,13 @@
 
 .profile-avatar h3 {
     font-size: 1.2rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 2px;
 }
 
 .profile-avatar p {
     font-size: 0.9rem;
-    color: #7f8c8d;
+    color: #5b7c99;
 }
 
 /* Навигация профиля */
@@ -78,21 +78,22 @@
 .profile-nav ul li a {
     display: block;
     padding: 10px 15px;
-    border-radius: 8px;
-    color: #555;
+    border-radius: 10px;
+    color: #5b7c99;
     text-decoration: none;
     transition: all 0.2s;
     font-weight: 500;
 }
 
 .profile-nav ul li a:hover {
-    background: #f5f5f5;
-    color: #2c3e50;
+    background: #f0f6fc;
+    color: #0077b6;
 }
 
 .profile-nav ul li a.active {
-    background: #e67e22;
+    background: #0077b6;
     color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
 }
 
 .profile-nav ul li a:last-child {
@@ -101,7 +102,7 @@
 }
 
 .profile-nav ul li a:last-child:hover {
-    background: #fee;
+    background: #fef2f2;
 }
 
 /* Основной контент */
@@ -112,7 +113,7 @@
 
 .profile-content h2 {
     font-size: 2rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 25px;
 }
 
@@ -120,8 +121,8 @@
 .profile-form {
     background: #fff;
     padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
     margin-bottom: 30px;
 }
 
@@ -139,32 +140,34 @@
     display: block;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 6px;
 }
 
 .profile-form input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
+    border: 2px solid #dbe9f4;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: border-color 0.2s;
-    background: #fafafa;
+    color: #0a2540;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #f8fbfe;
 }
 
 .profile-form input:focus {
     outline: none;
-    border-color: #e67e22;
+    border-color: #0077b6;
     background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.12);
 }
 
 .profile-save-btn {
     padding: 12px 35px;
-    background: linear-gradient(135deg, #e67e22, #d35400);
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -173,7 +176,7 @@
 
 .profile-save-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.3);
 }
 
 /* ============================================
@@ -206,27 +209,26 @@
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: linear-gradient(135deg, #e67e22, #d35400);
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
     color: #fff;
     border-radius: 30px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
     user-select: none;
     white-space: nowrap;
 }
 
 .file-upload__label:hover {
-    background: linear-gradient(135deg, #d35400, #a04000);
+    background: linear-gradient(135deg, #005f8f, #0077b6);
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(230, 126, 34, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 119, 182, 0.35);
 }
 
 .file-upload__label:active {
     transform: translateY(0) scale(0.98);
-    box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
 }
 
 .file-upload__icon {
@@ -241,7 +243,7 @@
 /* Имя выбранного файла */
 .file-upload__name {
     font-size: 0.88rem;
-    color: #7f8c8d;
+    color: #5b7c99;
     font-style: italic;
     max-width: 220px;
     overflow: hidden;
@@ -249,9 +251,8 @@
     white-space: nowrap;
 }
 
-/* Если файл выбран — имя становится тёмным */
 .file-upload.has-file .file-upload__name {
-    color: #2c3e50;
+    color: #0a2540;
     font-style: normal;
     font-weight: 500;
 }
@@ -260,13 +261,13 @@
 .recent-orders {
     background: #fff;
     padding: 25px 30px;
-    border-radius: 16px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
 }
 
 .recent-orders h3 {
     font-size: 1.3rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 20px;
 }
 
@@ -275,7 +276,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid #dbe9f4;
 }
 
 .order-item:last-child {
@@ -290,7 +291,7 @@
 
 .order-number {
     font-weight: 600;
-    color: #2c3e50;
+    color: #0a2540;
 }
 
 .order-date {
@@ -306,34 +307,35 @@
 }
 
 .status-delivered {
-    background: #d4edda;
-    color: #155724;
+    background: #e0f5fb;
+    color: #0077b6;
 }
 
 .status-shipped {
-    background: #cce5ff;
-    color: #004085;
+    background: #e0ecfb;
+    color: #1e5fa8;
 }
 
 .status-processing {
-    background: #fff3cd;
-    color: #856404;
+    background: #fef6e0;
+    color: #b07300;
 }
 
 .order-total {
     font-weight: 700;
-    color: #2c3e50;
+    color: #0a2540;
 }
 
 .view-all-orders {
     display: inline-block;
     margin-top: 15px;
-    color: #e67e22;
+    color: #0077b6;
     text-decoration: none;
     font-weight: 600;
 }
 
 .view-all-orders:hover {
+    color: #005f8f;
     text-decoration: underline;
 }
 
@@ -408,7 +410,6 @@
         font-size: 1.5rem;
     }
 
-    /* Уменьшенная кнопка загрузки на мобильных */
     .file-upload__label {
         padding: 9px 16px;
         font-size: 0.88rem;
@@ -492,18 +493,12 @@
     transform: scale(1.1);
 }
 
-/* ----- Типы сообщений ----- */
-
 /* Успех */
 .error-container.error-success .error-message {
     background: #f0fdf4;
     border-left-color: #27ae60;
     color: #166534;
     box-shadow: 0 4px 14px rgba(39, 174, 96, 0.08);
-}
-
-.error-container.error-success .error-message:hover {
-    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.14);
 }
 
 .error-container.error-success .error-icon {
@@ -522,10 +517,6 @@
     box-shadow: 0 4px 14px rgba(243, 156, 18, 0.08);
 }
 
-.error-container.error-warning .error-message:hover {
-    box-shadow: 0 6px 20px rgba(243, 156, 18, 0.14);
-}
-
 .error-container.error-warning .error-icon {
     background: #fef3c7;
 }
@@ -542,10 +533,6 @@
     box-shadow: 0 4px 14px rgba(52, 152, 219, 0.08);
 }
 
-.error-container.error-info .error-message:hover {
-    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.14);
-}
-
 .error-container.error-info .error-icon {
     background: #dbeafe;
 }
@@ -554,7 +541,7 @@
     color: #1e40af;
 }
 
-/* ----- Анимация появления ----- */
+/* Анимация появления */
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -566,7 +553,7 @@
     }
 }
 
-/* ----- Адаптив ----- */
+/* Адаптив блока ошибок */
 @media (max-width: 480px) {
     .error-message {
         padding: 14px 14px;

@@ -5,16 +5,144 @@
 <link href="{% static 'css/index.css' %}" rel="stylesheet">
 {% endblock %}
 
-
 {% block content %}
 
-        <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
-        <div class="main-content">
-            <div class="content-box">
-                <h1>Водная <span>планета</span></h1>
-                <div class="divider"></div>
-                <p class="subtitle">Магазин сантехники</p>
-                <p class="info"><strong>Всё для тепла и комфорта</p>
+<!-- ===== ГЛАВНЫЙ БАННЕР ===== -->
+<div class="main-content">
+    <div class="content-box">
+        <h1>Водная <span>планета</span></h1>
+        <div class="divider"></div>
+        <p class="subtitle">Магазин сантехники</p>
+        <p class="info"><strong>Всё для тепла и комфорта</strong></p>
+
+        <!-- Форма поиска -->
+        <form method="get" action="{% url 'products:find' %}" class="hero-search">
+            <input type="text"
+                   name="search"
+                   class="hero-search__input"
+                   placeholder="Поиск товаров...">
+            <button type="submit" class="hero-search__btn">🔍</button>
+        </form>
+
+        <!-- Кнопки -->
+        <div class="hero-actions">
+            <a href="{% url 'products:home' %}" class="hero-btn hero-btn--primary">
+                Перейти в каталог
+            </a>
+            <a href="{% url 'about' %}" class="hero-btn hero-btn--secondary">
+                О магазине
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ПРЕИМУЩЕСТВА ===== -->
+<section class="home-section home-section--gray">
+    <div class="container">
+        <h2 class="home-section__title">Почему выбирают нас</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-card__icon">🚚</div>
+                <div class="feature-card__title">Быстрая доставка</div>
+                <div class="feature-card__desc">Отправляем заказы в день оформления</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-card__icon">🔒</div>
+                <div class="feature-card__title">Гарантия качества</div>
+                <div class="feature-card__desc">Возврат и обмен в течение 14 дней</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-card__icon">💬</div>
+                <div class="feature-card__title">Поддержка 24/7</div>
+                <div class="feature-card__desc">Поможем с выбором и монтажом</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-card__icon">🏆</div>
+                <div class="feature-card__title">Только лучшее</div>
+                <div class="feature-card__desc">Проверенные бренды и поставщики</div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- ===== ПОПУЛЯРНЫЕ ТОВАРЫ ===== -->
+<section class="home-section">
+    <div class="container">
+        <h2 class="home-section__title">Популярные товары</h2>
+        <p class="home-section__subtitle">Выбор наших покупателей</p>
+
+        <div class="popular-grid">
+            {% for product in sorted_products %}
+            <article class="popular-card">
+
+                <!-- Невидимая ссылка на всю карточку -->
+                <a href="{% url 'products:product_detail' product.id %}"
+                   class="product-card__link"
+                   aria-label="{{ product.name }}"></a>
+
+                <!-- Изображение -->
+                {% if product.image %}
+                    <img src="/media/{{ product.image }}"
+                         alt="{{ product.name }}"
+                         class="popular-card__image">
+                {% else %}
+                    <div class="popular-card__image">📦</div>
+                {% endif %}
+
+                <!-- Название и цена -->
+                <div class="popular-card__name">{{ product.name }}</div>
+                <div class="popular-card__price">{{ product.price }} ₽</div>
+
+                <!-- Кнопки действий -->
+                {% if user.is_authenticated %}
+                    {% if product not in baskets %}
+                        <a href="{% url 'products:basket_add' product.id %}"
+                           class="popular-card__btn">В корзину</a>
+                    {% else %}
+                        <div class="quantity-control">
+                            <a href="{% url 'products:basket_readd' product.id %}"
+                               class="quantity-btn minus">−</a>
+
+                            {% for prod in bask %}
+                                {% if prod.product.id == product.id %}
+                                    <input type="number"
+                                           class="quantity-input"
+                                           value="{{ prod.quantity }}"
+                                           min="1" max="99" readonly>
+                                {% endif %}
+                            {% endfor %}
+
+                            <a href="{% url 'products:basket_add' product.id %}"
+                               class="quantity-btn plus">+</a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'users:login' %}" class="popular-card__btn">
+                        Авторизуйтесь
+                    </a>
+                {% endif %}
+
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== ПРИЗЫВ К ДЕЙСТВИЮ ===== -->
+<section class="home-cta">
+    <div class="container">
+        <div class="cta-box">
+            <h2>Нужна помощь с выбором?</h2>
+            <p>Наши специалисты помогут подобрать оборудование под ваши задачи</p>
+            <a href="{% url 'about' %}" class="hero-btn hero-btn--primary">
+                Связаться с нами
+            </a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

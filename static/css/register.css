@@ -13,22 +13,23 @@
 .auth-box {
     background: #fff;
     padding: 40px 45px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 119, 182, 0.1);
     width: 100%;
     max-width: 480px;
+    border: 1px solid #dbe9f4;
 }
 
 .auth-box h1 {
     font-size: 2rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 5px;
     text-align: center;
 }
 
 .auth-subtitle {
     text-align: center;
-    color: #7f8c8d;
+    color: #5b7c99;
     margin-bottom: 30px;
     font-size: 0.95rem;
 }
@@ -42,7 +43,7 @@
     display: block;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 6px;
 }
 
@@ -52,17 +53,19 @@
 .auth-form input[type="tel"] {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 10px;
+    border: 2px solid #dbe9f4;
+    border-radius: 12px;
     font-size: 1rem;
-    transition: border-color 0.2s;
-    background: #fafafa;
+    color: #0a2540;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: #f8fbfe;
+    outline: none;
 }
 
 .auth-form input:focus {
-    outline: none;
-    border-color: #e67e22;
+    border-color: #0077b6;
     background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.12);
 }
 
 /* Две колонки для имени и фамилии */
@@ -86,28 +89,29 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #555;
+    color: #5b7c99;
     cursor: pointer;
 }
 
 .agree-terms input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: #e67e22;
+    accent-color: #0077b6;
     cursor: pointer;
 }
 
 .agree-terms a {
-    color: #e67e22;
+    color: #0077b6;
     text-decoration: none;
     font-weight: 500;
 }
 
 .agree-terms a:hover {
     text-decoration: underline;
+    color: #005f8f;
 }
 
-/* ----- КНОПКА РЕГИСТРАЦИИ (внутри списка) ----- */
+/* ----- КНОПКА РЕГИСТРАЦИИ ----- */
 .auth-form ul {
     list-style: none;
     padding: 0;
@@ -122,10 +126,10 @@
 .auth-form ul li .auth-btn {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #e67e22, #d35400);
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -137,7 +141,7 @@
 
 .auth-form ul li .auth-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.3);
 }
 
 .auth-form ul li .auth-btn:active {
@@ -149,18 +153,19 @@
     text-align: center;
     margin-top: 25px;
     padding-top: 20px;
-    border-top: 1px solid #ecf0f1;
-    color: #555;
+    border-top: 1px solid #dbe9f4;
+    color: #5b7c99;
 }
 
 .auth-footer a {
-    color: #e67e22;
+    color: #0077b6;
     font-weight: 600;
     text-decoration: none;
 }
 
 .auth-footer a:hover {
     text-decoration: underline;
+    color: #005f8f;
 }
 
 /* Адаптивность */

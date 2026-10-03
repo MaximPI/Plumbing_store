@@ -17,9 +17,9 @@
                      Фильтр по категориям
                     <div class="category-filters">
                         <h4>Категория</h4>
-                        <a href="{% url 'products:home' %}" class="category-btn {% if not category %} active {% endif %}"> Все </a>
+                        <a href="{% url 'products:home' %}" class="category-btn {% if not category and if_categories %} active {% endif %}"> Все </a>
                         {% for categor in categories %}
-                            <a href="{% url 'products:category' categor.id %}" class="category-btn {% if category == categor.id %} active {% endif %}">
+                            <a href="{% url 'products:category' categor.id %}" class="category-btn {% if category == categor.id and if_categories %} active {% endif %}">
                                 {{ categor.name }}
                             </a>
                         {% endfor %}
@@ -32,14 +32,16 @@
                     <!-- Сортировка и количество -->
                     <div class="catalog-toolbar">
                         <span class="product-count">Найдено: {{quantity}} товаров</span>
-<!--                        <div class="sort-options">-->
-<!--                           <input type="text"-->
-<!--                               name="search"-->
-<!--                               class="search-input"-->
-<!--                               placeholder="Поиск товаров..."-->
-<!--                               value="{{ request.GET.search|default:'' }}">-->
-<!--                            <a class="search-btn" href="{url 'products:find' name=name}"></a>-->
-<!--                        </div>-->
+                        <div class="sort-options">
+                            <form method="get" action=" {% url 'products:find' %} ">
+                                <input type="text"
+                                   name="search"
+                                   class="search-input"
+                                   placeholder="Поиск товаров..."
+                                   value="{{ request.GET.search|default:'' }}">
+                                <input type="submit" class="search-btn" value="🔍">
+                            </form>
+                        </div>
                     </div>
 
                     <!-- Сетка товаров -->

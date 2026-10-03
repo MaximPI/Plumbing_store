@@ -1,5 +1,5 @@
 from django.urls import path
-from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders
+from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders, find
 
 
 app_name = 'products'
@@ -7,6 +7,7 @@ app_name = 'products'
 urlpatterns = [
     path('', catalog, name='home'),
     path('compare', compare, name='compare'),
+    path('find', find, name='find'),
     path('baskets', baskets, name='baskets'),
     path('orders', orders, name='orders'),
     path('favorites', favorites, name='favorites'),

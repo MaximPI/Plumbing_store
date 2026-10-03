@@ -1,61 +1,97 @@
-/* Герой-секция */
+/* ============================================
+   СТРАНИЦА "О НАС"
+   ============================================ */
+
+/* ----- Герой-секция ----- */
 .about-hero {
     text-align: center;
-    padding: 50px 20px 40px;
-    background: linear-gradient(135deg, #2c3e50, #34495e);
+    padding: 60px 20px 50px;
+    background: linear-gradient(135deg, #0077b6, #00b4d8);
     color: #fff;
-    border-radius: 16px;
+    border-radius: 24px;
     margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-hero::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+}
+
+.about-hero::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    pointer-events: none;
 }
 
 .about-hero h1 {
     font-size: 2.8rem;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-weight: 700;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .about-hero p {
     font-size: 1.2rem;
-    opacity: 0.9;
+    opacity: 0.95;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    color: #e0f4ff;
 }
 
-/* Миссия */
+/* ----- Миссия ----- */
 .mission {
     display: flex;
     align-items: center;
     gap: 40px;
     background: #fff;
     padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
     margin-bottom: 50px;
+    border: 1px solid #dbe9f4;
 }
 
 .mission__content {
     flex: 2;
 }
 
-.mission__content h2 {
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 15px;
-}
-
 .mission__content p {
     font-size: 1.05rem;
-    line-height: 1.7;
-    color: #555;
+    line-height: 1.8;
+    color: #5b7c99;
+    white-space: pre-line;
 }
 
 .mission__image {
     flex: 1;
     font-size: 6rem;
     text-align: center;
+    background: linear-gradient(135deg, #f0f6fc, #e0f5fb);
+    border-radius: 20px;
+    padding: 40px 20px;
+    line-height: 1;
 }
 
-/* Статистика / Цифры */
+/* ----- Статистика ----- */
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -65,31 +101,35 @@
 
 .stat-item {
     background: #fff;
-    padding: 25px 15px;
-    border-radius: 12px;
+    padding: 28px 18px;
+    border-radius: 16px;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
 }
 
 .stat-item:hover {
     transform: translateY(-5px);
+    border-color: #00b4d8;
+    box-shadow: 0 12px 28px rgba(0, 119, 182, 0.12);
 }
 
 .stat-number {
     display: block;
     font-size: 2.5rem;
     font-weight: 700;
-    color: #e67e22;
+    color: #0077b6;
     margin-bottom: 5px;
+    line-height: 1.1;
 }
 
 .stat-label {
     font-size: 1rem;
-    color: #555;
+    color: #5b7c99;
 }
 
-/* Преимущества */
+/* ----- Преимущества ----- */
 .advantages {
     margin-bottom: 50px;
 }
@@ -97,8 +137,9 @@
 .advantages h2 {
     text-align: center;
     font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 30px;
+    color: #0a2540;
+    margin-bottom: 35px;
+    font-weight: 700;
 }
 
 .advantages-grid {
@@ -109,35 +150,47 @@
 
 .advantage-card {
     background: #fff;
-    padding: 25px 20px;
-    border-radius: 12px;
+    padding: 30px 24px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-    transition: box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
 }
 
 .advantage-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-6px);
+    border-color: #00b4d8;
+    box-shadow: 0 12px 28px rgba(0, 119, 182, 0.12);
 }
 
 .advantage-icon {
-    font-size: 2.8rem;
-    margin-bottom: 12px;
+    font-size: 3rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #f0f6fc, #e0f5fb);
+    border-radius: 50%;
 }
 
 .advantage-card h3 {
     font-size: 1.15rem;
-    margin-bottom: 8px;
-    color: #2c3e50;
+    margin-bottom: 10px;
+    color: #0a2540;
+    font-weight: 700;
 }
 
 .advantage-card p {
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.5;
+    font-size: 0.92rem;
+    color: #5b7c99;
+    line-height: 1.6;
 }
 
-/* Команда */
+/* ----- Команда ----- */
 .team {
     margin-bottom: 50px;
 }
@@ -145,8 +198,9 @@
 .team h2 {
     text-align: center;
     font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 30px;
+    color: #0a2540;
+    margin-bottom: 35px;
+    font-weight: 700;
 }
 
 .team-grid {
@@ -157,84 +211,130 @@
 
 .team-member {
     background: #fff;
-    padding: 25px 15px;
-    border-radius: 12px;
+    padding: 30px 20px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    border-color: #00b4d8;
+    box-shadow: 0 12px 28px rgba(0, 119, 182, 0.12);
 }
 
 .team-member__avatar {
     font-size: 3.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #f0f6fc, #e0f5fb);
+    border-radius: 50%;
 }
 
 .team-member h4 {
     font-size: 1.1rem;
-    color: #2c3e50;
+    color: #0a2540;
     margin-bottom: 4px;
+    font-weight: 700;
 }
 
 .team-member p {
-    font-weight: 500;
-    color: #e67e22;
+    font-weight: 600;
+    color: #0077b6;
     margin-bottom: 5px;
+    font-size: 0.92rem;
 }
 
 .team-member span {
-    font-size: 0.9rem;
-    color: #777;
+    font-size: 0.88rem;
+    color: #95a5a6;
 }
 
-/* Цитата / отзыв */
+/* ----- Цитата / отзыв ----- */
 .testimonial {
-    background: #ecf0f1;
-    padding: 40px 30px;
-    border-radius: 16px;
+    background: linear-gradient(135deg, #f0f6fc, #e0f5fb);
+    padding: 50px 40px;
+    border-radius: 24px;
     text-align: center;
     margin-bottom: 30px;
+    border: 1px solid #dbe9f4;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial::before {
+    content: "«";
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    font-size: 10rem;
+    color: rgba(0, 119, 182, 0.08);
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
 }
 
 .testimonial blockquote {
     font-size: 1.3rem;
     font-style: italic;
-    color: #2c3e50;
+    color: #0a2540;
     max-width: 700px;
-    margin: 0 auto 15px;
-    line-height: 1.6;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
 }
 
 .testimonial cite {
     font-size: 1rem;
     font-weight: 600;
-    color: #e67e22;
+    color: #0077b6;
     font-style: normal;
+    position: relative;
+    z-index: 1;
 }
 
-/* Адаптивность */
+/* ----- Адаптивность ----- */
 @media (max-width: 992px) {
     .mission {
         flex-direction: column;
         text-align: center;
     }
+
     .mission__image {
         font-size: 4rem;
+        padding: 30px 20px;
     }
 
     .stats {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .advantages-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .team-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 600px) {
+    .about-hero {
+        padding: 40px 20px 35px;
+    }
+
     .about-hero h1 {
         font-size: 2rem;
     }
+
     .about-hero p {
         font-size: 1rem;
     }
@@ -243,23 +343,52 @@
         grid-template-columns: 1fr 1fr;
         gap: 12px;
     }
+
     .stat-number {
         font-size: 1.8rem;
+    }
+
+    .stat-item {
+        padding: 20px 12px;
+    }
+
+    .advantages h2,
+    .team h2 {
+        font-size: 1.6rem;
     }
 
     .advantages-grid {
         grid-template-columns: 1fr;
         gap: 15px;
     }
+
     .team-grid {
         grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
+
     .team-member {
-        padding: 15px;
+        padding: 20px 15px;
     }
+
+    .team-member__avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 2.8rem;
+    }
+
+    .testimonial {
+        padding: 35px 25px;
+    }
+
     .testimonial blockquote {
         font-size: 1.1rem;
+    }
+
+    .testimonial::before {
+        font-size: 7rem;
+        top: -10px;
+        left: 15px;
     }
 }
 

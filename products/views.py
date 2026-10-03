@@ -1,4 +1,3 @@
-from django.contrib.admin.templatetags.admin_list import pagination
 from django.shortcuts import render, HttpResponseRedirect
 from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order
 from django.contrib.auth.decorators import login_required
@@ -11,12 +10,31 @@ def index(request):
 	context = {
 		'title': 'Водная планета',
 	}
+	products = {
+
+	}
+	if request.user.is_authenticated:
+		context.update({
+			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+			'bask': Baskets.objects.filter(user=request.user),
+		})
+	for product in Product.objects.all():
+		products[product] = len(Order.objects.filter(product=product))
+
+	sorted_products = sorted(products.keys(), key=lambda x: products[x], reverse=True)
+	context.update({
+		'sorted_products': sorted_products[:4],
+	})
+
+
+
 	return render(request, 'products/index.html', context=context)
 
 def catalog(request, category_id=None, page_number=1):
 	context = {
 		'title': 'каталог',
 		'categories': ProductCategory.objects.all(),
+		'if_categories': True
 	}
 
 	if request.user.is_authenticated:
@@ -29,15 +47,15 @@ def catalog(request, category_id=None, page_number=1):
 			'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
 		})
 	if category_id:
-		filtered_products = Product.objects.filter(category_id=category_id)
+		products = Product.objects.filter(category_id=category_id)
 	else:
-		filtered_products = Product.objects.all()
+		products = Product.objects.all()
 
-	pagination = Paginator(filtered_products, 10)
+	pagination = Paginator(products, 1)
 	products_paginator = pagination.page(page_number)
 	context.update({
 		'products': products_paginator,
-		'quantity': len(filtered_products),
+		'quantity': len(products),
 		'category': category_id,
 	})
 
@@ -189,3 +207,30 @@ def add_order_orders(request, order_id):
 	order = Order.objects.get(id=order_id)
 	Order.objects.create(user=request.user, product=order.product, quantity=order.quantity)
 	return render(request, 'products/modal.html', context={})
+
+
+def find(request):
+	context = {
+		'title': 'найдено',
+		'categories': ProductCategory.objects.all(),
+		'if_categories': False
+	}
+
+	if request.user.is_authenticated:
+		context.update({
+			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+			'bask': Baskets.objects.filter(user=request.user),
+			'favorites': [favorite.product for favorite in Favorites.objects.filter(user=request.user)],
+			'fav': Favorites.objects.filter(user=request.user),
+			'compares': Compare.objects.filter(user=request.user),
+			'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
+		})
+
+	name = request.GET.get('search', '').strip()
+	products = Product.objects.filter(name__icontains=name)
+
+	context.update({
+		'products': products,
+		'quantity': len(products),
+	})
+	return render(request, 'products/catalog.html', context=context)
