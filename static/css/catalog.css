@@ -156,6 +156,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: nowrap;
 }
 
 .sort-options select {
@@ -285,11 +286,12 @@
 }
 
 /* ============================================
-   ФОРМА ПОИСКА (инпут и кнопка рядом)
+   ФОРМА ПОИСКА (инпут и кнопка всегда в одну строку)
    ============================================ */
 .sort-options form {
     display: flex;
     align-items: center;
+    flex-wrap: nowrap;
     gap: 8px;
     margin: 0;
 }
@@ -302,7 +304,9 @@
 }
 
 .search-input {
-    width: 240px;
+    flex: 0 1 240px;
+    min-width: 0;
+    width: auto;
     padding: 10px 16px;
     border: 2px solid #dbe9f4;
     border-radius: 30px;
@@ -324,6 +328,7 @@
 }
 
 .search-btn {
+    flex: 0 0 42px;
     width: 42px;
     height: 42px;
     border: none;
@@ -336,7 +341,6 @@
     align-items: center;
     justify-content: center;
     transition: background 0.2s, transform 0.15s;
-    flex-shrink: 0;
     padding: 0;
     line-height: 1;
 }
@@ -814,8 +818,7 @@
         text-align: center;
     }
 
-    .price-filter,
-    .sort-options {
+    .price-filter {
         justify-content: center;
     }
 
@@ -823,9 +826,21 @@
         width: 80px;
     }
 
-    .search-input {
+    /* Форма поиска на мобильных — на всю ширину, но в одну строку */
+    .sort-options {
         width: 100%;
-        max-width: 320px;
+        justify-content: center;
+    }
+
+    .sort-options form {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .sort-options .search-input {
+        flex: 1 1 auto;
+        width: auto;
+        max-width: none;
     }
 }
 
@@ -868,9 +883,22 @@
         font-size: 0.85rem;
     }
 
-    .search-input {
-        width: 100%;
+    /* Форма поиска на маленьких экранах — в одну строку */
+    .sort-options form {
+        max-width: 100%;
+    }
+
+    .sort-options .search-input {
+        flex: 1 1 auto;
+        width: auto;
         font-size: 0.85rem;
+        padding: 10px 14px;
+    }
+
+    .sort-options .search-btn {
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
     }
 
     /* Уменьшенные кнопки − и + на мобильных */
