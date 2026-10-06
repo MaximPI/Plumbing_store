@@ -1,5 +1,5 @@
 /* ============================================
-   МОДАЛЬНОЕ ОКНО "ЗАКАЗ СОЗДАН"
+   МОДАЛЬНОЕ ОКНО "ЗАКАЗ СОЗДАН" — DEEP OCEAN + BLACK
    ============================================ */
 
 * {
@@ -10,26 +10,35 @@
 }
 
 body {
-    background: rgba(10, 37, 64, 0.55);
+    background:
+        radial-gradient(ellipse at 25% 20%, #0f2942 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 80%, #05101f 0%, transparent 55%),
+        linear-gradient(180deg, #05101f 0%, #0a1929 100%);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    color: #e0f2fe;
 }
 
 /* ----- Коробка окна ----- */
 .modal-box {
-    background: #fff;
+    background: rgba(10, 25, 41, 0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(94, 234, 212, 0.25);
     border-radius: 24px;
     padding: 40px 32px 28px;
     max-width: 440px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 119, 182, 0.25);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.6),
+        0 0 120px rgba(20, 184, 166, 0.1);
     animation: modalPop 0.35s ease;
     position: relative;
-    border: 1px solid #dbe9f4;
+    color: #e0f2fe;
 }
 
 @keyframes modalPop {
@@ -43,14 +52,16 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     font-size: 2.5rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.35);
+    box-shadow:
+        0 8px 24px rgba(20, 184, 166, 0.5),
+        0 0 60px rgba(20, 184, 166, 0.35);
     animation: iconPulse 0.5s ease 0.2s both;
 }
 
@@ -63,15 +74,16 @@ body {
 /* ----- Заголовок ----- */
 .modal-title {
     font-size: 1.5rem;
-    font-weight: 700;
-    color: #0a2540;
+    font-weight: 800;
+    color: #e0f2fe;
     margin-bottom: 12px;
+    letter-spacing: -0.5px;
 }
 
 /* ----- Текст ----- */
 .modal-message {
     font-size: 1rem;
-    color: #5b7c99;
+    color: #94c5e8;
     line-height: 1.6;
     margin-bottom: 28px;
 }
@@ -89,40 +101,46 @@ body {
     padding: 12px 24px;
     border-radius: 30px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
     border: none;
+    font-family: inherit;
 }
 
 .modal-btn--primary {
-    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
 }
 
 .modal-btn--primary:hover {
-    background: linear-gradient(135deg, #005f8f, #0077b6);
-    transform: scale(1.02);
-    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
 }
 
 .modal-btn--primary:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
 }
 
 .modal-btn--secondary {
     background: transparent;
-    color: #0a2540;
-    border: 2px solid #dbe9f4;
+    color: #5eead4;
+    border: 1px solid rgba(94, 234, 212, 0.35);
 }
 
 .modal-btn--secondary:hover {
-    border-color: #0077b6;
-    color: #0077b6;
-    background: #f0f6fc;
-    transform: scale(1.02);
+    background: rgba(20, 184, 166, 0.15);
+    border-color: #14b8a6;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.25);
+}
+
+.modal-btn--secondary:active {
+    transform: translateY(0) scale(0.98);
 }
 
 /* ----- Крестик закрытия ----- */
@@ -133,8 +151,9 @@ body {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: #f0f6fc;
-    color: #95a5a6;
+    background: rgba(5, 16, 31, 0.85);
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    color: #4a7ba8;
     font-size: 1.1rem;
     font-weight: 700;
     display: inline-flex;
@@ -142,12 +161,19 @@ body {
     justify-content: center;
     text-decoration: none;
     transition: all 0.2s ease;
+    line-height: 1;
 }
 
 .modal-close:hover {
     background: #e74c3c;
     color: #fff;
+    border-color: #e74c3c;
     transform: scale(1.1);
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.5);
+}
+
+.modal-close:active {
+    transform: scale(0.95);
 }
 
 /* ----- Адаптив ----- */

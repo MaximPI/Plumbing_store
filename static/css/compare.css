@@ -1,9 +1,10 @@
 /* ============================================
-   СРАВНЕНИЕ ТОВАРОВ
+   СРАВНЕНИЕ ТОВАРОВ — DEEP OCEAN + BLACK
    ============================================ */
 
 .main {
     padding: 30px 0 60px;
+    background: #05101f;
 }
 
 .container {
@@ -17,20 +18,22 @@
 .breadcrumbs {
     margin-bottom: 25px;
     font-size: 0.95rem;
-    color: #5b7c99;
+    color: #94c5e8;
 }
 
 .breadcrumbs a {
-    color: #0077b6;
+    color: #5eead4;
     text-decoration: none;
+    transition: color 0.2s;
 }
 
 .breadcrumbs a:hover {
+    color: #7dd3fc;
     text-decoration: underline;
 }
 
 .breadcrumbs span {
-    color: #0a2540;
+    color: #e0f2fe;
     font-weight: 600;
 }
 
@@ -42,13 +45,14 @@
 
 .compare-header h1 {
     font-size: 2rem;
-    font-weight: 600;
-    color: #0a2540;
+    font-weight: 700;
+    color: #e0f2fe;
     margin-bottom: 8px;
+    letter-spacing: -0.5px;
 }
 
 .compare-header p {
-    color: #5b7c99;
+    color: #94c5e8;
     font-size: 1rem;
 }
 
@@ -65,8 +69,8 @@
     gap: 6px;
     padding: 8px 18px;
     background: transparent;
-    color: #e74c3c;
-    border: 2px solid #e74c3c;
+    color: #f87171;
+    border: 2px solid #f87171;
     border-radius: 30px;
     font-size: 0.9rem;
     font-weight: 600;
@@ -75,10 +79,10 @@
 }
 
 .compare-clear:hover {
-    background: #e74c3c;
+    background: #f87171;
     color: #fff;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(231, 76, 60, 0.25);
+    box-shadow: 0 6px 16px rgba(248, 113, 113, 0.35);
 }
 
 /* ============================================
@@ -86,9 +90,12 @@
    ============================================ */
 .compare-wrapper {
     overflow-x: auto;
-    background: #fff;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     padding: 4px;
 }
 
@@ -102,24 +109,24 @@
 .compare-table td {
     padding: 16px 18px;
     text-align: left;
-    border-bottom: 1px solid #dbe9f4;
+    border-bottom: 1px solid rgba(94, 234, 212, 0.12);
     vertical-align: top;
     font-size: 0.95rem;
-    color: #0a2540;
+    color: #e0f2fe;
 }
 
 /* Заголовок таблицы */
 .compare-table thead th {
-    background: #f0f6fc;
-    border-bottom: 2px solid #00b4d8;
+    background: rgba(5, 16, 31, 0.7);
+    border-bottom: 2px solid #14b8a6;
     padding: 20px 18px;
 }
 
 .compare-label-col {
     width: 180px;
     font-weight: 600;
-    color: #5b7c99;
-    background: #f0f6fc;
+    color: #94c5e8;
+    background: rgba(5, 16, 31, 0.5);
 }
 
 .compare-product-col {
@@ -138,14 +145,16 @@
 .compare-image {
     width: 100px;
     height: 100px;
-    background: #f0f6fc;
+    background: #000;
+    border: 1px solid rgba(94, 234, 212, 0.2);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 2.5rem;
-    color: #a8c0d6;
+    color: #4a7ba8;
     overflow: hidden;
+    filter: drop-shadow(0 0 20px rgba(20, 184, 166, 0.25));
 }
 
 .compare-image img {
@@ -157,44 +166,46 @@
 .compare-name {
     font-size: 1rem;
     font-weight: 600;
-    color: #0a2540;
+    color: #e0f2fe;
     text-align: center;
     line-height: 1.3;
 }
 
 .compare-price {
     font-size: 1.2rem;
-    font-weight: 700;
-    color: #0077b6;
+    font-weight: 800;
+    color: #5eead4;
+    text-shadow: 0 0 20px rgba(94, 234, 212, 0.4);
 }
 
 .compare-detail-btn {
     display: inline-block;
     padding: 7px 16px;
-    background: #0a2540;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     border-radius: 30px;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.3);
 }
 
 .compare-detail-btn:hover {
-    background: #0077b6;
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.55);
 }
 
 /* Строки характеристик */
 .compare-label {
     font-weight: 600;
-    color: #5b7c99;
-    background: #f0f6fc;
+    color: #94c5e8;
+    background: rgba(5, 16, 31, 0.5);
     white-space: nowrap;
 }
 
 .compare-table tbody tr:hover {
-    background: #f0f6fc;
+    background: rgba(20, 184, 166, 0.06);
 }
 
 .compare-table tbody td {
@@ -209,29 +220,31 @@
 .compare-add-btn {
     display: inline-block;
     padding: 8px 16px;
-    background: #0a2540;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     border-radius: 30px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
+    transition: transform 0.2s, box-shadow 0.25s;
     margin-bottom: 6px;
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.3);
 }
 
 .compare-add-btn:hover {
-    background: #0077b6;
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.55);
 }
 
 .compare-in-basket {
     display: inline-block;
     padding: 8px 16px;
-    background: #e0f5fb;
-    color: #0077b6;
+    background: rgba(20, 184, 166, 0.15);
+    color: #5eead4;
+    border: 1px solid rgba(94, 234, 212, 0.3);
     border-radius: 30px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 6px;
 }
 
@@ -240,8 +253,8 @@
     margin: 6px auto 0;
     padding: 6px 12px;
     background: transparent;
-    color: #e74c3c;
-    border: 1px solid #e74c3c;
+    color: #f87171;
+    border: 1px solid #f87171;
     border-radius: 30px;
     font-size: 0.8rem;
     font-weight: 600;
@@ -251,9 +264,10 @@
 }
 
 .compare-remove-btn:hover {
-    background: #e74c3c;
+    background: #f87171;
     color: #fff;
     transform: scale(1.05);
+    box-shadow: 0 4px 14px rgba(248, 113, 113, 0.35);
 }
 
 /* ============================================
@@ -262,12 +276,13 @@
 .quantity-control {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: #f0f6fc;
+    gap: 4px;
+    background: #000;
+    border: 1px solid rgba(94, 234, 212, 0.25);
     border-radius: 30px;
-    padding: 5px;
+    padding: 4px;
     position: relative;
-    box-shadow: inset 0 1px 3px rgba(0, 119, 182, 0.06);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
     margin: 6px auto 0;
 }
 
@@ -275,8 +290,8 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: #fff;
-    color: #0a2540;
+    background: transparent;
+    color: #5eead4;
     font-size: 1.15rem;
     font-weight: 700;
     display: inline-flex;
@@ -286,17 +301,16 @@
     cursor: pointer;
     border: none;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0, 119, 182, 0.08);
     padding: 0;
     line-height: 1;
     user-select: none;
 }
 
 .quantity-btn:hover {
-    background: #0077b6;
+    background: rgba(20, 184, 166, 0.25);
     color: #fff;
     transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.35);
+    box-shadow: 0 0 18px rgba(20, 184, 166, 0.4);
 }
 
 .quantity-btn:active {
@@ -310,7 +324,7 @@
     background: transparent;
     font-size: 1rem;
     font-weight: 700;
-    color: #0a2540;
+    color: #e0f2fe;
     outline: none;
     pointer-events: none;
     -moz-appearance: textfield;
@@ -330,46 +344,61 @@
 .compare-empty {
     text-align: center;
     padding: 80px 20px;
-    background: #fff;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
-    color: #95a5a6;
+    color: #4a7ba8;
 }
 
 .compare-empty__icon {
     font-size: 4rem;
     margin-bottom: 16px;
     line-height: 1;
-    opacity: 0.6;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
 }
 
 .compare-empty h2 {
     font-size: 1.4rem;
-    font-weight: 500;
-    color: #0a2540;
+    font-weight: 600;
+    color: #e0f2fe;
     margin-bottom: 8px;
 }
 
 .compare-empty p {
     font-size: 1rem;
-    color: #5b7c99;
+    color: #94c5e8;
     margin-bottom: 24px;
 }
 
 .compare-empty__btn {
     display: inline-block;
     padding: 12px 32px;
-    background: #0077b6;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     text-decoration: none;
     border-radius: 30px;
-    font-weight: 600;
-    transition: background 0.25s, transform 0.15s;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
 }
 
 .compare-empty__btn:hover {
-    background: #005f8f;
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
+}
+
+/* ============================================
+   ПРОЧЕРК ДЛЯ ОТСУТСТВУЮЩЕЙ ХАРАКТЕРИСТИКИ
+   ============================================ */
+.compare-table td.empty {
+    color: #4a7ba8;
+    font-weight: 400;
+    text-align: center;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    user-select: none;
 }
 
 /* ============================================
@@ -451,14 +480,4 @@
         padding: 6px 14px;
         font-size: 0.85rem;
     }
-}
-
-/* Прочерк на месте отсутствующей характеристики */
-.compare-table td.empty {
-    color: #a8c0d6;
-    font-weight: 400;
-    text-align: center;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    user-select: none;
 }

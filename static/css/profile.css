@@ -1,37 +1,59 @@
-/* ===== Стили для страницы профиля ===== */
+/* ============================================
+   СТРАНИЦА ПРОФИЛЯ — DEEP OCEAN + BLACK
+   ============================================ */
 
-/* Хлебные крошки */
+.main {
+    padding: 30px 0 60px;
+    background: #05101f;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Хлебные крошки ----- */
 .breadcrumbs {
     margin-bottom: 25px;
     font-size: 0.95rem;
-    color: #5b7c99;
+    color: #94c5e8;
 }
+
 .breadcrumbs a {
-    color: #0077b6;
+    color: #5eead4;
     text-decoration: none;
+    transition: color 0.2s;
 }
+
 .breadcrumbs a:hover {
+    color: #7dd3fc;
     text-decoration: underline;
 }
+
 .breadcrumbs span {
-    color: #0a2540;
+    color: #e0f2fe;
     font-weight: 600;
 }
 
-/* Основная сетка профиля */
+/* ----- Основная сетка профиля ----- */
 .profile-layout {
     display: flex;
     gap: 35px;
     align-items: flex-start;
 }
 
-/* Боковая панель */
+/* ----- Боковая панель ----- */
 .profile-sidebar {
     flex: 0 0 260px;
-    background: #fff;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
     border-radius: 20px;
     padding: 25px 20px;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     position: sticky;
     top: 100px;
 }
@@ -39,7 +61,7 @@
 .profile-avatar {
     text-align: center;
     padding-bottom: 20px;
-    border-bottom: 2px solid #dbe9f4;
+    border-bottom: 1px solid rgba(94, 234, 212, 0.15);
     margin-bottom: 20px;
 }
 
@@ -47,6 +69,7 @@
     font-size: 4rem;
     margin-bottom: 8px;
     line-height: 1;
+    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
 }
 
 .avatar-circle img {
@@ -56,16 +79,17 @@
 
 .profile-avatar h3 {
     font-size: 1.2rem;
-    color: #0a2540;
+    color: #e0f2fe;
     margin-bottom: 2px;
+    font-weight: 700;
 }
 
 .profile-avatar p {
     font-size: 0.9rem;
-    color: #5b7c99;
+    color: #94c5e8;
 }
 
-/* Навигация профиля */
+/* ----- Навигация профиля ----- */
 .profile-nav ul {
     list-style: none;
     padding: 0;
@@ -79,33 +103,38 @@
     display: block;
     padding: 10px 15px;
     border-radius: 10px;
-    color: #5b7c99;
+    color: #94c5e8;
     text-decoration: none;
     transition: all 0.2s;
     font-weight: 500;
+    border: 1px solid transparent;
 }
 
 .profile-nav ul li a:hover {
-    background: #f0f6fc;
-    color: #0077b6;
+    background: rgba(20, 184, 166, 0.12);
+    color: #5eead4;
+    border-color: rgba(94, 234, 212, 0.25);
 }
 
 .profile-nav ul li a.active {
-    background: #0077b6;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
-    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    border-color: #14b8a6;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
 }
 
 .profile-nav ul li a:last-child {
     margin-top: 15px;
-    color: #e74c3c;
+    color: #f87171;
 }
 
 .profile-nav ul li a:last-child:hover {
-    background: #fef2f2;
+    background: rgba(248, 113, 113, 0.12);
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.35);
 }
 
-/* Основной контент */
+/* ----- Основной контент ----- */
 .profile-content {
     flex: 1;
     min-width: 0;
@@ -113,16 +142,20 @@
 
 .profile-content h2 {
     font-size: 2rem;
-    color: #0a2540;
+    color: #e0f2fe;
     margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
-/* Форма профиля */
+/* ----- Форма профиля ----- */
 .profile-form {
-    background: #fff;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
     padding: 30px;
     border-radius: 20px;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     margin-bottom: 30px;
 }
 
@@ -140,43 +173,51 @@
     display: block;
     font-weight: 600;
     font-size: 0.95rem;
-    color: #0a2540;
+    color: #e0f2fe;
     margin-bottom: 6px;
 }
 
 .profile-form input {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #dbe9f4;
+    border: 1px solid rgba(94, 234, 212, 0.25);
     border-radius: 12px;
     font-size: 1rem;
-    color: #0a2540;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    background: #f8fbfe;
+    color: #e0f2fe;
+    background: #000;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    outline: none;
+}
+
+.profile-form input::placeholder {
+    color: #4a7ba8;
 }
 
 .profile-form input:focus {
-    outline: none;
-    border-color: #0077b6;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.12);
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
 }
 
 .profile-save-btn {
     padding: 12px 35px;
-    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
 }
 
 .profile-save-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 119, 182, 0.3);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
+}
+
+.profile-save-btn:active {
+    transform: translateY(0) scale(0.97);
 }
 
 /* ============================================
@@ -190,7 +231,6 @@
     margin-top: 6px;
 }
 
-/* Скрываем стандартный input */
 .file-upload input[type="file"] {
     position: absolute;
     width: 1px;
@@ -203,28 +243,26 @@
     border: 0;
 }
 
-/* Красивая кнопка "Выбрать файл" */
 .file-upload__label {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     padding: 10px 20px;
-    background: linear-gradient(135deg, #0077b6, #00b4d8);
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
     border-radius: 30px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 119, 182, 0.25);
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
     user-select: none;
     white-space: nowrap;
 }
 
 .file-upload__label:hover {
-    background: linear-gradient(135deg, #005f8f, #0077b6);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 119, 182, 0.35);
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.5);
 }
 
 .file-upload__label:active {
@@ -240,10 +278,9 @@
     line-height: 1;
 }
 
-/* Имя выбранного файла */
 .file-upload__name {
     font-size: 0.88rem;
-    color: #5b7c99;
+    color: #4a7ba8;
     font-style: italic;
     max-width: 220px;
     overflow: hidden;
@@ -252,23 +289,28 @@
 }
 
 .file-upload.has-file .file-upload__name {
-    color: #0a2540;
+    color: #5eead4;
     font-style: normal;
     font-weight: 500;
 }
 
-/* Блок последних заказов */
+/* ============================================
+   БЛОК ПОСЛЕДНИХ ЗАКАЗОВ
+   ============================================ */
 .recent-orders {
-    background: #fff;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
     padding: 25px 30px;
     border-radius: 20px;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .recent-orders h3 {
     font-size: 1.3rem;
-    color: #0a2540;
+    color: #e0f2fe;
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
 .order-item {
@@ -276,7 +318,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid #dbe9f4;
+    border-bottom: 1px solid rgba(94, 234, 212, 0.12);
 }
 
 .order-item:last-child {
@@ -291,55 +333,63 @@
 
 .order-number {
     font-weight: 600;
-    color: #0a2540;
+    color: #e0f2fe;
 }
 
 .order-date {
     font-size: 0.85rem;
-    color: #95a5a6;
+    color: #4a7ba8;
 }
 
 .order-status {
     padding: 4px 14px;
     border-radius: 20px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
+    border: 1px solid transparent;
 }
 
 .status-delivered {
-    background: #e0f5fb;
-    color: #0077b6;
+    background: rgba(20, 184, 166, 0.15);
+    color: #5eead4;
+    border-color: rgba(94, 234, 212, 0.35);
 }
 
 .status-shipped {
-    background: #e0ecfb;
-    color: #1e5fa8;
+    background: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+    border-color: rgba(125, 211, 252, 0.35);
 }
 
 .status-processing {
-    background: #fef6e0;
-    color: #b07300;
+    background: rgba(251, 191, 36, 0.12);
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.3);
 }
 
 .order-total {
     font-weight: 700;
-    color: #0a2540;
+    color: #5eead4;
+    text-shadow: 0 0 16px rgba(94, 234, 212, 0.3);
 }
 
 .view-all-orders {
     display: inline-block;
     margin-top: 15px;
-    color: #0077b6;
+    color: #5eead4;
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.2s;
 }
 
 .view-all-orders:hover {
-    color: #005f8f;
+    color: #7dd3fc;
     text-decoration: underline;
 }
 
-/* Адаптивность */
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
 @media (max-width: 992px) {
     .profile-layout {
         flex-direction: column;
@@ -434,17 +484,18 @@
     align-items: flex-start;
     gap: 14px;
     padding: 16px 18px;
-    background: #fef2f2;
-    border-left: 4px solid #e74c3c;
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.35);
+    border-left: 4px solid #f87171;
     border-radius: 12px;
-    color: #991b1b;
+    color: #fca5a5;
     position: relative;
-    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.08);
+    box-shadow: 0 4px 14px rgba(231, 76, 60, 0.15);
     transition: box-shadow 0.2s ease;
 }
 
 .error-message:hover {
-    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.14);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.25);
 }
 
 .error-icon {
@@ -453,7 +504,7 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    background: #fee2e2;
+    background: rgba(231, 76, 60, 0.2);
     border-radius: 50%;
     font-size: 1rem;
     flex-shrink: 0;
@@ -472,7 +523,7 @@
     background: none;
     border: none;
     font-size: 1.4rem;
-    color: #991b1b;
+    color: #fca5a5;
     cursor: pointer;
     padding: 0;
     width: 28px;
@@ -481,7 +532,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    opacity: 0.5;
+    opacity: 0.6;
     transition: all 0.2s ease;
     line-height: 1;
     flex-shrink: 0;
@@ -489,56 +540,59 @@
 
 .error-close:hover {
     opacity: 1;
-    background: rgba(153, 27, 27, 0.1);
+    background: rgba(248, 113, 113, 0.15);
     transform: scale(1.1);
 }
 
 /* Успех */
 .error-container.error-success .error-message {
-    background: #f0fdf4;
-    border-left-color: #27ae60;
-    color: #166534;
-    box-shadow: 0 4px 14px rgba(39, 174, 96, 0.08);
+    background: rgba(20, 184, 166, 0.12);
+    border-color: rgba(94, 234, 212, 0.35);
+    border-left-color: #5eead4;
+    color: #5eead4;
+    box-shadow: 0 4px 14px rgba(20, 184, 166, 0.15);
 }
 
 .error-container.error-success .error-icon {
-    background: #d1fae5;
+    background: rgba(20, 184, 166, 0.2);
 }
 
 .error-container.error-success .error-close {
-    color: #166534;
+    color: #5eead4;
 }
 
 /* Предупреждение */
 .error-container.error-warning .error-message {
-    background: #fffbeb;
-    border-left-color: #f39c12;
-    color: #92400e;
-    box-shadow: 0 4px 14px rgba(243, 156, 18, 0.08);
+    background: rgba(251, 191, 36, 0.12);
+    border-color: rgba(251, 191, 36, 0.35);
+    border-left-color: #fbbf24;
+    color: #fbbf24;
+    box-shadow: 0 4px 14px rgba(251, 191, 36, 0.15);
 }
 
 .error-container.error-warning .error-icon {
-    background: #fef3c7;
+    background: rgba(251, 191, 36, 0.2);
 }
 
 .error-container.error-warning .error-close {
-    color: #92400e;
+    color: #fbbf24;
 }
 
 /* Информация */
 .error-container.error-info .error-message {
-    background: #eff6ff;
-    border-left-color: #3498db;
-    color: #1e40af;
-    box-shadow: 0 4px 14px rgba(52, 152, 219, 0.08);
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(125, 211, 252, 0.35);
+    border-left-color: #7dd3fc;
+    color: #7dd3fc;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.15);
 }
 
 .error-container.error-info .error-icon {
-    background: #dbeafe;
+    background: rgba(56, 189, 248, 0.2);
 }
 
 .error-container.error-info .error-close {
-    color: #1e40af;
+    color: #7dd3fc;
 }
 
 /* Анимация появления */

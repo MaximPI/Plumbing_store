@@ -1,0 +1,408 @@
+/* ============================================
+   СТРАНИЦА ОТЗЫВОВ — DEEP OCEAN + BLACK
+   ============================================ */
+
+.reviews-page {
+    background: #05101f;
+    padding: 30px 0 70px;
+    width: 100%;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----- Хлебные крошки ----- */
+.breadcrumbs {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    color: #94c5e8;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.breadcrumbs a {
+    color: #5eead4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: #7dd3fc;
+    text-decoration: underline;
+}
+
+.breadcrumbs span {
+    color: #e0f2fe;
+    font-weight: 600;
+}
+
+/* ============================================
+   ШАПКА СТРАНИЦЫ
+   ============================================ */
+.reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 30px 32px;
+    background:
+        radial-gradient(ellipse at 25% 20%, rgba(20, 184, 166, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 55%),
+        linear-gradient(135deg, #0a1929, #000);
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 120px rgba(20, 184, 166, 0.08);
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reviews-header::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.reviews-header__info {
+    flex: 1;
+    min-width: 240px;
+    position: relative;
+    z-index: 1;
+}
+
+.reviews-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #e0f2fe;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+}
+
+.reviews-header__product {
+    font-size: 1rem;
+    color: #7dd3fc;
+    margin: 0 0 20px;
+    font-weight: 500;
+}
+
+/* ----- Статистика ----- */
+.reviews-header__stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.reviews-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.reviews-stat__value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #14b8a6, #5eead4, #7dd3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.reviews-stat__stars {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.reviews-stat__label {
+    font-size: 0.85rem;
+    color: #94c5e8;
+}
+
+/* ----- Кнопки в шапке ----- */
+.reviews-header__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================
+   КНОПКИ
+   ============================================ */
+.reviews-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+    white-space: nowrap;
+}
+
+.reviews-btn--primary {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
+}
+
+.reviews-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
+}
+
+.reviews-btn--primary:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.reviews-btn--secondary {
+    background: transparent;
+    color: #5eead4;
+    border: 1px solid rgba(94, 234, 212, 0.35);
+}
+
+.reviews-btn--secondary:hover {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: #14b8a6;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.2);
+}
+
+/* ============================================
+   СПИСОК ОТЗЫВОВ
+   ============================================ */
+.reviews-section {
+    margin-top: 20px;
+}
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ----- Карточка отзыва ----- */
+.review-card {
+    padding: 22px 26px;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
+    border-radius: 16px;
+    transition: transform 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(20, 184, 166, 0.45);
+    background: rgba(10, 25, 41, 0.85);
+    box-shadow: 0 20px 40px rgba(20, 184, 166, 0.12);
+}
+
+.review-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.review-card__author {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.review-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(56, 189, 248, 0.12));
+    border: 1px solid rgba(94, 234, 212, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 16px rgba(20, 184, 166, 0.25));
+}
+
+.review-card__author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.review-card__name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    line-height: 1.2;
+}
+
+.review-card__date {
+    font-size: 0.82rem;
+    color: #4a7ba8;
+}
+
+/* ----- Рейтинг ----- */
+.review-card__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.star-filled {
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+}
+
+.star-empty {
+    color: #2a4a6a;
+}
+
+.review-card__rating-num {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #5eead4;
+    margin-left: 4px;
+    text-shadow: 0 0 12px rgba(94, 234, 212, 0.4);
+}
+
+/* ----- Текст отзыва ----- */
+.review-card__text {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: #94c5e8;
+    margin: 0;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+/* ============================================
+   ПУСТОЕ СОСТОЯНИЕ
+   ============================================ */
+.reviews-empty {
+    text-align: center;
+    padding: 80px 30px;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
+    border-radius: 20px;
+    color: #4a7ba8;
+}
+
+.reviews-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    opacity: 0.7;
+    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
+}
+
+.reviews-empty h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    margin: 0 0 8px;
+}
+
+.reviews-empty p {
+    font-size: 1rem;
+    color: #94c5e8;
+    margin: 0 0 24px;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+@media (max-width: 768px) {
+    .reviews-header {
+        padding: 24px 20px;
+    }
+
+    .reviews-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .reviews-stat__value {
+        font-size: 1.8rem;
+    }
+
+    .reviews-header__actions {
+        width: 100%;
+    }
+
+    .reviews-btn {
+        width: 100%;
+    }
+
+    .review-card {
+        padding: 18px 18px;
+    }
+
+    .review-card__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .review-card__rating {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .reviews-header__stats {
+        gap: 20px;
+    }
+
+    .reviews-stat__value {
+        font-size: 1.5rem;
+    }
+
+    .review-card__avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .review-card__name {
+        font-size: 0.92rem;
+    }
+
+    .review-card__text {
+        font-size: 0.9rem;
+    }
+}

@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
-from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order
+from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order, Review
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from decimal import Decimal, ROUND_HALF_UP
 
 
 # Create your views here.
@@ -13,6 +14,7 @@ def index(request):
 	products = {
 
 	}
+
 	if request.user.is_authenticated:
 		context.update({
 			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
@@ -28,13 +30,15 @@ def index(request):
 
 
 
+
 	return render(request, 'products/index.html', context=context)
 
-def catalog(request, category_id=None, page_number=1):
+def catalog(request, category_id=None, page_number=1, product_id=None):
 	context = {
 		'title': 'каталог',
 		'categories': ProductCategory.objects.all(),
-		'if_categories': True
+		'if_categories': True,
+		'ratings': [1, 2, 3, 4, 5],
 	}
 
 	if request.user.is_authenticated:
@@ -51,7 +55,17 @@ def catalog(request, category_id=None, page_number=1):
 	else:
 		products = Product.objects.all()
 
-	pagination = Paginator(products, 1)
+	if product_id:
+		product = Product.objects.get(id=product_id)
+		ratings = [review.rating for review in Review.objects.filter(product=product)]
+		rating = Decimal(str(sum(ratings) / len(ratings)))
+		context.update({
+			'product': product,
+			'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
+			'ratings': [1, 2, 3, 4, 5],
+		})
+
+	pagination = Paginator(products, 10)
 	products_paginator = pagination.page(page_number)
 	context.update({
 		'products': products_paginator,
@@ -60,6 +74,15 @@ def catalog(request, category_id=None, page_number=1):
 	})
 
 	return render(request, 'products/catalog.html', context=context)
+
+def get_reviews(request, product_id):
+	product = Product.objects.get(id=product_id)
+	rating = [review.rating for review in Review.objects.filter(product=product)]
+	if rating:
+		avg_rating = Decimal(str(sum(rating) / len(rating)))
+	else:
+		avg_rating = 0
+	return avg_rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
 
 def about(request):
 	return render(request, 'products/about.html')
@@ -147,10 +170,42 @@ def favorite_delete(request, favorite_id):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def product_detail(request, product_id):
+	product = Product.objects.get(id=product_id)
+	ratings = [review.rating for review in Review.objects.filter(product=product)]
+	reviews = [review.user for review in Review.objects.filter(product=product)]
+
+	if request.user in reviews:
+		user_reviewed = True
+	else:
+		user_reviewed = False
+
 	context = {
 		'title': 'Страница товара',
-		'product': Product.objects.get(id=product_id),
+		'product': product,
+		'reviews_count': len(Review.objects.filter(product=product)),
+		'reviews': Review.objects.filter(product=product),
+		'user_reviewed': user_reviewed,
 	}
+	if request.user.is_authenticated:
+		orders = [order.product for order in Order.objects.filter(user=request.user, product=product)]
+
+		if orders:
+			product_ordered = True
+		else:
+			product_ordered = False
+		context.update({
+			'product_ordered': product_ordered,
+		})
+
+	if ratings:
+		rating = Decimal(str(sum(ratings)/len(ratings)))
+	else:
+		rating = Decimal('0')
+
+	context.update({
+		'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
+		'ratings': [1, 2, 3, 4, 5],
+	})
 	if request.user.is_authenticated:
 		context.update({
 			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
@@ -211,7 +266,7 @@ def add_order_orders(request, order_id):
 
 def find(request):
 	context = {
-		'title': 'найдено',
+		'title': 'Каталог',
 		'categories': ProductCategory.objects.all(),
 		'if_categories': False
 	}
@@ -234,3 +289,31 @@ def find(request):
 		'quantity': len(products),
 	})
 	return render(request, 'products/catalog.html', context=context)
+
+def review(request, product_id):
+	product = Product.objects.get(id=product_id)
+	ratings = [review.rating for review in Review.objects.filter(product=product)]
+	if ratings:
+		rating = Decimal(str(sum(ratings)/len(ratings)))
+	else:
+		rating = Decimal('0')
+
+	context = {
+		'reviews': Review.objects.filter(product=product),
+		'reviews_count': len(Review.objects.filter(product=product)),
+		'product': product,
+		'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
+		'ratings': [1, 2, 3, 4, 5],
+	}
+	return render(request, 'products/review.html', context=context)
+
+@login_required
+def add_review(request, product_id):
+	product = Product.objects.get(id=product_id)
+	if request.method == 'POST':
+		rating = request.POST.get('rating', '')
+		description = request.POST.get('text', '')
+		reviews = [review.user for review in Review.objects.filter(product=product)]
+		if not request.user in reviews:
+			Review.objects.create(user=request.user, product=product, rating=rating, description=description)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

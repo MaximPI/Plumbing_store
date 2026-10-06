@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from products.models import Product, ProductCategory, Order, Baskets, Favorites, Compare
+from products.models import Product, ProductCategory, Order, Baskets, Favorites, Compare, Review
 
 
 admin.site.register(ProductCategory)
@@ -10,6 +10,7 @@ admin.site.register(Order)
 admin.site.register(Baskets)
 admin.site.register(Favorites)
 admin.site.register(Compare)
+admin.site.register(Review)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

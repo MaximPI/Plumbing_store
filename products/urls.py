@@ -1,13 +1,16 @@
 from django.urls import path
-from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders, find
-
+from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders, find, add_review, review, get_reviews
 
 app_name = 'products'
 
 urlpatterns = [
     path('', catalog, name='home'),
+    path('rating/<int:product_id>', catalog, name='rating'),
     path('compare', compare, name='compare'),
+    path('get_reviews/<int:product_id>', get_reviews, name='get_reviews'),
     path('find', find, name='find'),
+    path('add-review/<int:product_id>', add_review, name='add_review'),
+    path('review/<int:product_id>', review, name='review'),
     path('baskets', baskets, name='baskets'),
     path('orders', orders, name='orders'),
     path('favorites', favorites, name='favorites'),
@@ -23,6 +26,6 @@ urlpatterns = [
     path('page/<int:page_number>', catalog, name='page_number'),
     path('favorite_page/<int:page_number>', favorites, name='favorite_page_number'),
     path('category/<int:category_id>/page/<int:page_number>', catalog, name='category_page'),
-    path('add-order>', add_order, name='add_order'),
+    path('add-order', add_order, name='add_order'),
     path('add-order-orders/<int:order_id>', add_order_orders, name='add_order_orders'),
 ]

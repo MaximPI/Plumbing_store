@@ -6,152 +6,172 @@
 {% endblock %}
 
 {% block content %}
-    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
-    <main class="main">
 
-            <div class="catalog-layout">
-                <!-- Боковая панель фильтров -->
-                <aside class="catalog-filters">
-                    <h3>Фильтры</h3>
+<div class="catalog-page">
+    <div class="container">
+        <div class="catalog-layout">
+            <!-- Боковая панель фильтров -->
+            <aside class="catalog-filters">
+                <h3>Фильтры</h3>
 
-                     Фильтр по категориям
-                    <div class="category-filters">
-                        <h4>Категория</h4>
-                        <a href="{% url 'products:home' %}" class="category-btn {% if not category and if_categories %} active {% endif %}"> Все </a>
-                        {% for categor in categories %}
-                            <a href="{% url 'products:category' categor.id %}" class="category-btn {% if category == categor.id and if_categories %} active {% endif %}">
-                                {{ categor.name }}
+                <!-- Фильтр по категориям -->
+                <div class="category-filters">
+                    <h4>Категория</h4>
+                    <a href="{% url 'products:home' %}" class="category-btn {% if not category and if_categories %} active {% endif %}"> Все </a>
+                    {% for categor in categories %}
+                        <a href="{% url 'products:category' categor.id %}" class="category-btn {% if category == categor.id and if_categories %} active {% endif %}">
+                            {{ categor.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+
+            </aside>
+
+            <!-- Список товаров -->
+            <section class="catalog-products">
+
+                <!-- Панель: счётчик + поиск -->
+                <div class="catalog-toolbar">
+
+                    <!-- Счётчик -->
+                    <span class="product-count">Найдено: {{ quantity }} товаров</span>
+
+                    <!-- Рабочий поиск -->
+                    <form method="get" action="{% url 'products:find' %}" class="search-form">
+                        <input type="text"
+                               name="search"
+                               class="search-input"
+                               placeholder="Поиск товаров..."
+                               value="{{ request.GET.search|default:'' }}">
+                        <button type="submit" class="search-btn">🔍</button>
+                    </form>
+
+                </div>
+
+                <!-- Сетка товаров -->
+                <div class="product-grid">
+                    {% for product in products %}
+                    <article class="product-card">
+                        <a href="{% url 'products:product_detail' product.id %}" class="product-card__link" aria-label="{{ product.name }}"></a>
+                        {% if user.is_authenticated %}
+                            {% if product not in comp %}
+                                <a href="{% url 'products:compare_add' product.id %}" class="product-card__compare">📊</a>
+                            {% else %}
+                                {% for compare in compares %}
+                                    {% if compare.product.id == product.id %}
+                                        <a href="{% url 'products:compare_readd' compare.id %}" class="product-card__compare active">📊</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                            {% if product in favorites %}
+                            {% for favorite in fav %}
+                            {% if favorite.product.id == product.id %}
+                            <a href="{% url 'products:favorite_delete' favorite.id%}">
+                                <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
                             </a>
-                        {% endfor %}
-                    </div>
-
-                </aside>
-
-                <!-- Список товаров -->
-                <section class="catalog-products">
-                    <!-- Сортировка и количество -->
-                    <div class="catalog-toolbar">
-                        <span class="product-count">Найдено: {{quantity}} товаров</span>
-                        <div class="sort-options">
-                            <form method="get" action="{% url 'products:find' %}">
-                                <input type="text"
-                                   name="search"
-                                   class="search-input"
-                                   placeholder="Поиск товаров..."
-                                   value="{{ request.GET.search|default:'' }}">
-                                <input type="submit" class="search-btn" value="🔍">
-                            </form>
+                            {% endif %}
+                            {% endfor %}
+                            {% else %}
+                            <a href="{% url 'products:favorite_add' product.id%}">
+                                <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
+                            </a>
+                            {% endif %}
+                        {% endif %}
+                        <div class="product-card__image">
+                            {% if product.image %}
+                                <img src="/media/{{ product.image }}" alt="{{ product.name }}">
+                            {% else %}
+                                {{ product.emoji|default:"📦" }}
+                            {% endif %}
                         </div>
-                    </div>
+                        <h3 class="product-card__title">{{ product.name }}</h3>
 
-                    <!-- Сетка товаров -->
-                    <div class="product-grid" url={"products:index"}>
-                        {% for product in products %}
-                        <article class="product-card">
-                            <a href="{% url 'products:product_detail' product.id %}" class="product-card__link" aria-label="{{ product.name }}"></a>
-                            {% if user.is_authenticated %}
-                                {% if product not in comp %}
-                                    <a href="{% url 'products:compare_add' product.id %}" class="product-card__compare">📊</a>
-                                {% else %}
-                                    {% for compare in compares %}
-                                        {% if compare.product.id == product.id %}
-                                            <a href="{% url 'products:compare_readd' compare.id %}" class="product-card__compare active">📊</a>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                                {% if product in favorites %}
-                                {% for favorite in fav %}
-                                {% if favorite.product.id == product.id %}
-                                <a href="{% url 'products:favorite_delete' favorite.id%}">
-                                    <button class="favorite-btn active" data-id="{{ product.id }}">♡</button>
+<!--                        &lt;!&ndash; ===== Рейтинг ===== &ndash;&gt;-->
+<!--                        <div class="product-card__rating">-->
+<!--                            <span class="product-card__stars">-->
+<!--                                {% for i in ratings %}-->
+<!--                                    {% if i <= rating %}-->
+<!--                                        <span class="star-filled">★</span>-->
+<!--                                    {% else %}-->
+<!--                                        <span class="star-empty">★</span>-->
+<!--                                    {% endif %}-->
+<!--                                {% endfor %}-->
+<!--                            </span>-->
+<!--                            <span class="product-card__rating-num">{{ rating }}</span>-->
+<!--                            <span class="product-card__rating-count">({{ reviews_count }})</span>-->
+<!--                        </div>-->
+
+                        <p class="product-card__price">{{ product.price }} ₽</p>
+                        {% if user.is_authenticated %}
+                            {% if product not in baskets %}
+                            <a href="{% url 'products:basket_add' product.id%}">
+                                <button class="product-card__btn">В корзину</button>
+                            </a>
+                            {% else %}
+                            <div class="quantity-control">
+                                <a href="{% url 'products:basket_readd' product.id%}">
+                                    <button class="quantity-btn minus">−</button>
                                 </a>
+                                {% for prod in bask %}
+                                {% if prod.product.id == product.id %}
+                                <input type="number" class="quantity-input" value="{{prod.quantity}}" min="1" max="99" readonly>
                                 {% endif %}
                                 {% endfor %}
-                                {% else %}
-                                <a href="{% url 'products:favorite_add' product.id%}">
-                                    <button class="favorite-btn" data-id="{{ product.id }}">♡</button>
-                                </a>
-                                {% endif %}
-                            {% endif %}
-                            <div class="product-card__image">
-                                {% if product.image %}
-                                    <img src="/media/{{ product.image }}" alt="{{ product.name }}">
-                                {% else %}
-                                    {{ product.emoji|default:"📦" }}
-                                {% endif %}
-                            </div>
-                            <h3 class="product-card__title">{{ product.name }}</h3>
-                            <p class="product-card__price">{{ product.price }} ₽</p>
-                            {% if user.is_authenticated %}
-                                {% if product not in baskets %}
                                 <a href="{% url 'products:basket_add' product.id%}">
-                                    <button class="product-card__btn">В корзину</button>
+                                    <button class="quantity-btn plus">+</button>
                                 </a>
+                            </div>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'users:login'%}">
+                                <button class="product-card__btn">Авторизуйтесь</button>
+                            </a>
+                        {% endif %}
+
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <!-- Пагинация -->
+                <div class="pagination">
+                    <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="
+                            {% if products.has_previous %}
+                                {% if category %}
+                                    {% url 'products:category_page' category products.previous_page_number %}
                                 {% else %}
-                                <div class="quantity-control">
-                                    <a href="{% url 'products:basket_readd' product.id%}">
-                                        <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">−</button>
-                                    </a>
-                                    {% for prod in bask %}
-                                    {% if prod.product.id == product.id %}
-                                    <input type="number" class="quantity-input" id="qty1" value="{{prod.quantity}}" min="1" max="99" readonly>
-                                    {% endif %}
-                                    {% endfor %}
-                                    <a href="{% url 'products:basket_add' product.id%}">
-                                        <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">+</button>
-                                    </a>
-                                </div>
+                                    {% url 'products:page_number' products.previous_page_number %}
                                 {% endif %}
                             {% else %}
-                                <a href="{% url 'users:login'%}">
-                                    <button class="product-card__btn">Авторизуйтесь</button>
-                                </a>
-                            {% endif %}
+                                #
+                            {% endif %}"
+                        tabindex="-1" aria-disabled="true">←
+                    </a>
 
-                        </article>
-                        {% endfor %}
+                    {% for page in products.paginator.page_range %}
+                    <a class="pagination__page{% if page == products.number %} active{% endif %}" href="
+                            {% if category %}
+                                {% url 'products:category_page' category page %}
+                            {% else %}
+                                {% url 'products:page_number' page %}
+                            {% endif %}">{{page}}
+                    </a>
+                    {% endfor %}
 
-                    </div>
-
-                    <!-- Пагинация -->
-                    <div class="pagination">
-                        <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="
-                                {% if products.has_previous %}
-                                    {% if category %}
-                                        {% url 'products:category_page' category products.previous_page_number %}
-                                    {% else %}
-                                        {% url 'products:page_number' products.previous_page_number %}
-                                    {% endif %}
-                                {% else %}
-                                    #
-                                {% endif %}"
-                            tabindex="-1" aria-disabled="true">←
-                        </a>
-
-                        {% for page in products.paginator.page_range %}
-                        <a class="pagination__page active" href="
+                    <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="
+                            {% if products.has_next %}
                                 {% if category %}
-                                    {% url 'products:category_page' category page %}">{{page}}
+                                    {% url 'products:category_page' category products.next_page_number %}
                                 {% else %}
-                                    {% url 'products:page_number' page %}">{{page}}
+                                    {% url 'products:page_number' products.next_page_number %}
                                 {% endif %}
-                        </a>
-                        {% endfor %}
-                        <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="
-                                {% if products.has_next %}
-                                    {% if category %}
-                                        {% url 'products:category_page' category products.next_page_number %}
-                                    {% else %}
-                                        {% url 'products:page_number' products.next_page_number %}
-                                    {% endif %}
-                                {% else %}
-                                    #
-                                {% endif %}"
-                            tabindex="+1" aria-disabled="true">→</a>
-                    </div>
-                </section>
-            </div>
+                            {% else %}
+                                #
+                            {% endif %}"
+                        tabindex="+1" aria-disabled="true">→</a>
+                </div>
+            </section>
         </div>
-    </main>
+    </div>
+</div>
 
 {% endblock %}
