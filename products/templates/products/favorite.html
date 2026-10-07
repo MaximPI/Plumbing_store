@@ -55,6 +55,22 @@
 
                     <!-- Название и цена -->
                     <h3 class="favorite-card__title">{{ favorite.product.name }}</h3>
+
+                    <div class="product-card__rating">
+                            <span class="product-card__stars">
+                                {% for i in ratings %}
+                                    {% if i <= favorite.rating %}
+                                        <span class="star-filled">★</span>
+                                    {% else %}
+                                        <span class="star-empty">★</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="product-card__rating-num">{{ favorite.rating }}</span>
+                            <span class="product-card__rating-count">({{ favorite.quant_rating }})</span>
+                    </div>
+
+
                     <p class="favorite-card__price">{{ favorite.product.price }} ₽</p>
 
                     <!-- Кнопка "В корзину" или счётчик -->

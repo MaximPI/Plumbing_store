@@ -71,14 +71,14 @@
                 <!-- ===== Бутафорский рейтинг ===== -->
                 <div class="product-detail__rating">
                     {% for i in ratings %}
-                        {% if i <= rating %}
+                        {% if i <= product.rating %}
                             <span class="star-filled">★</span>
                         {% else %}
                             <span class="star-empty">★</span>
                         {% endif %}
                     {% endfor %}
-                    <span class="product-detail__rating-num">{{ rating }}</span>
-                    <span class="product-detail__rating-count">(Отзывов: {{ reviews_count }})</span>
+                    <span class="product-detail__rating-num">{{ product.rating }}</span>
+                    <span class="product-detail__rating-count">(Отзывов: {{ product.quant_rating }})</span>
                 </div>
 
                 <div class="product-detail__price">{{ product.price }} ₽</div>
@@ -217,7 +217,7 @@
                     <!-- ===== КНОПКА "ПОСМОТРЕТЬ ОТЗЫВЫ" ===== -->
                     <a href="{% url 'products:review' product.id %}" class="review-btn review-btn--list">
                         ⭐ Посмотреть отзывы
-                        <span class="review-count">{{ reviews_count }}</span>
+                        <span class="review-count">{{ product.quant_rating }}</span>
                     </a>
 
                 </div>

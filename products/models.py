@@ -1,5 +1,7 @@
 from django.db import models
+from django.template.context_processors import request
 from users.models import User
+from decimal import Decimal, ROUND_HALF_UP
 # Create your models here.
 
 
@@ -22,6 +24,21 @@ class Product(models.Model):
 	power = models.PositiveIntegerField(blank=True)
 	life = models.PositiveIntegerField()
 	category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+
+	@property
+	def rating(self):
+		ratings = [review.rating for review in Review.objects.filter(product=self)]
+		if ratings:
+			rating = Decimal(str(sum(ratings) / len(ratings)))
+		else:
+			rating = Decimal("0")
+		rating = rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+		return rating
+
+	@property
+	def quant_rating(self):
+		ratings = [review for review in Review.objects.filter(product=self)]
+		return len(ratings)
 
 	def __str__(self):
 		return f"{self.name} - {self.category.name}"
@@ -54,6 +71,22 @@ class Favorites(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
 	created_timestamp = models.DateTimeField(auto_now_add=True)
+
+	@property
+	def rating(self):
+		ratings = [review.rating for review in Review.objects.filter(product=self.product)]
+		if ratings:
+			rating = Decimal(str(sum(ratings) / len(ratings)))
+		else:
+			rating = Decimal("0")
+		rating = rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
+		return rating
+
+	@property
+	def quant_rating(self):
+		ratings = [review for review in Review.objects.filter(product=self.product)]
+		return len(ratings)
+
 	def __str__(self):
 		return f"Избранное пользователя {self.user.username} | Продукт {self.product.name}"
 

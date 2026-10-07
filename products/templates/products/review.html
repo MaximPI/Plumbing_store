@@ -18,10 +18,10 @@
 
                 <div class="reviews-header__stats">
                     <div class="reviews-stat">
-                        <div class="reviews-stat__value">{{ rating }}</div>
+                        <div class="reviews-stat__value">{{ product.rating }}</div>
                         <div class="reviews-stat__stars">
                             {% for i in ratings %}
-                                {% if i <= rating %}
+                                {% if i <= product.rating %}
                                     <span class="star-filled">★</span>
                                 {% else %}
                                     <span class="star-empty">★</span>
@@ -35,7 +35,7 @@
                         <div class="reviews-stat__label">
                             отзывов:
                         </div>
-                        <div class="reviews-stat__value">{{ reviews_count }}</div>
+                        <div class="reviews-stat__value">{{ product.quant_rating }}</div>
                     </div>
                 </div>
             </div>

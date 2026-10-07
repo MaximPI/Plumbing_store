@@ -1,13 +1,11 @@
 from django.urls import path
-from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders, find, add_review, review, get_reviews
+from products.views import catalog, baskets, basket_add, basket_delete, basket_readd, favorites, favorite_add, favorite_delete, product_detail, compare, compare_readd, compare_add, orders, add_order, add_order_orders, find, add_review, review
 
 app_name = 'products'
 
 urlpatterns = [
     path('', catalog, name='home'),
-    path('rating/<int:product_id>', catalog, name='rating'),
     path('compare', compare, name='compare'),
-    path('get_reviews/<int:product_id>', get_reviews, name='get_reviews'),
     path('find', find, name='find'),
     path('add-review/<int:product_id>', add_review, name='add_review'),
     path('review/<int:product_id>', review, name='review'),

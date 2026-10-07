@@ -33,7 +33,7 @@ def index(request):
 
 	return render(request, 'products/index.html', context=context)
 
-def catalog(request, category_id=None, page_number=1, product_id=None):
+def catalog(request, category_id=None, page_number=1):
 	context = {
 		'title': 'каталог',
 		'categories': ProductCategory.objects.all(),
@@ -55,16 +55,6 @@ def catalog(request, category_id=None, page_number=1, product_id=None):
 	else:
 		products = Product.objects.all()
 
-	if product_id:
-		product = Product.objects.get(id=product_id)
-		ratings = [review.rating for review in Review.objects.filter(product=product)]
-		rating = Decimal(str(sum(ratings) / len(ratings)))
-		context.update({
-			'product': product,
-			'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
-			'ratings': [1, 2, 3, 4, 5],
-		})
-
 	pagination = Paginator(products, 10)
 	products_paginator = pagination.page(page_number)
 	context.update({
@@ -75,14 +65,6 @@ def catalog(request, category_id=None, page_number=1, product_id=None):
 
 	return render(request, 'products/catalog.html', context=context)
 
-def get_reviews(request, product_id):
-	product = Product.objects.get(id=product_id)
-	rating = [review.rating for review in Review.objects.filter(product=product)]
-	if rating:
-		avg_rating = Decimal(str(sum(rating) / len(rating)))
-	else:
-		avg_rating = 0
-	return avg_rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP)
 
 def about(request):
 	return render(request, 'products/about.html')
@@ -147,6 +129,7 @@ def favorites(request, page_number=1):
 		'bask': Baskets.objects.filter(user=request.user),
 		'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
 		'compares': Compare.objects.filter(user=request.user),
+		'ratings': [1, 2, 3, 4, 5],
 	}
 
 	favorite = Favorites.objects.filter(user=request.user)
@@ -171,7 +154,6 @@ def favorite_delete(request, favorite_id):
 
 def product_detail(request, product_id):
 	product = Product.objects.get(id=product_id)
-	ratings = [review.rating for review in Review.objects.filter(product=product)]
 	reviews = [review.user for review in Review.objects.filter(product=product)]
 
 	if request.user in reviews:
@@ -182,9 +164,8 @@ def product_detail(request, product_id):
 	context = {
 		'title': 'Страница товара',
 		'product': product,
-		'reviews_count': len(Review.objects.filter(product=product)),
-		'reviews': Review.objects.filter(product=product),
 		'user_reviewed': user_reviewed,
+		'ratings': [1, 2, 3, 4, 5],
 	}
 	if request.user.is_authenticated:
 		orders = [order.product for order in Order.objects.filter(user=request.user, product=product)]
@@ -197,15 +178,6 @@ def product_detail(request, product_id):
 			'product_ordered': product_ordered,
 		})
 
-	if ratings:
-		rating = Decimal(str(sum(ratings)/len(ratings)))
-	else:
-		rating = Decimal('0')
-
-	context.update({
-		'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
-		'ratings': [1, 2, 3, 4, 5],
-	})
 	if request.user.is_authenticated:
 		context.update({
 			'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
@@ -292,17 +264,11 @@ def find(request):
 
 def review(request, product_id):
 	product = Product.objects.get(id=product_id)
-	ratings = [review.rating for review in Review.objects.filter(product=product)]
-	if ratings:
-		rating = Decimal(str(sum(ratings)/len(ratings)))
-	else:
-		rating = Decimal('0')
 
 	context = {
 		'reviews': Review.objects.filter(product=product),
 		'reviews_count': len(Review.objects.filter(product=product)),
 		'product': product,
-		'rating': rating.quantize(Decimal("0.1"), rounding=ROUND_HALF_UP),
 		'ratings': [1, 2, 3, 4, 5],
 	}
 	return render(request, 'products/review.html', context=context)
