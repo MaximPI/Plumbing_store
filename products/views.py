@@ -271,11 +271,33 @@ def review(request, product_id):
 		'product': product,
 		'ratings': [1, 2, 3, 4, 5],
 	}
+	reviews = [review.user for review in Review.objects.filter(product=product)]
+
+	if request.user in reviews:
+		user_reviewed = True
+	else:
+		user_reviewed = False
+
+	context.update( {
+		'user_reviewed': user_reviewed
+	})
+
+	if request.user.is_authenticated:
+		orders = [order.product for order in Order.objects.filter(user=request.user, product=product)]
+
+		if orders:
+			product_ordered = True
+		else:
+			product_ordered = False
+		context.update({
+			'product_ordered': product_ordered,
+		})
 	return render(request, 'products/review.html', context=context)
 
 @login_required
 def add_review(request, product_id):
 	product = Product.objects.get(id=product_id)
+
 	if request.method == 'POST':
 		rating = request.POST.get('rating', '')
 		description = request.POST.get('text', '')

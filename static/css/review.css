@@ -342,6 +342,252 @@
 }
 
 /* ============================================
+   БЛОК ОТЗЫВА (внутри пустого состояния)
+   ============================================ */
+.product-detail__review {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+/* ----- Раскрывашка ----- */
+.review-toggle {
+    border: none;
+}
+
+.review-toggle > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.review-toggle > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* ----- Кнопка "Оставить отзыв" ----- */
+.review-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: transparent;
+    color: #5eead4;
+    border: 2px solid rgba(94, 234, 212, 0.4);
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    user-select: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.review-btn:hover {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: #14b8a6;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.25);
+}
+
+.review-toggle[open] .review-btn {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    border-color: #14b8a6;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+}
+
+.review-btn--guest {
+    border-style: dashed;
+    color: #94c5e8;
+    border-color: rgba(94, 234, 212, 0.25);
+}
+
+.review-btn--guest:hover {
+    color: #5eead4;
+    border-color: #14b8a6;
+}
+
+/* ============================================
+   СЕРАЯ ПЛАШКА "ВЫ УЖЕ ОСТАВИЛИ ОТЗЫВ"
+   ============================================ */
+.review-already {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: rgba(148, 197, 232, 0.06);
+    border: 1px solid rgba(148, 197, 232, 0.18);
+    border-left: 4px solid #94c5e8;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.review-already__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 50%;
+    background: rgba(94, 234, 212, 0.15);
+    border: 1px solid rgba(94, 234, 212, 0.35);
+    color: #5eead4;
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+    flex-shrink: 0;
+    text-shadow: 0 0 12px rgba(94, 234, 212, 0.5);
+}
+
+.review-already__text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.review-already__text strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    letter-spacing: -0.2px;
+}
+
+.review-already__text span {
+    font-size: 0.85rem;
+    color: #94c5e8;
+    line-height: 1.4;
+}
+
+/* ============================================
+   ФОРМА ОТЗЫВА
+   ============================================ */
+.review-form {
+    margin-top: 18px;
+    padding: 22px;
+    background: rgba(5, 16, 31, 0.7);
+    border: 1px solid rgba(94, 234, 212, 0.2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    animation: reviewFadeIn 0.3s ease;
+}
+
+@keyframes reviewFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.review-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.review-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e0f2fe;
+    letter-spacing: 0.2px;
+}
+
+/* ----- Звёзды в форме ----- */
+.review-stars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.review-stars input {
+    display: none;
+}
+
+.review-stars label {
+    font-size: 1.8rem;
+    color: #2a4a6a;
+    cursor: pointer;
+    transition: color 0.15s, transform 0.15s, text-shadow 0.15s;
+    line-height: 1;
+    user-select: none;
+}
+
+.review-stars label:hover,
+.review-stars label:hover ~ label {
+    color: #fbbf24;
+    transform: scale(1.1);
+    text-shadow: 0 0 16px rgba(251, 191, 36, 0.6);
+}
+
+.review-stars input:checked ~ label {
+    color: #fbbf24;
+    text-shadow: 0 0 16px rgba(251, 191, 36, 0.5);
+}
+
+/* ----- Текст отзыва ----- */
+.review-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: #000;
+    border: 1px solid rgba(94, 234, 212, 0.25);
+    border-radius: 12px;
+    color: #e0f2fe;
+    font-size: 0.95rem;
+    font-family: inherit;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 110px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    box-sizing: border-box;
+}
+
+.review-textarea::placeholder {
+    color: #4a7ba8;
+}
+
+.review-textarea:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.15);
+}
+
+/* ----- Кнопка отправки ----- */
+.review-submit {
+    align-self: flex-start;
+    padding: 12px 32px;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
+    font-family: inherit;
+}
+
+.review-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
+}
+
+.review-submit:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ============================================
    АДАПТИВНОСТЬ
    ============================================ */
 @media (max-width: 768px) {
@@ -404,5 +650,38 @@
 
     .review-card__text {
         font-size: 0.9rem;
+    }
+
+    .reviews-empty {
+        padding: 50px 20px;
+    }
+
+    .review-already {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .review-already__icon {
+        width: 34px;
+        height: 34px;
+        min-width: 34px;
+        font-size: 1rem;
+    }
+
+    .review-already__text strong {
+        font-size: 0.9rem;
+    }
+
+    .review-already__text span {
+        font-size: 0.8rem;
+    }
+
+    .review-stars label {
+        font-size: 1.5rem;
+    }
+
+    .review-submit {
+        width: 100%;
+        align-self: stretch;
     }
 }
