@@ -88,61 +88,6 @@ body {
     margin-bottom: 28px;
 }
 
-/* ----- Кнопки ----- */
-.modal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.modal-btn {
-    display: block;
-    width: 100%;
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.25s, background 0.25s;
-    border: none;
-    font-family: inherit;
-}
-
-.modal-btn--primary {
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
-}
-
-.modal-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
-}
-
-.modal-btn--primary:active {
-    transform: translateY(0) scale(0.98);
-}
-
-.modal-btn--secondary {
-    background: transparent;
-    color: #5eead4;
-    border: 1px solid rgba(94, 234, 212, 0.35);
-}
-
-.modal-btn--secondary:hover {
-    background: rgba(20, 184, 166, 0.15);
-    border-color: #14b8a6;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.25);
-}
-
-.modal-btn--secondary:active {
-    transform: translateY(0) scale(0.98);
-}
-
 /* ----- Крестик закрытия ----- */
 .modal-close {
     position: absolute;
@@ -196,10 +141,5 @@ body {
     .modal-message {
         font-size: 0.92rem;
         margin-bottom: 22px;
-    }
-
-    .modal-btn {
-        padding: 11px 20px;
-        font-size: 0.92rem;
     }
 }

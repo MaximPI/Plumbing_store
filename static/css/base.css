@@ -1,3 +1,7 @@
+/* ============================================
+   BASE — DEEP OCEAN + BLACK
+   ============================================ */
+
 /* ----- Общие сбросы и базовые стили ----- */
 * {
     margin: 0;
@@ -35,13 +39,15 @@ ul {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 30px;
     width: 100%;
 }
 
-/* ----- Шапка / Навигация ----- */
+/* ============================================
+   ШАПКА / НАВИГАЦИЯ
+   ============================================ */
 .header {
     background: linear-gradient(180deg, #14334f 0%, #0f2942 50%, #0a1929 100%);
     backdrop-filter: blur(16px);
@@ -136,7 +142,9 @@ ul {
     box-shadow: 0 6px 16px rgba(20, 184, 166, 0.55) !important;
 }
 
-/* ----- Основной контент ----- */
+/* ============================================
+   ОСНОВНОЙ КОНТЕНТ
+   ============================================ */
 .main {
     flex: 1;
     padding: 0;
@@ -147,103 +155,14 @@ ul {
     background: #05101f;
 }
 
-.hero {
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    border-radius: 16px;
-    margin-bottom: 50px;
-}
-
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.hero p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-}
-
-/* ----- Сетка товаров ----- */
-.products h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #e0f2fe;
-    text-align: center;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
-    background: rgba(10, 25, 41, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(94, 234, 212, 0.15);
-    border-radius: 16px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(20, 184, 166, 0.5);
-    background: rgba(10, 25, 41, 0.9);
-    box-shadow: 0 20px 40px rgba(20, 184, 166, 0.15);
-}
-
-.product-card__image {
-    font-size: 4rem;
-    margin-bottom: 10px;
-    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
-}
-
-.product-card__title {
-    font-size: 1.1rem;
-    margin-bottom: 8px;
-    color: #e0f2fe;
-    font-weight: 600;
-}
-
-.product-card__price {
-    font-weight: 800;
-    font-size: 1.3rem;
-    color: #5eead4;
-    margin-bottom: 12px;
-    text-shadow: 0 0 20px rgba(94, 234, 212, 0.4);
-}
-
-.product-card__btn {
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.25s;
-    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
-}
-
-.product-card__btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(20, 184, 166, 0.55);
-}
-
-/* ----- Подвал ----- */
+/* ============================================
+   ПОДВАЛ
+   ============================================ */
 .footer {
     background-color: #000;
     color: #94c5e8;
     padding: 40px 0 0;
     border-top: 1px solid rgba(94, 234, 212, 0.12);
-    /* margin-top убран — белая полоса больше не появится */
 }
 
 .footer__inner {
@@ -287,10 +206,22 @@ ul {
     color: #4a7ba8;
 }
 
-/* ----- Адаптивность ----- */
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
 @media (max-width: 992px) {
-    .logo { font-size: 1.3rem; }
-    .nav__list a { font-size: 0.85rem; padding: 7px 14px; }
+    .container {
+        padding: 0 20px;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .nav__list a {
+        font-size: 0.85rem;
+        padding: 7px 14px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -307,18 +238,20 @@ ul {
         gap: 8px;
     }
 
-    .nav__list a { font-size: 0.85rem; padding: 7px 14px; }
-
-    .hero h1 { font-size: 2rem; }
-
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 20px;
+    .nav__list a {
+        font-size: 0.85rem;
+        padding: 7px 14px;
     }
 }
 
 @media (max-width: 480px) {
-    .logo { font-size: 1.2rem; }
+    .container {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
 
     .nav__list {
         flex-direction: column;
@@ -326,11 +259,15 @@ ul {
         gap: 10px;
     }
 
-    .nav__list a { font-size: 0.9rem; padding: 8px 16px; }
+    .nav__list a {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
 
-    .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
-
-    .footer__inner { grid-template-columns: 1fr; text-align: center; }
+    .footer__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 }
 
 /* ============================================

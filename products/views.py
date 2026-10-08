@@ -10,6 +10,7 @@ from decimal import Decimal, ROUND_HALF_UP
 def index(request):
 	context = {
 		'title': 'Водная планета',
+		'ratings': [1, 2, 3, 4, 5],
 	}
 	products = {
 
@@ -196,6 +197,7 @@ def compare(request):
 		'products': Compare.objects.filter(user=request.user),
 		'bask': Baskets.objects.filter(user=request.user),
 		'baskets': [basket.product for basket in Baskets.objects.filter(user=request.user)],
+		'compares': Compare.objects.filter(user=request.user)
 	}
 	return render(request, 'products/compare.html', context=context)
 
@@ -207,6 +209,11 @@ def compare_readd(request, compare_id):
 def compare_add(request, product_id):
 	product = Product.objects.get(id=product_id)
 	Compare.objects.create(user=request.user, product=product)
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def compare_delete(request):
+	compares = Compare.objects.filter(user=request.user)
+	compares.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def orders(request):
@@ -240,7 +247,8 @@ def find(request):
 	context = {
 		'title': 'Каталог',
 		'categories': ProductCategory.objects.all(),
-		'if_categories': False
+		'if_categories': False,
+		'ratings': [1, 2, 3, 4, 5],
 	}
 
 	if request.user.is_authenticated:

@@ -4,37 +4,6 @@
 
 .main {
     padding: 30px 0 60px;
-    background: #05101f;
-}
-
-.container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ----- Хлебные крошки ----- */
-.breadcrumbs {
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: #94c5e8;
-}
-
-.breadcrumbs a {
-    color: #5eead4;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: #7dd3fc;
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    color: #e0f2fe;
-    font-weight: 600;
 }
 
 /* ============================================
@@ -113,7 +82,7 @@
 }
 
 /* ============================================
-   РЕЙТИНГ В КАРТОЧКЕ ТОВАРА
+   РЕЙТИНГ
    ============================================ */
 .product-detail__rating {
     display: inline-flex;
@@ -190,7 +159,8 @@
     flex-wrap: wrap;
 }
 
-.product-detail__btn {
+/* ----- Кнопка "В корзину" (класс из HTML) ----- */
+.product-detail__actions .product-card__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -206,14 +176,17 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.25s;
     box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
+    font-family: inherit;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
-.product-detail__btn:hover {
+.product-detail__actions .product-card__btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
 }
 
-.product-detail__btn:active {
+.product-detail__actions .product-card__btn:active {
     transform: translateY(0) scale(0.97);
 }
 
@@ -331,7 +304,7 @@
 }
 
 /* ============================================
-   КНОПКА "ИЗБРАННОЕ" ПОВЕРХ КАРТИНКИ — КРАСНАЯ
+   КНОПКА "ИЗБРАННОЕ"
    ============================================ */
 .product-detail__image .favorite-btn {
     position: absolute;
@@ -567,7 +540,9 @@
     line-height: 1.4;
 }
 
-/* ----- Форма отзыва ----- */
+/* ============================================
+   ФОРМА ОТЗЫВА
+   ============================================ */
 .review-form {
     margin-top: 18px;
     padding: 22px;
@@ -728,7 +703,7 @@
         font-size: 1.6rem;
     }
 
-    .product-detail__btn {
+    .product-detail__actions .product-card__btn {
         padding: 12px 24px;
         font-size: 0.9rem;
         width: 100%;

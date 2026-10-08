@@ -15,33 +15,6 @@
     padding: 0 20px;
 }
 
-/* ----- Хлебные крошки ----- */
-.breadcrumbs {
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: #94c5e8;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    align-items: center;
-}
-
-.breadcrumbs a {
-    color: #5eead4;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: #7dd3fc;
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    color: #e0f2fe;
-    font-weight: 600;
-}
-
 /* ============================================
    ШАПКА СТРАНИЦЫ
    ============================================ */
@@ -163,21 +136,6 @@
     white-space: nowrap;
 }
 
-.reviews-btn--primary {
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
-}
-
-.reviews-btn--primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
-}
-
-.reviews-btn--primary:active {
-    transform: translateY(0) scale(0.98);
-}
-
 .reviews-btn--secondary {
     background: transparent;
     color: #5eead4;
@@ -258,20 +216,17 @@
 }
 
 /* ----- Раскрывашка "Редактировать" ----- */
-.my-review__edit-toggle,
 .my-review__edit-form-wrapper {
     border: none;
     margin: 0;
     width: 100%;
 }
 
-.my-review__edit-toggle > summary,
 .my-review__edit-form-wrapper > summary {
     list-style: none;
     cursor: pointer;
 }
 
-.my-review__edit-toggle > summary::-webkit-details-marker,
 .my-review__edit-form-wrapper > summary::-webkit-details-marker {
     display: none;
 }
@@ -313,7 +268,6 @@
     box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
 }
 
-/* Форма редактирования — расширена на всю ширину */
 .my-review__edit-form {
     margin-top: 14px;
     width: 100%;
@@ -340,7 +294,7 @@
 }
 
 /* ============================================
-   КНОПКА УДАЛЕНИЯ В ШАПКЕ — прижата вправо
+   КНОПКА УДАЛЕНИЯ В ШАПКЕ
    ============================================ */
 .my-review__delete-wrapper {
     margin-left: auto;
@@ -358,7 +312,6 @@
     display: none;
 }
 
-/* Кнопка "Удалить отзыв" — красная, пунктирная, компактная */
 .my-review__delete-btn {
     display: inline-flex;
     align-items: center;
@@ -400,7 +353,6 @@
     box-shadow: 0 6px 18px rgba(231, 76, 60, 0.4);
 }
 
-/* Плашка подтверждения — выпадает под кнопкой */
 .my-review__delete-confirm {
     position: absolute;
     top: calc(100% + 10px);
@@ -479,7 +431,6 @@
     gap: 16px;
 }
 
-/* ----- Карточка отзыва ----- */
 .review-card {
     padding: 22px 26px;
     background: rgba(10, 25, 41, 0.6);
@@ -968,7 +919,6 @@
         padding: 3px 10px;
     }
 
-    /* Редактирование на мобильных */
     .my-review__edit-summary {
         width: 100%;
         padding: 10px 20px;
@@ -983,7 +933,6 @@
         width: 100%;
     }
 
-    /* Кнопка удаления на мобильных */
     .my-review__header {
         gap: 10px;
     }

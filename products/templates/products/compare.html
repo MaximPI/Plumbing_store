@@ -16,9 +16,11 @@
         </div>
 
         <!-- Кнопка очистки -->
-        <div class="compare-actions">
-            <a href="#" class="compare-clear">✕ Очистить сравнение</a>
-        </div>
+        {% if compares %}
+            <div class="compare-actions">
+                <a href="{% url 'products:compare_delete' %}" class="compare-clear">✕ Очистить сравнение</a>
+            </div>
+
 
         <!-- Таблица сравнения -->
         <div class="compare-wrapper">
@@ -150,7 +152,17 @@
                 </tbody>
             </table>
         </div>
-
+        {% else %}
+             <!-- ===== ПУСТОЕ СРАВНЕНИЕ ===== -->
+            <div class="compare-empty">
+                <div class="compare-empty__icon">📊</div>
+                <h2>В сравнении пока ничего нет</h2>
+                <p>Добавьте товары в сравнение из каталога, чтобы увидеть их характеристики рядом</p>
+                <a href="{% url 'products:home' %}" class="compare-empty__btn">
+                    Перейти в каталог
+                </a>
+            </div>
+        {% endif %}
     </div>
 </main>
 {% endblock %}

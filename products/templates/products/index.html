@@ -93,8 +93,25 @@
                     <div class="popular-card__image">📦</div>
                 {% endif %}
 
-                <!-- Название и цена -->
+                <!-- Название -->
                 <div class="popular-card__name">{{ product.name }}</div>
+
+                 <!-- ===== Рейтинг ===== -->
+                        <div class="product-card__rating">
+                                <span class="product-card__stars">
+                                    {% for i in ratings %}
+                                        {% if i <= product.rating %}
+                                            <span class="star-filled">★</span>
+                                        {% else %}
+                                            <span class="star-empty">★</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
+                                <span class="product-card__rating-num">{{ product.rating }}</span>
+                                <span class="product-card__rating-count">({{ product.quant_rating }})</span>
+                        </div>
+
+                <!-- цена -->
                 <div class="popular-card__price">{{ product.price }} ₽</div>
 
                 <!-- Кнопки действий -->

@@ -4,37 +4,6 @@
 
 .main {
     padding: 30px 0 60px;
-    background: #05101f;
-}
-
-.container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ----- Хлебные крошки ----- */
-.breadcrumbs {
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: #94c5e8;
-}
-
-.breadcrumbs a {
-    color: #5eead4;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: #7dd3fc;
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    color: #e0f2fe;
-    font-weight: 600;
 }
 
 /* ----- Заголовок ----- */
@@ -141,41 +110,6 @@
 .order-date {
     font-size: 0.9rem;
     color: #94c5e8;
-}
-
-/* ----- Статусы ----- */
-.order-status {
-    display: inline-block;
-    padding: 5px 14px;
-    border-radius: 30px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    white-space: nowrap;
-    border: 1px solid transparent;
-}
-
-.status-delivered {
-    background: rgba(20, 184, 166, 0.15);
-    color: #5eead4;
-    border-color: rgba(94, 234, 212, 0.35);
-}
-
-.status-shipped {
-    background: rgba(56, 189, 248, 0.15);
-    color: #7dd3fc;
-    border-color: rgba(125, 211, 252, 0.35);
-}
-
-.status-processing {
-    background: rgba(251, 191, 36, 0.12);
-    color: #fbbf24;
-    border-color: rgba(251, 191, 36, 0.3);
-}
-
-.status-cancelled {
-    background: rgba(248, 113, 113, 0.12);
-    color: #f87171;
-    border-color: rgba(248, 113, 113, 0.3);
 }
 
 /* ----- Тело заказа ----- */
@@ -285,83 +219,6 @@
 .order-btn--primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(20, 184, 166, 0.55);
-}
-
-.order-btn--secondary {
-    background: transparent;
-    color: #5eead4;
-    border: 1px solid rgba(94, 234, 212, 0.35);
-}
-
-.order-btn--secondary:hover {
-    background: rgba(20, 184, 166, 0.15);
-    border-color: #14b8a6;
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.25);
-}
-
-/* ----- Отменённый заказ ----- */
-.order-card--cancelled {
-    opacity: 0.7;
-}
-
-.order-card--cancelled:hover {
-    transform: none;
-    border-color: rgba(94, 234, 212, 0.15);
-    background: rgba(10, 25, 41, 0.6);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-
-/* ============================================
-   ПУСТОЕ СОСТОЯНИЕ
-   ============================================ */
-.orders-empty {
-    text-align: center;
-    padding: 80px 20px;
-    background: rgba(10, 25, 41, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(94, 234, 212, 0.15);
-    border-radius: 16px;
-    color: #4a7ba8;
-}
-
-.orders-empty__icon {
-    font-size: 4rem;
-    margin-bottom: 16px;
-    line-height: 1;
-    opacity: 0.7;
-    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
-}
-
-.orders-empty h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #e0f2fe;
-    margin-bottom: 8px;
-}
-
-.orders-empty p {
-    font-size: 1rem;
-    color: #94c5e8;
-    margin-bottom: 24px;
-}
-
-.orders-empty__btn {
-    display: inline-block;
-    padding: 12px 32px;
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: transform 0.2s, box-shadow 0.25s;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
-}
-
-.orders-empty__btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
 }
 
 /* ============================================

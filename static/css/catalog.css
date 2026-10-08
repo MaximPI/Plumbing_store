@@ -17,29 +17,6 @@
     box-sizing: border-box;
 }
 
-/* ----- Хлебные крошки ----- */
-.breadcrumbs {
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: #94c5e8;
-}
-
-.breadcrumbs a {
-    color: #5eead4;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: #7dd3fc;
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    color: #e0f2fe;
-    font-weight: 600;
-}
-
 /* ============================================
    МАКЕТ КАТАЛОГА
    ============================================ */
@@ -59,8 +36,6 @@
 .catalog-filters {
     flex: 0 0 260px;
     max-width: 260px;
-    margin-left: 0;
-    margin-right: 0;
     align-self: flex-start;
     background: rgba(10, 25, 41, 0.6);
     backdrop-filter: blur(10px);
@@ -84,33 +59,6 @@
     border-bottom: 2px solid #14b8a6;
     padding-bottom: 10px;
     font-weight: 700;
-}
-
-.filter-group {
-    margin-bottom: 25px;
-}
-
-.filter-group h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #e0f2fe;
-}
-
-.filter-group label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    color: #94c5e8;
-}
-
-.filter-group label input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: #14b8a6;
 }
 
 /* ============================================
@@ -248,7 +196,6 @@
     white-space: nowrap;
 }
 
-/* ----- Поиск ----- */
 .search-form {
     display: flex;
     align-items: center;
@@ -429,61 +376,56 @@
 }
 
 /* ============================================
-   РЕЙТИНГ В КАРТОЧКЕ ТОВАРА — с !important
+   РЕЙТИНГ В КАРТОЧКЕ ТОВАРА
    ============================================ */
 .product-card__rating {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px !important;
-    margin-bottom: 8px !important;
-    font-size: 0.85rem !important;
-    line-height: 1 !important;
-    pointer-events: none !important;
-    position: relative !important;
-    z-index: 0 !important;
-    flex-wrap: wrap !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    line-height: 1;
+    pointer-events: none;
+    position: relative;
+    z-index: 0;
+    flex-wrap: wrap;
 }
 
 .product-card__stars {
-    display: inline-flex !important;
-    gap: 2px !important;
-    font-size: 1.1rem !important;
-    line-height: 1 !important;
+    display: inline-flex;
+    gap: 2px;
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
-/* Звёзды — с !important, чтобы никто не перебил */
-.product-card__rating .star-filled,
-.product-card .star-filled,
-.product-card__stars .star-filled {
-    color: #fbbf24 !important;
-    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5) !important;
-    font-size: 1.1rem !important;
-    line-height: 1 !important;
-    display: inline-block !important;
+.product-card__rating .star-filled {
+    color: #fbbf24;
+    text-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+    font-size: 1.1rem;
+    line-height: 1;
+    display: inline-block;
 }
 
-.product-card__rating .star-empty,
-.product-card .star-empty,
-.product-card__stars .star-empty {
-    color: #2a4a6a !important;
-    font-size: 1.1rem !important;
-    line-height: 1 !important;
-    display: inline-block !important;
+.product-card__rating .star-empty {
+    color: #2a4a6a;
+    font-size: 1.1rem;
+    line-height: 1;
+    display: inline-block;
 }
 
 .product-card__rating-num {
-    font-size: 0.9rem !important;
-    font-weight: 700 !important;
-    color: #5eead4 !important;
-    text-shadow: 0 0 12px rgba(94, 234, 212, 0.4) !important;
-    display: inline-block !important;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #5eead4;
+    text-shadow: 0 0 12px rgba(94, 234, 212, 0.4);
+    display: inline-block;
 }
 
 .product-card__rating-count {
-    font-size: 0.85rem !important;
-    color: #4a7ba8 !important;
-    display: inline-block !important;
+    font-size: 0.85rem;
+    color: #4a7ba8;
+    display: inline-block;
 }
 
 /* ============================================
@@ -615,17 +557,6 @@
 
 .favorite-btn.active:active {
     transform: scale(0.95);
-}
-
-@keyframes heartPop {
-    0%   { transform: scale(1); }
-    40%  { transform: scale(1.35); }
-    70%  { transform: scale(0.9); }
-    100% { transform: scale(1); }
-}
-
-.favorite-btn.animate {
-    animation: heartPop 0.4s ease;
 }
 
 /* ============================================
@@ -834,28 +765,24 @@
     }
 
     .product-card__rating {
-        font-size: 0.75rem !important;
-        gap: 6px !important;
+        font-size: 0.75rem;
+        gap: 6px;
     }
 
     .product-card__stars {
-        font-size: 1rem !important;
+        font-size: 1rem;
     }
 
     .product-card__rating .star-filled,
-    .product-card .star-filled,
-    .product-card__stars .star-filled,
-    .product-card__rating .star-empty,
-    .product-card .star-empty,
-    .product-card__stars .star-empty {
-        font-size: 1rem !important;
+    .product-card__rating .star-empty {
+        font-size: 1rem;
     }
 
     .product-card__rating-num {
-        font-size: 0.85rem !important;
+        font-size: 0.85rem;
     }
 
     .product-card__rating-count {
-        font-size: 0.78rem !important;
+        font-size: 0.78rem;
     }
 }

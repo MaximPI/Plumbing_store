@@ -2,41 +2,6 @@
    СРАВНЕНИЕ ТОВАРОВ — DEEP OCEAN + BLACK
    ============================================ */
 
-.main {
-    padding: 30px 0 60px;
-    background: #05101f;
-}
-
-.container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ----- Хлебные крошки ----- */
-.breadcrumbs {
-    margin-bottom: 25px;
-    font-size: 0.95rem;
-    color: #94c5e8;
-}
-
-.breadcrumbs a {
-    color: #5eead4;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.breadcrumbs a:hover {
-    color: #7dd3fc;
-    text-decoration: underline;
-}
-
-.breadcrumbs span {
-    color: #e0f2fe;
-    font-weight: 600;
-}
-
 /* ----- Заголовок ----- */
 .compare-header {
     text-align: center;
@@ -97,6 +62,7 @@
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     padding: 4px;
+    margin-bottom: 60px;
 }
 
 .compare-table {
@@ -216,38 +182,40 @@
     text-align: left;
 }
 
-/* Кнопки действий в последней строке */
-.compare-add-btn {
-    display: inline-block;
-    padding: 8px 16px;
+/* ============================================
+   КНОПКА "В КОРЗИНУ"
+   ============================================ */
+.product-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 22px;
     background: linear-gradient(135deg, #14b8a6, #0d9488);
     color: #fff;
+    border: none;
     border-radius: 30px;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-weight: 700;
     text-decoration: none;
+    cursor: pointer;
     transition: transform 0.2s, box-shadow 0.25s;
-    margin-bottom: 6px;
     box-shadow: 0 6px 16px rgba(20, 184, 166, 0.3);
+    font-family: inherit;
+    line-height: 1.2;
+    white-space: nowrap;
 }
 
-.compare-add-btn:hover {
+.product-card__btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(20, 184, 166, 0.55);
 }
 
-.compare-in-basket {
-    display: inline-block;
-    padding: 8px 16px;
-    background: rgba(20, 184, 166, 0.15);
-    color: #5eead4;
-    border: 1px solid rgba(94, 234, 212, 0.3);
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 6px;
+.product-card__btn:active {
+    transform: translateY(0) scale(0.97);
 }
 
+/* Кнопка "Убрать" в последней строке */
 .compare-remove-btn {
     display: block;
     margin: 6px auto 0;
@@ -271,7 +239,7 @@
 }
 
 /* ============================================
-   СЧЁТЧИК КОЛИЧЕСТВА (− и +) В СРАВНЕНИИ
+   СЧЁТЧИК КОЛИЧЕСТВА (− и +)
    ============================================ */
 .quantity-control {
     display: inline-flex;
@@ -339,57 +307,6 @@
 }
 
 /* ============================================
-   ПУСТОЕ СРАВНЕНИЕ
-   ============================================ */
-.compare-empty {
-    text-align: center;
-    padding: 80px 20px;
-    background: rgba(10, 25, 41, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(94, 234, 212, 0.15);
-    border-radius: 16px;
-    color: #4a7ba8;
-}
-
-.compare-empty__icon {
-    font-size: 4rem;
-    margin-bottom: 16px;
-    line-height: 1;
-    opacity: 0.7;
-    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
-}
-
-.compare-empty h2 {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #e0f2fe;
-    margin-bottom: 8px;
-}
-
-.compare-empty p {
-    font-size: 1rem;
-    color: #94c5e8;
-    margin-bottom: 24px;
-}
-
-.compare-empty__btn {
-    display: inline-block;
-    padding: 12px 32px;
-    background: linear-gradient(135deg, #14b8a6, #0d9488);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 30px;
-    font-weight: 700;
-    transition: transform 0.2s, box-shadow 0.25s;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
-}
-
-.compare-empty__btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
-}
-
-/* ============================================
    ПРОЧЕРК ДЛЯ ОТСУТСТВУЮЩЕЙ ХАРАКТЕРИСТИКИ
    ============================================ */
 .compare-table td.empty {
@@ -399,6 +316,92 @@
     font-size: 1.1rem;
     letter-spacing: 1px;
     user-select: none;
+}
+
+/* ============================================
+   ПУСТОЕ СРАВНЕНИЕ
+   ============================================ */
+.compare-empty {
+    text-align: center;
+    padding: 80px 30px;
+    background: rgba(10, 25, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(94, 234, 212, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    color: #4a7ba8;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 60px;
+}
+
+.compare-empty::before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.compare-empty__icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    line-height: 1;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.4));
+    position: relative;
+    z-index: 1;
+}
+
+.compare-empty h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    margin: 0 0 8px;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.compare-empty p {
+    font-size: 1rem;
+    color: #94c5e8;
+    margin: 0 0 28px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+}
+
+.compare-empty__btn {
+    display: inline-block;
+    padding: 13px 32px;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
+    position: relative;
+    z-index: 1;
+}
+
+.compare-empty__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
+}
+
+.compare-empty__btn:active {
+    transform: translateY(0) scale(0.97);
 }
 
 /* ============================================
@@ -431,6 +434,11 @@
 
     .compare-price {
         font-size: 1rem;
+    }
+
+    .product-card__btn {
+        padding: 9px 18px;
+        font-size: 0.82rem;
     }
 
     .quantity-btn {
@@ -479,5 +487,35 @@
     .compare-clear {
         padding: 6px 14px;
         font-size: 0.85rem;
+    }
+
+    .product-card__btn {
+        padding: 8px 14px;
+        font-size: 0.78rem;
+    }
+
+    .compare-empty {
+        padding: 50px 20px;
+        margin-bottom: 40px;
+    }
+
+    .compare-empty__icon {
+        font-size: 3rem;
+        margin-bottom: 12px;
+    }
+
+    .compare-empty h2 {
+        font-size: 1.2rem;
+    }
+
+    .compare-empty p {
+        font-size: 0.9rem;
+        margin-bottom: 22px;
+    }
+
+    .compare-empty__btn {
+        width: 100%;
+        padding: 12px 24px;
+        font-size: 0.9rem;
     }
 }
