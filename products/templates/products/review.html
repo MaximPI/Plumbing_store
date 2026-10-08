@@ -205,8 +205,14 @@
                         </article>
                     {% endfor %}
                 </div>
-            {% else %}
+            {% elif user_reviewed %}
                 <div class="reviews-empty">
+                    <div class="reviews-empty__icon">💬</div>
+                    <h2>Ваш отзыв пока единственный</h2>
+                    <p>Спасибо, что даёте обратную связь!</p>
+
+            {% else %}
+                     <div class="reviews-empty">
                     <div class="reviews-empty__icon">💬</div>
                     <h2>Отзывов пока нет</h2>
                     <p>Станьте первым, кто оставит отзыв об этом товаре</p>
@@ -221,17 +227,6 @@
                                     <div class="review-already__text">
                                         <strong>Вы не ещё не купили товар</strong>
                                         <span>Вы сможете оставить отзыв как только закажете товар</span>
-                                    </div>
-                                </div>
-
-                            {% elif user_reviewed %}
-
-                                <!-- ===== Серая плашка: отзыв уже оставлен ===== -->
-                                <div class="review-already">
-                                    <span class="review-already__icon">✓</span>
-                                    <div class="review-already__text">
-                                        <strong>Вы уже оставили отзыв</strong>
-                                        <span>Спасибо за ваше мнение! Ваш отзыв уже учтён.</span>
                                     </div>
                                 </div>
 
