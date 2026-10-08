@@ -86,89 +86,92 @@
                     <div class="reviews-empty__icon">💬</div>
                     <h2>Отзывов пока нет</h2>
                     <p>Станьте первым, кто оставит отзыв об этом товаре</p>
+
                     <div class="product-detail__review">
 
-                    {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
 
-                        {% if not product_ordered %}
-                            <div class="review-already">
-                                <span class="review-already__icon">✓</span>
-                                <div class="review-already__text">
-                                    <strong>Вы не ещё не купили товар</strong>
-                                    <span>Вы сможете оставить отзыв как только закажете товар</span>
+                            {% if not product_ordered %}
+                                <div class="review-already">
+                                    <span class="review-already__icon">✓</span>
+                                    <div class="review-already__text">
+                                        <strong>Вы не ещё не купили товар</strong>
+                                        <span>Вы сможете оставить отзыв как только закажете товар</span>
+                                    </div>
                                 </div>
-                            </div>
 
-                        {% elif user_reviewed %}
+                            {% elif user_reviewed %}
 
-                            <!-- ===== Серая плашка: отзыв уже оставлен ===== -->
-                            <div class="review-already">
-                                <span class="review-already__icon">✓</span>
-                                <div class="review-already__text">
-                                    <strong>Вы уже оставили отзыв</strong>
-                                    <span>Спасибо за ваше мнение! Ваш отзыв уже учтён.</span>
+                                <!-- ===== Серая плашка: отзыв уже оставлен ===== -->
+                                <div class="review-already">
+                                    <span class="review-already__icon">✓</span>
+                                    <div class="review-already__text">
+                                        <strong>Вы уже оставили отзыв</strong>
+                                        <span>Спасибо за ваше мнение! Ваш отзыв уже учтён.</span>
+                                    </div>
                                 </div>
-                            </div>
+
+                            {% else %}
+
+                                <!-- Кнопка-раскрывашка "Оставить отзыв" -->
+                                <details class="review-toggle">
+                                    <summary class="review-btn">
+                                        ✍️ Оставить отзыв
+                                    </summary>
+
+                                    <form method="post"
+                                          action="{% url 'products:add_review' product.id%}"
+                                          class="review-form">
+                                        {% csrf_token %}
+
+                                        <!-- Оценка звёздами -->
+                                        <div class="review-field">
+                                            <label class="review-label">Ваша оценка</label>
+                                            <div class="review-stars">
+                                                <input type="radio" id="star5" name="rating" value="5" required>
+                                                <label for="star5" title="Отлично">★</label>
+
+                                                <input type="radio" id="star4" name="rating" value="4">
+                                                <label for="star4" title="Хорошо">★</label>
+
+                                                <input type="radio" id="star3" name="rating" value="3">
+                                                <label for="star3" title="Нормально">★</label>
+
+                                                <input type="radio" id="star2" name="rating" value="2">
+                                                <label for="star2" title="Плохо">★</label>
+
+                                                <input type="radio" id="star1" name="rating" value="1">
+                                                <label for="star1" title="Ужасно">★</label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Текст отзыва -->
+                                        <div class="review-field">
+                                            <label for="review-text" class="review-label">Ваш отзыв</label>
+                                            <textarea id="review-text"
+                                                      name="text"
+                                                      class="review-textarea"
+                                                      placeholder="Расскажите о товаре..."
+                                                      rows="5"
+                                                      required></textarea>
+                                        </div>
+
+                                        <!-- Кнопка отправки -->
+                                        <button type="submit" class="review-submit">
+                                            Отправить отзыв
+                                        </button>
+                                    </form>
+                                </details>
+
+                            {% endif %}
 
                         {% else %}
-
-                            <!-- Кнопка-раскрывашка "Оставить отзыв" -->
-                            <details class="review-toggle">
-                                <summary class="review-btn">
-                                    ✍️ Оставить отзыв
-                                </summary>
-
-                                <form method="post"
-                                      action="{% url 'products:add_review' product.id%}"
-                                      class="review-form">
-                                    {% csrf_token %}
-
-                                    <!-- Оценка звёздами -->
-                                    <div class="review-field">
-                                        <label class="review-label">Ваша оценка</label>
-                                        <div class="review-stars">
-                                            <input type="radio" id="star5" name="rating" value="5" required>
-                                            <label for="star5" title="Отлично">★</label>
-
-                                            <input type="radio" id="star4" name="rating" value="4">
-                                            <label for="star4" title="Хорошо">★</label>
-
-                                            <input type="radio" id="star3" name="rating" value="3">
-                                            <label for="star3" title="Нормально">★</label>
-
-                                            <input type="radio" id="star2" name="rating" value="2">
-                                            <label for="star2" title="Плохо">★</label>
-
-                                            <input type="radio" id="star1" name="rating" value="1">
-                                            <label for="star1" title="Ужасно">★</label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Текст отзыва -->
-                                    <div class="review-field">
-                                        <label for="review-text" class="review-label">Ваш отзыв</label>
-                                        <textarea id="review-text"
-                                                  name="text"
-                                                  class="review-textarea"
-                                                  placeholder="Расскажите о товаре..."
-                                                  rows="5"
-                                                  required></textarea>
-                                    </div>
-
-                                    <!-- Кнопка отправки -->
-                                    <button type="submit" class="review-submit">
-                                        Отправить отзыв
-                                    </button>
-                                </form>
-                            </details>
-
+                            <a href="{% url 'users:login' %}" class="review-btn review-btn--guest">
+                                ✍️ Войдите, чтобы оставить отзыв
+                            </a>
                         {% endif %}
 
-                    {% else %}
-                        <a href="{% url 'users:login' %}" class="review-btn review-btn--guest">
-                            ✍️ Войдите, чтобы оставить отзыв
-                        </a>
-                    {% endif %}
+                    </div>
 
                 </div>
             {% endif %}
