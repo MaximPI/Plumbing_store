@@ -47,6 +47,130 @@
             </div>
         </header>
 
+        <!-- ============================================
+             ВАШ ОТЗЫВ (если пользователь уже оставил)
+             ============================================ -->
+        {% if user.is_authenticated and user_reviewed %}
+            <section class="my-review">
+                <div class="my-review__header">
+                    <h2 class="my-review__title">Ваш отзыв</h2>
+                    <span class="my-review__badge">✓ Опубликован</span>
+
+                    <!-- ===== Кнопка "Удалить" в шапке справа ===== -->
+                    <details class="my-review__delete-wrapper">
+                        <summary class="my-review__delete-btn">
+                            🗑 Удалить отзыв
+                        </summary>
+
+                        <div class="my-review__delete-confirm">
+                            <p class="my-review__delete-text">
+                                Вы уверены, что хотите удалить отзыв? Это действие нельзя отменить.
+                            </p>
+                            <div class="my-review__delete-actions">
+                                <a href="{% url 'products:readd_review' product.id %}"
+                                   class="my-review__delete-confirm-btn">
+                                    Да, удалить
+                                </a>
+                                <span class="my-review__delete-hint">
+                                    или кликните по кнопке выше, чтобы отменить
+                                </span>
+                            </div>
+                        </div>
+                    </details>
+
+                </div>
+
+                <article class="review-card review-card--mine">
+                    <div class="review-card__header">
+                        <div class="review-card__author">
+                            <div class="review-card__avatar">👤</div>
+                            <div class="review-card__author-info">
+                                <div class="review-card__name">{{ user.username }}</div>
+                                <div class="review-card__date">
+                                    05.10.2026 в 14:30
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-card__rating">
+                             {% for i in ratings %}
+                                {% if i <= user_review.rating %}
+                                    <span class="star-filled">★</span>
+                                {% else %}
+                                    <span class="star-empty">★</span>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="review-card__rating-num">{{ user_review.rating }}.0</span>
+                        </div>
+                    </div>
+
+                    <p class="review-card__text">
+                        {{ user_review.description }}
+                    </p>
+                </article>
+
+                <!-- ===== Кнопка "Редактировать" ===== -->
+                <div class="my-review__actions">
+
+                    <details class="my-review__edit-form-wrapper">
+                        <summary class="my-review__edit-summary">
+                            ✏️ Редактировать отзыв
+                        </summary>
+
+                        <form method="post"
+                              action="{% url 'products:rename_review' product.id %}"
+                              class="review-form my-review__edit-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_edit" value="true">
+
+                            <!-- Оценка звёздами -->
+                            <div class="review-field">
+                                <label class="review-label">Ваша оценка</label>
+                                <div class="review-stars">
+                                    <input type="radio" id="edit-star5" name="rating" value="5" required
+                                           {% if user_review.rating == 5 %}checked{% endif %}>
+                                    <label for="edit-star5" title="Отлично">★</label>
+
+                                    <input type="radio" id="edit-star4" name="rating" value="4"
+                                           {% if user_review.rating == 4 %}checked{% endif %}>
+                                    <label for="edit-star4" title="Хорошо">★</label>
+
+                                    <input type="radio" id="edit-star3" name="rating" value="3"
+                                           {% if user_review.rating == 3 %}checked{% endif %}>
+                                    <label for="edit-star3" title="Нормально">★</label>
+
+                                    <input type="radio" id="edit-star2" name="rating" value="2"
+                                           {% if user_review.rating == 2 %}checked{% endif %}>
+                                    <label for="edit-star2" title="Плохо">★</label>
+
+                                    <input type="radio" id="edit-star1" name="rating" value="1"
+                                           {% if user_review.rating == 1 %}checked{% endif %}>
+                                    <label for="edit-star1" title="Ужасно">★</label>
+                                </div>
+                            </div>
+
+                            <!-- Текст отзыва -->
+                            <div class="review-field">
+                                <label for="edit-review-text" class="review-label">Ваш отзыв</label>
+                                <textarea id="edit-review-text"
+                                          name="text"
+                                          class="review-textarea"
+                                          placeholder="Расскажите о товаре..."
+                                          rows="5"
+                                          required>{{ user_review.description }}</textarea>
+                            </div>
+
+                            <!-- Кнопка -->
+                            <div class="my-review__edit-actions">
+                                <input type="submit" class="review-submit" value="Сохранить изменения">
+                            </div>
+                        </form>
+                    </details>
+
+                </div>
+
+            </section>
+        {% endif %}
 
         <!-- ===== Список отзывов ===== -->
         <section class="reviews-section">
@@ -66,8 +190,8 @@
                                 </div>
 
                                 <div class="review-card__rating">
-                                    {% for i in "12345" %}
-                                        {% if forloop.counter <= review.rating %}
+                                    {% for i in ratings %}
+                                        {% if i <= review.rating %}
                                             <span class="star-filled">★</span>
                                         {% else %}
                                             <span class="star-empty">★</span>
@@ -120,7 +244,7 @@
                                     </summary>
 
                                     <form method="post"
-                                          action="{% url 'products:add_review' product.id%}"
+                                          action="{% url 'products:add_review' product.id %}"
                                           class="review-form">
                                         {% csrf_token %}
 

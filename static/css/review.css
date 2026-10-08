@@ -193,6 +193,280 @@
 }
 
 /* ============================================
+   БЛОК "ВАШ ОТЗЫВ" — ШАПКА
+   ============================================ */
+.my-review {
+    margin-bottom: 30px;
+}
+
+.my-review__header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(94, 234, 212, 0.18);
+    flex-wrap: wrap;
+    position: relative;
+}
+
+.my-review__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.my-review__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    background: rgba(20, 184, 166, 0.15);
+    border: 1px solid rgba(94, 234, 212, 0.35);
+    border-radius: 20px;
+    color: #5eead4;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    text-shadow: 0 0 10px rgba(94, 234, 212, 0.4);
+}
+
+/* Карточка "своего" отзыва — с бирюзовой полосой слева */
+.review-card--mine {
+    border-left: 4px solid #14b8a6;
+    background: rgba(20, 184, 166, 0.06);
+    box-shadow: 0 0 40px rgba(20, 184, 166, 0.08);
+}
+
+.review-card--mine:hover {
+    border-left-color: #5eead4;
+    background: rgba(20, 184, 166, 0.1);
+    box-shadow: 0 20px 40px rgba(20, 184, 166, 0.18);
+}
+
+/* ============================================
+   ДЕЙСТВИЯ СО СВОИМ ОТЗЫВОМ (редактирование)
+   ============================================ */
+.my-review__actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    align-items: flex-start;
+}
+
+/* ----- Раскрывашка "Редактировать" ----- */
+.my-review__edit-toggle,
+.my-review__edit-form-wrapper {
+    border: none;
+    margin: 0;
+    width: 100%;
+}
+
+.my-review__edit-toggle > summary,
+.my-review__edit-form-wrapper > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.my-review__edit-toggle > summary::-webkit-details-marker,
+.my-review__edit-form-wrapper > summary::-webkit-details-marker {
+    display: none;
+}
+
+.my-review__edit-summary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 24px;
+    background: transparent;
+    color: #5eead4;
+    border: 2px dashed rgba(94, 234, 212, 0.4);
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.my-review__edit-summary:hover {
+    background: rgba(20, 184, 166, 0.15);
+    border-color: #14b8a6;
+    border-style: solid;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.25);
+}
+
+.my-review__edit-form-wrapper[open] .my-review__edit-summary {
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    border-color: #14b8a6;
+    border-style: solid;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+}
+
+/* Форма редактирования — расширена на всю ширину */
+.my-review__edit-form {
+    margin-top: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.my-review__edit-form .review-field {
+    width: 100%;
+}
+
+.my-review__edit-form .review-textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.my-review__edit-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.my-review__edit-actions .review-submit {
+    margin: 0;
+}
+
+/* ============================================
+   КНОПКА УДАЛЕНИЯ В ШАПКЕ — прижата вправо
+   ============================================ */
+.my-review__delete-wrapper {
+    margin-left: auto;
+    border: none;
+    padding: 0;
+    position: relative;
+}
+
+.my-review__delete-wrapper > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.my-review__delete-wrapper > summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Кнопка "Удалить отзыв" — красная, пунктирная, компактная */
+.my-review__delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: transparent;
+    color: #f87171;
+    border: 1px dashed rgba(248, 113, 113, 0.5);
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    user-select: none;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.my-review__delete-btn:hover {
+    background: rgba(231, 76, 60, 0.15);
+    border-color: #e74c3c;
+    border-style: solid;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(231, 76, 60, 0.35);
+}
+
+.my-review__delete-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.my-review__delete-wrapper[open] .my-review__delete-btn {
+    background: rgba(231, 76, 60, 0.2);
+    border-color: #e74c3c;
+    border-style: solid;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(231, 76, 60, 0.4);
+}
+
+/* Плашка подтверждения — выпадает под кнопкой */
+.my-review__delete-confirm {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 320px;
+    max-width: calc(100vw - 60px);
+    padding: 16px 18px;
+    background: rgba(10, 25, 41, 0.98);
+    border: 1px solid rgba(248, 113, 113, 0.35);
+    border-left: 4px solid #e74c3c;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+    animation: reviewFadeIn 0.25s ease;
+    text-align: left;
+    z-index: 20;
+}
+
+.my-review__delete-text {
+    font-size: 0.9rem;
+    color: #fca5a5;
+    margin: 0 0 12px;
+    line-height: 1.5;
+}
+
+.my-review__delete-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.my-review__delete-confirm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 22px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.35);
+}
+
+.my-review__delete-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(231, 76, 60, 0.55);
+}
+
+.my-review__delete-confirm-btn:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.my-review__delete-hint {
+    font-size: 0.75rem;
+    color: #94c5e8;
+    font-style: italic;
+    opacity: 0.75;
+}
+
+/* ============================================
    СПИСОК ОТЗЫВОВ
    ============================================ */
 .reviews-section {
@@ -683,5 +957,65 @@
     .review-submit {
         width: 100%;
         align-self: stretch;
+    }
+
+    .my-review__title {
+        font-size: 1rem;
+    }
+
+    .my-review__badge {
+        font-size: 0.72rem;
+        padding: 3px 10px;
+    }
+
+    /* Редактирование на мобильных */
+    .my-review__edit-summary {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+
+    .my-review__edit-actions {
+        flex-direction: column;
+    }
+
+    .my-review__edit-actions .review-submit {
+        width: 100%;
+    }
+
+    /* Кнопка удаления на мобильных */
+    .my-review__header {
+        gap: 10px;
+    }
+
+    .my-review__delete-wrapper {
+        margin-left: auto;
+    }
+
+    .my-review__delete-btn {
+        font-size: 0.75rem;
+        padding: 5px 12px;
+    }
+
+    .my-review__delete-confirm {
+        width: calc(100vw - 60px);
+        padding: 14px 16px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .my-review__delete-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .my-review__delete-confirm-btn {
+        width: 100%;
+    }
+
+    .my-review__delete-hint {
+        text-align: center;
     }
 }

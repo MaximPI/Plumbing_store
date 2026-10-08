@@ -264,22 +264,27 @@ def find(request):
 
 def review(request, product_id):
 	product = Product.objects.get(id=product_id)
-
+	reviews = Review.objects.filter(product=product)
 	context = {
-		'reviews': Review.objects.filter(product=product),
 		'reviews_count': len(Review.objects.filter(product=product)),
 		'product': product,
 		'ratings': [1, 2, 3, 4, 5],
 	}
-	reviews = [review.user for review in Review.objects.filter(product=product)]
+	review_users = [review.user for review in Review.objects.filter(product=product)]
 
-	if request.user in reviews:
+	if request.user in review_users:
 		user_reviewed = True
+		user_review = Review.objects.get(product=product, user=request.user)
+		reviews = [review for review in Review.objects.filter(product=product) if review.user != request.user]
+		context.update({
+			'user_review': user_review,
+		})
 	else:
 		user_reviewed = False
 
 	context.update( {
-		'user_reviewed': user_reviewed
+		'user_reviewed': user_reviewed,
+		'reviews': reviews,
 	})
 
 	if request.user.is_authenticated:
@@ -305,3 +310,21 @@ def add_review(request, product_id):
 		if not request.user in reviews:
 			Review.objects.create(user=request.user, product=product, rating=rating, description=description)
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def rename_review(request, product_id):
+	product = Product.objects.get(id=product_id)
+	review = Review.objects.get(product=product, user=request.user)
+	if request.method == 'POST':
+		review.rating = request.POST.get('rating', '')
+		review.description = request.POST.get('text', '')
+		review.save()
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def readd_review(request, product_id):
+	product = Product.objects.get(id=product_id)
+	review = Review.objects.get(product=product, user=request.user)
+	review.delete()
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
