@@ -383,4 +383,3 @@ def readd_review(request, product_id):
 	images.delete()
 	review.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-

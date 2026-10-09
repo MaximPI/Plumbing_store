@@ -8,7 +8,8 @@
     width: 100%;
 }
 
-.container {
+/* Контейнер только внутри .reviews-page — не перебивает base.css */
+.reviews-page .container {
     max-width: 1000px;
     width: 100%;
     margin: 0 auto;
@@ -863,7 +864,7 @@
     gap: 14px;
     flex-wrap: wrap;
     margin-top: 4px;
-    position: relative;   /* ← для абсолютного input */
+    position: relative;
 }
 
 /* ----- Скрываем стандартный <input type="file"> ----- */
@@ -954,6 +955,7 @@
     padding: 0;
     line-height: 1;
     z-index: 2;
+    text-decoration: none;
 }
 
 .review-photo__remove:hover {
@@ -1096,6 +1098,25 @@
     .review-card__rating {
         align-self: flex-start;
     }
+
+    .lightbox {
+        padding: 10px;
+    }
+
+    .lightbox__image {
+        width: 85vw;
+        height: 60vh;
+        font-size: 6rem;
+        border-radius: 14px;
+    }
+
+    .lightbox__close {
+        top: 12px;
+        right: 12px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1106,27 +1127,3 @@
     .reviews-header__stats {
         gap: 20px;
     }
-
-    .reviews-stat__value {
-        font-size: 1.5rem;
-    }
-
-    .review-card__avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-
-    .review-card__name {
-        font-size: 0.92rem;
-    }
-
-    .review-card__text {
-        font-size: 0.9rem;
-    }
-
-    .reviews-empty {
-        padding: 50px 20px;
-    }
-
-    .review
