@@ -1,5 +1,5 @@
 from django.db import models
-from django.template.context_processors import request
+from django.utils.timezone import now
 from users.models import User
 from decimal import Decimal, ROUND_HALF_UP
 # Create your models here.
@@ -24,6 +24,15 @@ class Product(models.Model):
 	power = models.PositiveIntegerField(blank=True)
 	life = models.PositiveIntegerField()
 	category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+	created_timestamp = models.DateTimeField(auto_now_add=True)
+
+	@property
+	def creature(self):
+		return (now() - self.created_timestamp).days < 14
+
+	@property
+	def orders(self):
+		return sum([order.quantity for order in Order.objects.filter(product=self)])
 
 	@property
 	def rating(self):
@@ -54,6 +63,7 @@ class Order(models.Model):
 
 	def summ(self):
 		return self.quantity * self.product.price
+
 
 class Baskets(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)

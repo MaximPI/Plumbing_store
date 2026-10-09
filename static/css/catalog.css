@@ -376,6 +376,45 @@
 }
 
 /* ============================================
+   ПЛАШКИ "ХИТ" И "НОВИНКА" — ВНИЗУ КАРТОЧКИ
+   ============================================ */
+.product-card__badges {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    pointer-events: none;
+    position: relative;
+    z-index: 0;
+}
+
+.product-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.product-badge--hit {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #1a1206;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+}
+
+.product-badge--new {
+    background: linear-gradient(135deg, #14b8a6, #5eead4);
+    color: #05101f;
+    box-shadow: 0 2px 8px rgba(20, 184, 166, 0.45);
+}
+
+/* ============================================
    РЕЙТИНГ В КАРТОЧКЕ ТОВАРА
    ============================================ */
 .product-card__rating {
@@ -784,5 +823,16 @@
 
     .product-card__rating-count {
         font-size: 0.78rem;
+    }
+
+    /* Плашки на мобильных */
+    .product-card__badges {
+        gap: 4px;
+        margin-top: 8px;
+    }
+
+    .product-badge {
+        font-size: 0.6rem;
+        padding: 3px 8px;
     }
 }

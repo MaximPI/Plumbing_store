@@ -16,57 +16,58 @@
         </div>
 
         <!-- Список заказов -->
-        <div class="orders-list">
-            {% for order in products %}
-            <article class="order-card">
+        {% if products %}
+            <div class="orders-list">
+                {% for order in products %}
+                <article class="order-card">
 
-                <!-- Ссылка на всю карточку -->
-                <a href="{% url 'products:product_detail' order.product.id %}" class="order-card__link" aria-label="Заказ № {{ order.id }}"></a>
+                    <!-- Ссылка на всю карточку -->
+                    <a href="{% url 'products:product_detail' order.product.id %}" class="order-card__link" aria-label="Заказ № {{ order.id }}"></a>
 
-                <div class="order-card__header">
-                    <div class="order-card__info">
-                        <span class="order-number">Заказ № {{ order.id }}</span>
-                        <span class="order-date">от {{ order.date }}</span>
+                    <div class="order-card__header">
+                        <div class="order-card__info">
+                            <span class="order-number">Заказ № {{ order.id }}</span>
+                            <span class="order-date">от {{ order.date }}</span>
+                        </div>
                     </div>
-                </div>
 
-                <div class="order-card__body">
-                    <div class="order-products">
-                        <div class="order-product">
-                            {% if order.product.image %}
-                                <img class="order-product__image" src="/media/{{ order.product.image }}" alt="{{ product.name }}">
-                            {% else %}
-                                <div class="order-product__image">📦</div>
-                            {% endif %}
-                            <div class="order-product__info">
-                                <div class="order-product__name">{{ order.product.name }}</div>
-                                <div class="order-product__qty">{{ order.quantity }} шт × {{ order.product.price }} ₽</div>
+                    <div class="order-card__body">
+                        <div class="order-products">
+                            <div class="order-product">
+                                {% if order.product.image %}
+                                    <img class="order-product__image" src="/media/{{ order.product.image }}" alt="{{ order.product.name }}">
+                                {% else %}
+                                    <div class="order-product__image">📦</div>
+                                {% endif %}
+                                <div class="order-product__info">
+                                    <div class="order-product__name">{{ order.product.name }}</div>
+                                    <div class="order-product__qty">{{ order.quantity }} шт × {{ order.product.price }} ₽</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="order-card__footer">
-                    <div class="order-total">
-                        Итого: <strong>{{ order.summ }} ₽</strong>
+                    <div class="order-card__footer">
+                        <div class="order-total">
+                            Итого: <strong>{{ order.summ }} ₽</strong>
+                        </div>
+                        <div class="order-actions">
+                            <a href="{% url 'products:add_order_orders' order.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
+                        </div>
                     </div>
-                    <div class="order-actions">
-                        <a href="{% url 'products:add_order_orders' order.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
-                    </div>
-                </div>
-            </article>
-            {% endfor %}
-        </div>
+                </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Пустое состояние (если заказов нет) -->
+            <div class="orders-empty">
+                <div class="orders-empty__icon">📦</div>
+                <h2>У вас пока нет заказов</h2>
+                <p>Оформите первый заказ в каталоге</p>
+                <a href="{% url 'products:home' %}" class="orders-empty__btn">Перейти в каталог</a>
+            </div>
+        {% endif %}
 
-        <!-- Пустое состояние (если заказов нет) -->
-        <!--
-        <div class="orders-empty">
-            <div class="orders-empty__icon">📦</div>
-            <h2>У вас пока нет заказов</h2>
-            <p>Оформите первый заказ в каталоге</p>
-            <a href="#" class="orders-empty__btn">Перейти в каталог</a>
-        </div>
-        -->
 
     </div>
 </main>

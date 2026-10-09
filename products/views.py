@@ -36,11 +36,16 @@ def index(request):
 	return render(request, 'products/index.html', context=context)
 
 def catalog(request, category_id=None, page_number=1):
+	all_orders = []
+	for product in Product.objects.all():
+		all_orders.append(sum(order.quantity for order in Order.objects.filter(product=product)))
+
 	context = {
 		'title': 'каталог',
 		'categories': ProductCategory.objects.all(),
 		'if_categories': True,
 		'ratings': [1, 2, 3, 4, 5],
+		'max_order': max(all_orders),
 	}
 
 	if request.user.is_authenticated:
@@ -62,6 +67,7 @@ def catalog(request, category_id=None, page_number=1):
 	context.update({
 		'products': products_paginator,
 		'quantity': len(products),
+		'quant': len(products),
 		'category': category_id,
 	})
 
@@ -122,6 +128,9 @@ def basket_readd(request, product_id):
 
 @login_required
 def favorites(request, page_number=1):
+	all_orders = []
+	for product in Product.objects.all():
+		all_orders.append(sum(order.quantity for order in Order.objects.filter(product=product)))
 	favoritess = Favorites.objects.filter(user=request.user)
 	total_quantity = len(favoritess)
 	context = {
@@ -132,6 +141,8 @@ def favorites(request, page_number=1):
 		'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
 		'compares': Compare.objects.filter(user=request.user),
 		'ratings': [1, 2, 3, 4, 5],
+		'max_order': max(all_orders),
+		'quant': len(favoritess),
 	}
 
 	favorite = Favorites.objects.filter(user=request.user)
@@ -247,11 +258,16 @@ def add_order_orders(request, order_id):
 
 
 def find(request):
+	all_orders = []
+	for product in Product.objects.all():
+		all_orders.append(sum(order.quantity for order in Order.objects.filter(product=product)))
 	context = {
 		'title': 'Каталог',
 		'categories': ProductCategory.objects.all(),
 		'if_categories': False,
 		'ratings': [1, 2, 3, 4, 5],
+		'max_order': max(all_orders),
+		'quant': 0,
 	}
 
 	if request.user.is_authenticated:

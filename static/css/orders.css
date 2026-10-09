@@ -4,6 +4,7 @@
 
 .main {
     padding: 30px 0 60px;
+    overflow-x: hidden;
 }
 
 /* ----- Заголовок ----- */
@@ -11,8 +12,14 @@
     margin-bottom: 30px;
     padding-bottom: 12px;
     border-bottom: 2px solid #14b8a6;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
+.orders-header__text h1,
 .orders-header h1 {
     font-size: 2rem;
     font-weight: 700;
@@ -24,6 +31,21 @@
 .orders-header p {
     font-size: 1rem;
     color: #94c5e8;
+}
+
+/* Счётчик заказов справа в шапке */
+.orders-header__count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: rgba(20, 184, 166, 0.12);
+    border: 1px solid rgba(94, 234, 212, 0.25);
+    color: #5eead4;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 /* ============================================
@@ -48,6 +70,9 @@
     overflow: hidden;
     transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s, background 0.25s;
     cursor: pointer;
+
+    /* Плавное появление */
+    animation: orderCardIn 0.45s ease both;
 }
 
 .order-card:hover {
@@ -57,6 +82,18 @@
     box-shadow: 0 20px 40px rgba(20, 184, 166, 0.15);
 }
 
+@keyframes orderCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Оверлей-ссылка на всю карточку */
 .order-card__link {
     position: absolute;
     top: 0;
@@ -69,6 +106,12 @@
     color: inherit;
 }
 
+.order-card__link:focus-visible {
+    outline: 2px solid #14b8a6;
+    outline-offset: -4px;
+}
+
+/* Кликабельная только ссылка-оверлей, остальное — только в футере */
 .order-card__header,
 .order-card__body {
     pointer-events: none;
@@ -112,6 +155,44 @@
     color: #94c5e8;
 }
 
+/* ----- Плашка статуса заказа ----- */
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.order-status--processing {
+    background: rgba(250, 204, 21, 0.12);
+    color: #facc15;
+    border: 1px solid rgba(250, 204, 21, 0.3);
+}
+
+.order-status--shipped {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.order-status--delivered {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.order-status--cancelled {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
 /* ----- Тело заказа ----- */
 .order-card__body {
     padding: 18px 22px;
@@ -123,10 +204,41 @@
     gap: 14px;
 }
 
+/* Если товаров много — ограничим высоту и включим скролл */
+.order-products--scroll {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+.order-products--scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.order-products--scroll::-webkit-scrollbar-track {
+    background: rgba(5, 16, 31, 0.4);
+    border-radius: 3px;
+}
+
+.order-products--scroll::-webkit-scrollbar-thumb {
+    background: rgba(20, 184, 166, 0.4);
+    border-radius: 3px;
+}
+
+.order-products--scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(20, 184, 166, 0.7);
+}
+
 .order-product {
     display: flex;
     align-items: center;
     gap: 14px;
+}
+
+/* Разделитель между товарами внутри одного заказа */
+.order-product + .order-product {
+    padding-top: 14px;
+    border-top: 1px dashed rgba(94, 234, 212, 0.1);
 }
 
 .order-product__image {
@@ -161,6 +273,9 @@
     font-size: 1rem;
     font-weight: 600;
     color: #e0f2fe;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order-product__qty {
@@ -208,6 +323,8 @@
     text-decoration: none;
     transition: all 0.2s ease;
     white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .order-btn--primary {
@@ -219,6 +336,95 @@
 .order-btn--primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(20, 184, 166, 0.55);
+}
+
+.order-btn--secondary {
+    background: rgba(94, 234, 212, 0.08);
+    border-color: rgba(94, 234, 212, 0.35);
+    color: #5eead4;
+}
+
+.order-btn--secondary:hover {
+    background: rgba(94, 234, 212, 0.16);
+    border-color: rgba(94, 234, 212, 0.7);
+    transform: translateY(-2px);
+}
+
+.order-btn--ghost {
+    background: transparent;
+    border-color: rgba(248, 113, 113, 0.35);
+    color: #f87171;
+}
+
+.order-btn--ghost:hover {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: rgba(248, 113, 113, 0.7);
+}
+
+.order-btn:focus-visible {
+    outline: 2px solid #14b8a6;
+    outline-offset: 2px;
+}
+
+/* ============================================
+   ПУСТОЕ СОСТОЯНИЕ
+   ============================================ */
+.orders-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 24px;
+    background: rgba(10, 25, 41, 0.5);
+    border: 1px dashed rgba(94, 234, 212, 0.25);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.orders-empty__icon {
+    font-size: 4.5rem;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.35));
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.orders-empty h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #e0f2fe;
+    margin-bottom: 10px;
+}
+
+.orders-empty p {
+    font-size: 1rem;
+    color: #94c5e8;
+    margin-bottom: 24px;
+    max-width: 420px;
+}
+
+.orders-empty__btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.35);
+    transition: all 0.2s ease;
+}
+
+.orders-empty__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.55);
 }
 
 /* ============================================
@@ -260,6 +466,18 @@
         text-align: center;
         padding: 10px 16px;
     }
+
+    .orders-empty {
+        padding: 50px 18px;
+    }
+
+    .orders-empty__icon {
+        font-size: 3.5rem;
+    }
+
+    .orders-empty h2 {
+        font-size: 1.25rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -271,12 +489,11 @@
         width: 50px;
         height: 50px;
         font-size: 1.3rem;
-        display: block;
-        object-fit: contain;
     }
 
     .order-product__name {
         font-size: 0.92rem;
+        white-space: normal;
     }
 
     .order-product__qty {
@@ -285,5 +502,28 @@
 
     .order-total strong {
         font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .orders-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .order-card__header,
+    .order-card__body,
+    .order-card__footer {
+        padding: 12px 14px;
+    }
+
+    .order-product__image {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+
+    .order-btn {
+        font-size: 0.82rem;
+        padding: 9px 12px;
     }
 }

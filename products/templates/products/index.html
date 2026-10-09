@@ -16,7 +16,7 @@
         <p class="info"><strong>Всё для тепла и комфорта</strong></p>
 
         <!-- Форма поиска -->
-        <form method="get" action="{% url 'products:find' %}" class="hero-search">
+        <form method="get" action="{% if user.is_authenticated %} {% url 'products:find' %} {% else %} {% url 'users:login' %} {% endif %}" class="hero-search">
             <input type="text"
                    name="search"
                    class="hero-search__input"
@@ -26,7 +26,7 @@
 
         <!-- Кнопки -->
         <div class="hero-actions">
-            <a href="{% url 'products:home' %}" class="hero-btn hero-btn--primary">
+            <a href="{% if user.is_authenticated %} {% url 'products:home' %} {% else %} {% url 'users:login' %} {% endif %}" class="hero-btn hero-btn--primary">
                 Перейти в каталог
             </a>
             <a href="{% url 'about' %}" class="hero-btn hero-btn--secondary">

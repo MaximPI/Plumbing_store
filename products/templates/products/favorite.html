@@ -97,6 +97,16 @@
                         </div>
                     {% endif %}
 
+                    <!-- ===== ПЛАШКИ ===== -->
+                    <div class="product-card__badges">
+                        {% if favorite.product.orders == max_order %}
+                            <span class="product-badge product-badge--hit">🔥 Хит</span>
+                        {% endif %}
+                        {% if favorite.product.creature %}
+                            <span class="product-badge product-badge--new">✨ Новинка</span>
+                        {% endif %}
+                    </div>
+
                 </article>
                 {% endfor %}
             {% else %}
@@ -111,31 +121,33 @@
             {% endif %}
         </div>
 
-        <!-- ===== ПАГИНАЦИЯ ===== -->
-       <div class="pagination">
-        <a class="pagination__prev {% if not favorites.has_previous %} disabled {% endif %}" href="
-                {% if favorites.has_previous %}
-                        {% url 'products:favorite_page_number' favorites.previous_page_number %}
-                {% else %}
-                    #
-                {% endif %}"
-            tabindex="-1" aria-disabled="true">←
-        </a>
+        {% if quant > 10 %}
+            <!-- ===== ПАГИНАЦИЯ ===== -->
+           <div class="pagination">
+            <a class="pagination__prev {% if not favorites.has_previous %} disabled {% endif %}" href="
+                    {% if favorites.has_previous %}
+                            {% url 'products:favorite_page_number' favorites.previous_page_number %}
+                    {% else %}
+                        #
+                    {% endif %}"
+                tabindex="-1" aria-disabled="true">←
+            </a>
 
-        {% for page in favorites.paginator.page_range %}
-        <a class="pagination__page{% if page == favorites.number %} active{% endif %}" href="
-                {% url 'products:favorite_page_number' page %}">{{page}}
-        </a>
-        {% endfor %}
+            {% for page in favorites.paginator.page_range %}
+            <a class="pagination__page{% if page == favorites.number %} active{% endif %}" href="
+                    {% url 'products:favorite_page_number' page %}">{{page}}
+            </a>
+            {% endfor %}
 
-        <a class="pagination__next {% if not favorites.has_next %} disabled {% endif %}" href="
-                {% if favorites.has_next %}
-                    {% url 'products:favorite_page_number' favorites.next_page_number %}
-                {% else %}
-                    #
-                {% endif %}"
-            tabindex="+1" aria-disabled="true">→</a>
-    </div>
+            <a class="pagination__next {% if not favorites.has_next %} disabled {% endif %}" href="
+                    {% if favorites.has_next %}
+                        {% url 'products:favorite_page_number' favorites.next_page_number %}
+                    {% else %}
+                        #
+                    {% endif %}"
+                tabindex="+1" aria-disabled="true">→</a>
+        </div>
+    {% endif %}
 
     </div>
 </main>

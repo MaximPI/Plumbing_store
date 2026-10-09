@@ -128,47 +128,60 @@
                             </a>
                         {% endif %}
 
+                        <!-- ===== ПЛАШКИ ===== -->
+                        <div class="product-card__badges">
+                            {% if product.orders == max_order and  product.orders > 0%}
+                                <span class="product-badge product-badge--hit">🔥 Хит</span>
+                            {% endif %}
+                            {% if product.creature %}
+                                <span class="product-badge product-badge--new">✨ Новинка</span>
+                            {% endif %}
+                        </div>
+
                     </article>
                     {% endfor %}
                 </div>
 
-                <!-- Пагинация -->
-                <div class="pagination">
-                    <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="
-                            {% if products.has_previous %}
-                                {% if category %}
-                                    {% url 'products:category_page' category products.previous_page_number %}
+                {% if quant > 10 %}
+                    <!-- Пагинация -->
+                    <div class="pagination">
+                        <a class="pagination__prev {% if not products.has_previous %} disabled {% endif %}" href="
+                                {% if products.has_previous %}
+                                    {% if category %}
+                                        {% url 'products:category_page' category products.previous_page_number %}
+                                    {% else %}
+                                        {% url 'products:page_number' products.previous_page_number %}
+                                    {% endif %}
                                 {% else %}
-                                    {% url 'products:page_number' products.previous_page_number %}
-                                {% endif %}
-                            {% else %}
-                                #
-                            {% endif %}"
-                        tabindex="-1" aria-disabled="true">←
-                    </a>
+                                    #
+                                {% endif %}"
+                            tabindex="-1" aria-disabled="true">←
+                        </a>
 
-                    {% for page in products.paginator.page_range %}
-                    <a class="pagination__page{% if page == products.number %} active{% endif %}" href="
-                            {% if category %}
-                                {% url 'products:category_page' category page %}
-                            {% else %}
-                                {% url 'products:page_number' page %}
-                            {% endif %}">{{page}}
-                    </a>
-                    {% endfor %}
-
-                    <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="
-                            {% if products.has_next %}
+                        {% for page in products.paginator.page_range %}
+                        <a class="pagination__page{% if page == products.number %} active{% endif %}" href="
                                 {% if category %}
-                                    {% url 'products:category_page' category products.next_page_number %}
+                                    {% url 'products:category_page' category page %}
                                 {% else %}
-                                    {% url 'products:page_number' products.next_page_number %}
-                                {% endif %}
-                            {% else %}
-                                #
-                            {% endif %}"
-                        tabindex="+1" aria-disabled="true">→</a>
-                </div>
+                                    {% url 'products:page_number' page %}
+                                {% endif %}">{{page}}
+                        </a>
+                        {% endfor %}
+
+                        <a class="pagination__next {% if not products.has_next %} disabled {% endif %}" href="
+                                {% if products.has_next %}
+                                    {% if category %}
+                                        {% url 'products:category_page' category products.next_page_number %}
+                                    {% else %}
+                                        {% url 'products:page_number' products.next_page_number %}
+                                    {% endif %}
+                                {% else %}
+                                    #
+                                {% endif %}"
+                            tabindex="+1" aria-disabled="true">→</a>
+                    </div>
+                {% endif %}
+
             </section>
         </div>
     </div>

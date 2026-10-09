@@ -91,7 +91,7 @@
                                 <div class="review-card__author-info">
                                     <div class="review-card__name">{{ user.username }}</div>
                                     <div class="review-card__date">
-                                        05.10.2026 в 14:30
+                                        {{ user_review.created_timestamp|date:"d.m.Y в H:i" }}
                                     </div>
                                 </div>
                             </div>
@@ -387,7 +387,7 @@
          ============================================ -->
     {% for image in images %}
         <div class="lightbox" id="photo-{{ image.id }}">
-            <a href="#close" class="lightbox__close" aria-label="Закрыть">✕</a>
+            <a href="" class="lightbox__close" aria-label="Закрыть">✕</a>
 
             <div class="lightbox__content">
                 <div class="lightbox__image">
