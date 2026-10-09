@@ -139,7 +139,7 @@
                                 <span class="review-already__icon">✓</span>
                                 <div class="review-already__text">
                                     <strong>Вы не ещё не купили товар</strong>
-                                    <span>Вы сможете оставить отзыв как только закажете товар</span>
+                                    <span>Вы сможете оставить отзыв как только закажете его</span>
                                 </div>
                             </div>
 
@@ -164,6 +164,7 @@
 
                                 <form method="post"
                                       action="{% url 'products:add_review' product.id%}"
+                                      enctype="multipart/form-data"
                                       class="review-form">
                                     {% csrf_token %}
 
@@ -197,6 +198,19 @@
                                                   placeholder="Расскажите о товаре..."
                                                   rows="5"
                                                   required></textarea>
+                                    </div>
+
+                                    <!-- ===== ФОТОГРАФИИ ===== -->
+                                    <div class="review-field">
+                                        <label class="review-label">Фотографии</label>
+
+                                        <div class="review-upload">
+                                            {{ form.images }}
+                                            <label for="{{ form.images.id_for_label }}" class="review-upload__label">
+                                                <span class="review-upload__icon">📷</span>
+                                                <span class="review-upload__text">Выбрать фотографии</span>
+                                            </label>
+                                        </div>
                                     </div>
 
                                     <!-- Кнопка отправки -->

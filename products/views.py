@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponseRedirect
-from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order, Review
+from products.models import Product, ProductCategory, Baskets, Favorites, Compare, Order, Review, ReviewsImage
+from users.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from decimal import Decimal, ROUND_HALF_UP
+from users.forms import  MultyImagesForm
 
 
 # Create your views here.
@@ -156,6 +157,7 @@ def favorite_delete(request, favorite_id):
 def product_detail(request, product_id):
 	product = Product.objects.get(id=product_id)
 	reviews = [review.user for review in Review.objects.filter(product=product)]
+	form = MultyImagesForm()
 
 	if request.user in reviews:
 		user_reviewed = True
@@ -167,6 +169,7 @@ def product_detail(request, product_id):
 		'product': product,
 		'user_reviewed': user_reviewed,
 		'ratings': [1, 2, 3, 4, 5],
+		'form': form,
 	}
 	if request.user.is_authenticated:
 		orders = [order.product for order in Order.objects.filter(user=request.user, product=product)]
@@ -273,12 +276,25 @@ def find(request):
 def review(request, product_id):
 	product = Product.objects.get(id=product_id)
 	reviews = Review.objects.filter(product=product)
+	form = MultyImagesForm(data=request.POST, files=request.FILES)
 	context = {
 		'reviews_count': len(Review.objects.filter(product=product)),
 		'product': product,
 		'ratings': [1, 2, 3, 4, 5],
+		'user': request.user,
+		'form': form
 	}
 	review_users = [review.user for review in Review.objects.filter(product=product)]
+
+	images = ReviewsImage.objects.filter(product=product)
+	if images:
+		context.update({
+			'images': images,
+		})
+	else:
+		context.update({
+			'images': [],
+		})
 
 	if request.user in review_users:
 		user_reviewed = True
@@ -312,27 +328,59 @@ def add_review(request, product_id):
 	product = Product.objects.get(id=product_id)
 
 	if request.method == 'POST':
+		form = MultyImagesForm(data=request.POST, files=request.FILES)
+		if form.is_valid():
+			files = request.FILES.getlist('images')
+		else:
+			files = []
+			print(form.errors)
+
 		rating = request.POST.get('rating', '')
 		description = request.POST.get('text', '')
 		reviews = [review.user for review in Review.objects.filter(product=product)]
+
 		if not request.user in reviews:
 			Review.objects.create(user=request.user, product=product, rating=rating, description=description)
+			if files:
+				for file in files:
+					ReviewsImage.objects.create(user=request.user, product=product, image=file)
+
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def rename_review(request, product_id):
 	product = Product.objects.get(id=product_id)
 	review = Review.objects.get(product=product, user=request.user)
+	form = MultyImagesForm(data=request.POST, files=request.FILES)
+
+	if form.is_valid():
+		files = request.FILES.getlist('images')
+	else:
+		files = []
+		print(form.errors)
+
 	if request.method == 'POST':
 		review.rating = request.POST.get('rating', '')
 		review.description = request.POST.get('text', '')
 		review.save()
+		if files:
+			for file in files:
+				ReviewsImage.objects.create(user=request.user, product=product, image=file)
 
+
+
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def delete_image(request, image_id):
+	image = ReviewsImage.objects.get(id=image_id)
+	image.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def readd_review(request, product_id):
 	product = Product.objects.get(id=product_id)
 	review = Review.objects.get(product=product, user=request.user)
+	images = ReviewsImage.objects.filter(product=product, user=request.user)
+	images.delete()
 	review.delete()
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

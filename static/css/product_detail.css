@@ -159,7 +159,6 @@
     flex-wrap: wrap;
 }
 
-/* ----- Кнопка "В корзину" (класс из HTML) ----- */
 .product-detail__actions .product-card__btn {
     display: inline-flex;
     align-items: center;
@@ -659,6 +658,155 @@
 }
 
 /* ============================================
+   ФОТОГРАФИИ В ФОРМЕ ОТЗЫВА
+   ============================================ */
+.review-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.review-photo {
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: #000;
+    border: 1px solid rgba(94, 234, 212, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.review-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.review-photo__placeholder {
+    font-size: 1.8rem;
+    color: #4a7ba8;
+    line-height: 1;
+    filter: drop-shadow(0 0 12px rgba(20, 184, 166, 0.3));
+}
+
+/* ----- Скрываем стандартный input[type="file"] ----- */
+.review-upload input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ----- Кнопка "Выбрать файлы" ----- */
+.review-upload {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+    position: relative;
+}
+
+.review-upload__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    color: #fff;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.25s;
+    box-shadow: 0 6px 16px rgba(20, 184, 166, 0.3);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.review-upload__label:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(20, 184, 166, 0.5);
+}
+
+.review-upload__label:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.review-upload__icon {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.review-upload__text {
+    line-height: 1;
+}
+
+.review-upload__hint {
+    font-size: 0.82rem;
+    color: #4a7ba8;
+    font-style: italic;
+}
+
+/* ----- Превью загруженных фото (в форме) ----- */
+.review-photos--upload {
+    margin-top: 12px;
+    padding: 10px;
+    background: rgba(5, 16, 31, 0.6);
+    border: 1px dashed rgba(94, 234, 212, 0.25);
+    border-radius: 12px;
+}
+
+.review-photos--upload .review-photo {
+    width: 70px;
+    height: 70px;
+}
+
+.review-photo__remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(231, 76, 60, 0.9);
+    color: #fff;
+    border: none;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+    z-index: 2;
+}
+
+.review-photo__remove:hover {
+    background: #e74c3c;
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.5);
+}
+
+.review-photo__remove:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
    АДАПТИВНОСТЬ
    ============================================ */
 @media (max-width: 900px) {
@@ -736,7 +884,6 @@
         font-size: 0.78rem;
     }
 
-    /* Плашка "уже оставили отзыв" */
     .review-already {
         padding: 14px 16px;
         gap: 12px;
@@ -755,5 +902,34 @@
 
     .review-already__text span {
         font-size: 0.8rem;
+    }
+
+    .review-photo {
+        width: 64px;
+        height: 64px;
+    }
+
+    .review-photo__placeholder {
+        font-size: 1.4rem;
+    }
+
+    .review-photos--upload .review-photo {
+        width: 58px;
+        height: 58px;
+    }
+
+    .review-upload__label {
+        padding: 9px 18px;
+        font-size: 0.85rem;
+    }
+
+    .review-upload__hint {
+        font-size: 0.78rem;
+    }
+
+    .review-photo__remove {
+        width: 20px;
+        height: 20px;
+        font-size: 0.65rem;
     }
 }

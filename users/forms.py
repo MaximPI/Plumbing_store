@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from multiupload_plus.fields import MultiImageField
 from users.models import User
+from products.models import ReviewsImage
 from django import forms
 
 class UserLoginForm(AuthenticationForm):
@@ -28,3 +30,10 @@ class UserProfileForm(UserChangeForm):
 	class Meta:
 		model = User
 		fields = ('username', 'last_name', 'phone_number', 'email', 'image')
+
+class MultyImagesForm(forms.Form):
+    images = MultiImageField(
+        label="Фотографии",
+        required=False,
+    )
+

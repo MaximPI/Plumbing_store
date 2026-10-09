@@ -48,128 +48,277 @@
         </header>
 
         <!-- ============================================
-             ВАШ ОТЗЫВ (если пользователь уже оставил)
+             ВАШ ОТЗЫВ
              ============================================ -->
-        {% if user.is_authenticated and user_reviewed %}
-            <section class="my-review">
-                <div class="my-review__header">
-                    <h2 class="my-review__title">Ваш отзыв</h2>
-                    <span class="my-review__badge">✓ Опубликован</span>
+        {% if user.is_authenticated %}
 
-                    <!-- ===== Кнопка "Удалить" в шапке справа ===== -->
-                    <details class="my-review__delete-wrapper">
-                        <summary class="my-review__delete-btn">
-                            🗑 Удалить отзыв
-                        </summary>
+            {% if user_reviewed %}
 
-                        <div class="my-review__delete-confirm">
-                            <p class="my-review__delete-text">
-                                Вы уверены, что хотите удалить отзыв? Это действие нельзя отменить.
-                            </p>
-                            <div class="my-review__delete-actions">
-                                <a href="{% url 'products:readd_review' product.id %}"
-                                   class="my-review__delete-confirm-btn">
-                                    Да, удалить
-                                </a>
-                                <span class="my-review__delete-hint">
-                                    или кликните по кнопке выше, чтобы отменить
-                                </span>
-                            </div>
-                        </div>
-                    </details>
+                <!-- ===== ЕСЛИ ОТЗЫВ УЖЕ ОСТАВЛЕН ===== -->
+                <section class="my-review">
+                    <div class="my-review__header">
+                        <h2 class="my-review__title">Ваш отзыв</h2>
+                        <span class="my-review__badge">✓ Опубликован</span>
 
-                </div>
+                        <!-- ===== Кнопка "Удалить" в шапке справа ===== -->
+                        <details class="my-review__delete-wrapper">
+                            <summary class="my-review__delete-btn">
+                                🗑 Удалить отзыв
+                            </summary>
 
-                <article class="review-card review-card--mine">
-                    <div class="review-card__header">
-                        <div class="review-card__author">
-                            <div class="review-card__avatar">👤</div>
-                            <div class="review-card__author-info">
-                                <div class="review-card__name">{{ user.username }}</div>
-                                <div class="review-card__date">
-                                    05.10.2026 в 14:30
+                            <div class="my-review__delete-confirm">
+                                <p class="my-review__delete-text">
+                                    Вы уверены, что хотите удалить отзыв? Это действие нельзя отменить.
+                                </p>
+                                <div class="my-review__delete-actions">
+                                    <a href="{% url 'products:readd_review' product.id %}"
+                                       class="my-review__delete-confirm-btn">
+                                        Да, удалить
+                                    </a>
+                                    <span class="my-review__delete-hint">
+                                        или кликните по кнопке выше, чтобы отменить
+                                    </span>
                                 </div>
                             </div>
-                        </div>
+                        </details>
 
-                        <div class="review-card__rating">
-                             {% for i in ratings %}
-                                {% if i <= user_review.rating %}
-                                    <span class="star-filled">★</span>
-                                {% else %}
-                                    <span class="star-empty">★</span>
-                                {% endif %}
-                            {% endfor %}
-                            <span class="review-card__rating-num">{{ user_review.rating }}.0</span>
-                        </div>
                     </div>
 
-                    <p class="review-card__text">
-                        {{ user_review.description }}
-                    </p>
-                </article>
+                    <article class="review-card review-card--mine">
+                        <div class="review-card__header">
+                            <div class="review-card__author">
+                                <div class="review-card__avatar">👤</div>
+                                <div class="review-card__author-info">
+                                    <div class="review-card__name">{{ user.username }}</div>
+                                    <div class="review-card__date">
+                                        05.10.2026 в 14:30
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- ===== Кнопка "Редактировать" ===== -->
-                <div class="my-review__actions">
+                            <div class="review-card__rating">
+                                 {% for i in ratings %}
+                                    {% if i <= user_review.rating %}
+                                        <span class="star-filled">★</span>
+                                    {% else %}
+                                        <span class="star-empty">★</span>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="review-card__rating-num">{{ user_review.rating }}.0</span>
+                            </div>
+                        </div>
 
-                    <details class="my-review__edit-form-wrapper">
-                        <summary class="my-review__edit-summary">
-                            ✏️ Редактировать отзыв
+                        <p class="review-card__text">
+                            {{ user_review.description }}
+                        </p>
+
+                        <!-- ===== ФОТОГРАФИИ ВАШЕГО ОТЗЫВА ===== -->
+                        <div class="review-photos">
+                            {% for image in images %}
+                                {% if image.user == user %}
+                                    <a href="#photo-{{ image.id }}" class="review-photo">
+                                        <img src="/media/{{ image.image }}" alt="Фото отзыва">
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </article>
+
+                    <!-- ===== Кнопка "Редактировать" ===== -->
+                    <div class="my-review__actions">
+
+                        <details class="my-review__edit-form-wrapper">
+                            <summary class="my-review__edit-summary">
+                                ✏️ Редактировать отзыв
+                            </summary>
+
+                            <form method="post"
+                                  action="{% url 'products:rename_review' product.id %}"
+                                  enctype="multipart/form-data"
+                                  class="review-form my-review__edit-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="is_edit" value="true">
+
+                                <!-- Оценка звёздами -->
+                                <div class="review-field">
+                                    <label class="review-label">Ваша оценка</label>
+                                    <div class="review-stars">
+                                        <input type="radio" id="edit-star5" name="rating" value="5" required
+                                               {% if user_review.rating == 5 %}checked{% endif %}>
+                                        <label for="edit-star5" title="Отлично">★</label>
+
+                                        <input type="radio" id="edit-star4" name="rating" value="4"
+                                               {% if user_review.rating == 4 %}checked{% endif %}>
+                                        <label for="edit-star4" title="Хорошо">★</label>
+
+                                        <input type="radio" id="edit-star3" name="rating" value="3"
+                                               {% if user_review.rating == 3 %}checked{% endif %}>
+                                        <label for="edit-star3" title="Нормально">★</label>
+
+                                        <input type="radio" id="edit-star2" name="rating" value="2"
+                                               {% if user_review.rating == 2 %}checked{% endif %}>
+                                        <label for="edit-star2" title="Плохо">★</label>
+
+                                        <input type="radio" id="edit-star1" name="rating" value="1"
+                                               {% if user_review.rating == 1 %}checked{% endif %}>
+                                        <label for="edit-star1" title="Ужасно">★</label>
+                                    </div>
+                                </div>
+
+                                <!-- Текст отзыва -->
+                                <div class="review-field">
+                                    <label for="edit-review-text" class="review-label">Ваш отзыв</label>
+                                    <textarea id="edit-review-text"
+                                              name="text"
+                                              class="review-textarea"
+                                              placeholder="Расскажите о товаре..."
+                                              rows="5"
+                                              required>{{ user_review.description }}</textarea>
+                                </div>
+
+                                <!-- ===== ФОТОГРАФИИ ===== -->
+                                <div class="review-field">
+                                    <label class="review-label">Фотографии</label>
+
+                                    <div class="review-upload">
+                                        {{ form.images }}
+                                        <label for="{{ form.images.id_for_label }}" class="review-upload__label">
+                                            <span class="review-upload__icon">📷</span>
+                                            <span class="review-upload__text">Выбрать фотографии</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="review-photos review-photos--upload">
+                                        {% for image in images %}
+                                            {% if image.user == user %}
+                                                <div class="review-photo">
+                                                    <a href="#photo-{{ image.id }}" class="review-photo">
+                                                        <img src="/media/{{ image.image }}" alt="Фото отзыва">
+                                                    </a>
+                                                    <a href="{% url 'products:delete_image' image.id %}" type="button" class="review-photo__remove" title="Удалить">✕</a>
+                                                 </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <!-- Кнопка -->
+                                <div class="my-review__edit-actions">
+                                    <input type="submit" class="review-submit" value="Сохранить изменения">
+                                </div>
+                            </form>
+                        </details>
+
+                    </div>
+
+                </section>
+
+            {% elif product_ordered %}
+
+                <!-- ===== ЕСЛИ ОТЗЫВ ЕЩЁ НЕ ОСТАВЛЕН, НО ТОВАР КУПЛЕН ===== -->
+                <section class="my-review">
+                    <div class="my-review__header">
+                        <h2 class="my-review__title">Ваш отзыв</h2>
+                        <span class="my-review__badge">✍️ Ещё не оставлен</span>
+                    </div>
+
+                    <!-- Кнопка-раскрывашка "Оставить отзыв" -->
+                    <details class="review-toggle">
+                        <summary class="review-btn">
+                            ✍️ Оставить отзыв
                         </summary>
 
                         <form method="post"
-                              action="{% url 'products:rename_review' product.id %}"
-                              class="review-form my-review__edit-form">
+                              action="{% url 'products:add_review' product.id %}"
+                              enctype="multipart/form-data"
+                              class="review-form">
                             {% csrf_token %}
-                            <input type="hidden" name="is_edit" value="true">
 
                             <!-- Оценка звёздами -->
                             <div class="review-field">
                                 <label class="review-label">Ваша оценка</label>
                                 <div class="review-stars">
-                                    <input type="radio" id="edit-star5" name="rating" value="5" required
-                                           {% if user_review.rating == 5 %}checked{% endif %}>
-                                    <label for="edit-star5" title="Отлично">★</label>
+                                    <input type="radio" id="star5" name="rating" value="5" required>
+                                    <label for="star5" title="Отлично">★</label>
 
-                                    <input type="radio" id="edit-star4" name="rating" value="4"
-                                           {% if user_review.rating == 4 %}checked{% endif %}>
-                                    <label for="edit-star4" title="Хорошо">★</label>
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4" title="Хорошо">★</label>
 
-                                    <input type="radio" id="edit-star3" name="rating" value="3"
-                                           {% if user_review.rating == 3 %}checked{% endif %}>
-                                    <label for="edit-star3" title="Нормально">★</label>
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3" title="Нормально">★</label>
 
-                                    <input type="radio" id="edit-star2" name="rating" value="2"
-                                           {% if user_review.rating == 2 %}checked{% endif %}>
-                                    <label for="edit-star2" title="Плохо">★</label>
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2" title="Плохо">★</label>
 
-                                    <input type="radio" id="edit-star1" name="rating" value="1"
-                                           {% if user_review.rating == 1 %}checked{% endif %}>
-                                    <label for="edit-star1" title="Ужасно">★</label>
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1" title="Ужасно">★</label>
                                 </div>
                             </div>
 
                             <!-- Текст отзыва -->
                             <div class="review-field">
-                                <label for="edit-review-text" class="review-label">Ваш отзыв</label>
-                                <textarea id="edit-review-text"
+                                <label for="review-text" class="review-label">Ваш отзыв</label>
+                                <textarea id="review-text"
                                           name="text"
                                           class="review-textarea"
                                           placeholder="Расскажите о товаре..."
                                           rows="5"
-                                          required>{{ user_review.description }}</textarea>
+                                          required></textarea>
                             </div>
 
-                            <!-- Кнопка -->
-                            <div class="my-review__edit-actions">
-                                <input type="submit" class="review-submit" value="Сохранить изменения">
+                            <!-- ===== ФОТОГРАФИИ ===== -->
+                            <div class="review-field">
+                                <label class="review-label">Фотографии</label>
+                                <div class="review-upload">
+                                    {{ form.images }}
+                                    <label for="{{ form.images.id_for_label }}" class="review-upload__label">
+                                        <span class="review-upload__icon">📷</span>
+                                        <span class="review-upload__text">Выбрать фотографии</span>
+                                    </label>
+                                </div>
+
+                                <div class="review-photos review-photos--upload">
+                                    {% for image in images %}
+                                        {% if image.user == user %}
+                                            <div class="review-photo">
+                                                <a href="#photo-{{ image.id }}" class="review-photo">
+                                                    <img src="/media/{{ image.image }}" alt="Фото отзыва">
+                                                </a>
+                                                <a href="{% url 'products:delete_image' image.id %}" type="button" class="review-photo__remove" title="Удалить">✕</a>
+                                             </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
+
+                            <!-- Кнопка отправки -->
+                            <button type="submit" class="review-submit">
+                                Отправить отзыв
+                            </button>
                         </form>
                     </details>
+                </section>
 
-                </div>
+            {% else %}
 
-            </section>
+                <!-- ===== ЕСЛИ ТОВАР НЕ КУПЛЕН ===== -->
+                <section class="my-review">
+                    <div class="my-review__header">
+                        <h2 class="my-review__title">Ваш отзыв</h2>
+                        <span class="my-review__badge">✍️ Ещё не оставлен</span>
+                    </div>
+
+                    <div class="review-already">
+                        <span class="review-already__icon">✓</span>
+                        <div class="review-already__text">
+                            <strong>Вы не ещё не купили товар</strong>
+                            <span>Вы сможете оставить отзыв как только закажете его</span>
+                        </div>
+                    </div>
+                </section>
+
+            {% endif %}
+
         {% endif %}
 
         <!-- ===== Список отзывов ===== -->
@@ -202,6 +351,17 @@
                             </div>
 
                             <p class="review-card__text">{{ review.description }}</p>
+
+                            <!-- ===== ФОТОГРАФИИ ЭТОГО ОТЗЫВА ===== -->
+                            <div class="review-photos">
+                                {% for image in images %}
+                                    {% if image.user == review.user %}
+                                        <a href="#photo-{{ image.id }}" class="review-photo">
+                                            <img src="/media/{{ image.image }}" alt="Фото отзыва">
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
                         </article>
                     {% endfor %}
                 </div>
@@ -210,93 +370,33 @@
                     <div class="reviews-empty__icon">💬</div>
                     <h2>Ваш отзыв пока единственный</h2>
                     <p>Спасибо, что даёте обратную связь!</p>
-
+                </div>
             {% else %}
-                     <div class="reviews-empty">
+                <div class="reviews-empty">
                     <div class="reviews-empty__icon">💬</div>
                     <h2>Отзывов пока нет</h2>
                     <p>Станьте первым, кто оставит отзыв об этом товаре</p>
-
-                    <div class="product-detail__review">
-
-                        {% if user.is_authenticated %}
-
-                            {% if not product_ordered %}
-                                <div class="review-already">
-                                    <span class="review-already__icon">✓</span>
-                                    <div class="review-already__text">
-                                        <strong>Вы не ещё не купили товар</strong>
-                                        <span>Вы сможете оставить отзыв как только закажете товар</span>
-                                    </div>
-                                </div>
-
-                            {% else %}
-
-                                <!-- Кнопка-раскрывашка "Оставить отзыв" -->
-                                <details class="review-toggle">
-                                    <summary class="review-btn">
-                                        ✍️ Оставить отзыв
-                                    </summary>
-
-                                    <form method="post"
-                                          action="{% url 'products:add_review' product.id %}"
-                                          class="review-form">
-                                        {% csrf_token %}
-
-                                        <!-- Оценка звёздами -->
-                                        <div class="review-field">
-                                            <label class="review-label">Ваша оценка</label>
-                                            <div class="review-stars">
-                                                <input type="radio" id="star5" name="rating" value="5" required>
-                                                <label for="star5" title="Отлично">★</label>
-
-                                                <input type="radio" id="star4" name="rating" value="4">
-                                                <label for="star4" title="Хорошо">★</label>
-
-                                                <input type="radio" id="star3" name="rating" value="3">
-                                                <label for="star3" title="Нормально">★</label>
-
-                                                <input type="radio" id="star2" name="rating" value="2">
-                                                <label for="star2" title="Плохо">★</label>
-
-                                                <input type="radio" id="star1" name="rating" value="1">
-                                                <label for="star1" title="Ужасно">★</label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Текст отзыва -->
-                                        <div class="review-field">
-                                            <label for="review-text" class="review-label">Ваш отзыв</label>
-                                            <textarea id="review-text"
-                                                      name="text"
-                                                      class="review-textarea"
-                                                      placeholder="Расскажите о товаре..."
-                                                      rows="5"
-                                                      required></textarea>
-                                        </div>
-
-                                        <!-- Кнопка отправки -->
-                                        <button type="submit" class="review-submit">
-                                            Отправить отзыв
-                                        </button>
-                                    </form>
-                                </details>
-
-                            {% endif %}
-
-                        {% else %}
-                            <a href="{% url 'users:login' %}" class="review-btn review-btn--guest">
-                                ✍️ Войдите, чтобы оставить отзыв
-                            </a>
-                        {% endif %}
-
-                    </div>
-
                 </div>
             {% endif %}
         </section>
 
     </div>
+
+    <!-- ============================================
+         ЛАЙТБОКСЫ ДЛЯ ВСЕХ ФОТО
+         ============================================ -->
+    {% for image in images %}
+        <div class="lightbox" id="photo-{{ image.id }}">
+            <a href="#close" class="lightbox__close" aria-label="Закрыть">✕</a>
+
+            <div class="lightbox__content">
+                <div class="lightbox__image">
+                    <img src="/media/{{ image.image }}" alt="Фото отзыва">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
 </div>
 
 {% endblock %}
