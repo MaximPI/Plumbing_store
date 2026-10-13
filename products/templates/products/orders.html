@@ -52,7 +52,11 @@
                             Итого: <strong>{{ order.summ }} ₽</strong>
                         </div>
                         <div class="order-actions">
-                            <a href="{% url 'products:add_order_orders' order.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
+                            {% if order.product.quantity %}
+                                <a href="{% url 'products:add_order_orders' order.id %}" class="order-btn order-btn--primary">Повторить заказ</a>
+                            {% else %}
+                                <span class="order-unavailable">Товар недоступен — повторить заказ нельзя</span>
+                            {% endif %}
                         </div>
                     </div>
                 </article>

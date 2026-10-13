@@ -235,6 +235,10 @@ def compare_delete(request):
 	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def orders(request):
+	if_quantity = False
+	for order in Order.objects.filter(user=request.user):
+		if order.product.quantity > 0:
+			if_quantity = True
 	context = {
 		'title': 'Заказы',
 		'products': Order.objects.filter(user=request.user),
@@ -244,20 +248,28 @@ def orders(request):
 		'fav': Favorites.objects.filter(user=request.user),
 		'compares': Compare.objects.filter(user=request.user),
 		'comp': [compare.product for compare in Compare.objects.filter(user=request.user)],
+		'if_quantity': if_quantity
 	}
 
 	return render(request, 'products/orders.html', context=context)
 
 def add_order(request):
+	is_quantity = False
 	for basket in Baskets.objects.filter(user=request.user):
-		Order.objects.create(user=request.user, product=basket.product, quantity=basket.quantity)
-	basket = Baskets.objects.filter(user=request.user)
-	basket.delete()
-	return render(request, 'products/modal.html', context={})
+		if basket.product.quantity >= basket.quantity:
+			is_quantity = True
+			Order.objects.create(user=request.user, product=basket.product, quantity=basket.quantity)
+			basket.product.quantity -= basket.quantity
+			basket.product.save()
+			basket.delete()
+	if is_quantity:
+		return render(request, 'products/modal.html', context={})
+	return render(request, 'products/modal_1.html', context={})
 
 def add_order_orders(request, order_id):
 	order = Order.objects.get(id=order_id)
-	Order.objects.create(user=request.user, product=order.product, quantity=order.quantity)
+	if order.product.quantity != 0:
+		Order.objects.create(user=request.user, product=order.product, quantity=order.quantity)
 	return render(request, 'products/modal.html', context={})
 
 
