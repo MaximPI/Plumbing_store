@@ -9,9 +9,13 @@ from users.forms import  MultyImagesForm
 # Create your views here.
 
 def index(request):
+	all_orders = []
+	for product in Product.objects.all():
+		all_orders.append(sum(order.quantity for order in Order.objects.filter(product=product)))
 	context = {
 		'title': 'Водная планета',
 		'ratings': [1, 2, 3, 4, 5],
+		'max_order': max(all_orders),
 	}
 	products = {
 
@@ -303,6 +307,7 @@ def review(request, product_id):
 	review_users = [review.user for review in Review.objects.filter(product=product)]
 
 	images = ReviewsImage.objects.filter(product=product)
+
 	if images:
 		context.update({
 			'images': images,
@@ -337,7 +342,12 @@ def review(request, product_id):
 		context.update({
 			'product_ordered': product_ordered,
 		})
+
+
+
 	return render(request, 'products/review.html', context=context)
+
+
 
 @login_required
 def add_review(request, product_id):

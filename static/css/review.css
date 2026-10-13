@@ -820,15 +820,14 @@
 
 .review-photo {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 80px;
     height: 80px;
     border-radius: 10px;
     background: #000;
     border: 1px solid rgba(94, 234, 212, 0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     cursor: pointer;
@@ -1063,6 +1062,52 @@
 }
 
 /* ============================================
+   СТРЕЛКИ В ЛАЙТБОКСЕ — ПО КРАЯМ КАРТИНКИ
+   ============================================ */
+.lightbox__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(10, 25, 41, 0.9);
+    border: 1px solid rgba(94, 234, 212, 0.35);
+    color: #5eead4;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    padding: 0;
+    font-family: inherit;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox__arrow:hover {
+    background: #14b8a6;
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 32px rgba(20, 184, 166, 0.7);
+}
+
+.lightbox__arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* Прижимаем стрелки к краям картинки (внутри .lightbox__content) */
+.lightbox__arrow--prev {
+    left: -80px;
+}
+
+.lightbox__arrow--next {
+    right: -80px;
+}
+
+/* ============================================
    АДАПТИВНОСТЬ
    ============================================ */
 @media (max-width: 768px) {
@@ -1117,6 +1162,21 @@
         height: 40px;
         font-size: 1.2rem;
     }
+
+    /* На мобилке стрелки внутри картинки */
+    .lightbox__arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 1.4rem;
+    }
+
+    .lightbox__arrow--prev {
+        left: -10px;
+    }
+
+    .lightbox__arrow--next {
+        right: -10px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1127,3 +1187,57 @@
     .reviews-header__stats {
         gap: 20px;
     }
+
+    .reviews-stat__value {
+        font-size: 1.6rem;
+    }
+
+    .review-card {
+        padding: 16px 16px;
+    }
+
+    .review-card__avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .review-card__name {
+        font-size: 0.95rem;
+    }
+
+    .review-card__text {
+        font-size: 0.92rem;
+    }
+
+    .review-photo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .review-photos--upload .review-photo {
+        width: 60px;
+        height: 60px;
+    }
+
+    /* Совсем узкий экран — стрелки прямо по краям фото */
+    .lightbox__arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 1.2rem;
+    }
+
+    .lightbox__arrow--prev {
+        left: 4px;
+    }
+
+    .lightbox__arrow--next {
+        right: 4px;
+    }
+
+    .lightbox__close {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+}
